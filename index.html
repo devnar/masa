@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MASA</title>
+<!-- meta -->
+<meta name="viewport" content="width=device-width,  initial-scale=1, maximum-scale=1 user-scalable=0">
+<meta name="description" content="MASA, Haberleşme, Eğlence ve Paylaşım Topluluğudur. hadi sende bir sandalye çek ve aramıza otur!">
+<meta name="copyright" content="MASA © 2021 Tüm hakları saklı">
+<meta name="keywords" content="MASA, MASA sohbet, yerli, masa topluluk, masa sosyal, masa sosyal medya, türk yapımı, konuşma, eğlen, Haberleş, Topluluk, sohbet, yeni, türkiye" >
+<!-- /robots -->
+<meta name="robots" content="index,follow">
+<meta name="revisit-after" content="1 days">
+<meta name="google-site-verification" content="8KSQxlSD3fNLUgYHbCPmlUwTC05oTRsOdoe0aRUhNqo" />
+<!-- /site hakkında -->
+<meta property="og:title" content="MASA" > 
+<meta property="og:description" content="Haberleşme, Eğlence ve Paylaşım Topluluğudur. hadi sende bir sandalye çek ve aramıza otur!" /> 
+<meta property="og:image" content="depo/resimler/main.png" /> 
+<!-- link -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@350&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet">
+<link rel="shortcut icon" type="image/png" href="depo/resimler/main.png"/>
+<link id="l-d" rel="stylesheet" href="depo/css/l-main.css">
+<!-- script -->
+<script src="depo/js/menu.js"></script>
+<script src="depo/js/tema.js"></script>
+</head>
+<body>
+<div id="mySidenav" class="sidenav">
+<a class="closebtn" href="javascript:void(0)" onclick="closeNav()"><img src="https://img.icons8.com/ios-glyphs/4x/fcc41d/multiply.png" alt="menü aç" width="30px" id="x"></a>
+<a><img src="https://nar-dev.github.io/masa/depo/resimler/anonim.png" alt="avatar" width="40%" id="avatar"><br><h3 id="user">Anonim</h3></a>
+<hr color="#000">
+<p></p>
+<a onclick="openShareBox()">Paylaş</a>
+<p></p>
+<a href="gazete.html">Gazete</a>
+<p></p>
+<a href="404.html">Duvarım</a>
+<br>
+<select onchange="tema()" id="thema">
+<option name="000000" value="depo/css/l-main.css">Açık Tema</option>
+<option name="#ffffff" value="depo/css/d-main.css">Koyu Tema</option>
+</select>
+<button onclick="location='mailto:yardim.nar@yaani.com?subject=MASA'">İletişim</button>
+</div>
+<div id="mySidebox" class="sidebox">
+<form id="send-box" class="send-box">
+<table width="100%">
+<tr>
+<td width="100%">Yeni Paylaşım</td><td width="30px"><center><a class="closbtn" href="javascript:void(0)" onclick="closeBox()"><img src="https://img.icons8.com/ios-glyphs/4x/fcc41d/multiply.png" alt="menü aç" width="30px" id="x"></a></center></td>
+</tr>
+<tr><td colspan="2"><br></td></tr>
+<tr>
+<td colspan="2"><input maxlength="100" type="text" placeholder="Başlık" class="box-title" id="title" required></input></td>
+</tr>
+<tr>
+<td colspan="2"></td>
+</tr>
+<tr>
+<td colspan="2" height="100px">Sınır: <span id="ksayac">1000</span><br><textarea maxlength="1000" type="text" placeholder="Ne düşünüyorsun?" id="sender"  onkeyup="karaktersiniri()" class="box-text" required></textarea></td>
+</tr>
+<tr>
+<td colspan="2"><button class="box-button" onclick="paylas()">Paylaş</button></td>
+</tr>
+</table>
+</form>
+</div>
+<table width="100%" id="header">
+<tr width="100%">
+<td width="30px"><span style="cursor:pointer" onclick="openNav()"><img src="https://img.icons8.com/ios-glyphs/4x/fcc41d/menu.png" alt="menü aç" width="30px" id="menu"></span></td>
+<td width="100%"><center><img src="depo/resimler/l-logo.png" alt="MASA" width="50px"></center></td>
+<td width="30px"><img src="https://img.icons8.com/ios-glyphs/4x/fcc41d/translation.png" width="35px"></td>
+</tr>
+</table>
+<div width="100%" height="100%">
+<br><br><br>
+</div>
+<center><div class="btn-footer"><a href="#indir"><center>Güncel Mesajları Gör</center></a></div></center>
+<br>
+<center>
+<div id="messages" class="in"></div>
+<div id="indir"></div>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+<script src="depo/js/mesaj.js"></script>
+</body>
+</html>
