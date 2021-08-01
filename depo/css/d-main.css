@@ -1,0 +1,301 @@
+body {
+   background: #191935;
+   font-family: 'Roboto Slab', serif;
+}
+
+.send-box {
+   width: 100%;
+   height: 100%;
+   color: #fff;
+}
+
+.box-title {
+   width: 99%;
+   color: #fff;
+   border: 0;
+   background: #191935;
+   outline: none;
+   border-radius: 5px;
+}
+
+.box-text {
+   width: 99%;
+   height: 90px;
+   color: #fff;
+   border: 0;
+   background: #191935;
+   outline: none;
+   border-radius: 5px;
+}
+
+.box-button {
+   width: 100%;
+   color: #fff;
+   border: 0;
+   border-radius: 5px;
+   background: #fcc41d;
+}
+
+#send-form {
+   width: 100%;
+   height: 100%;
+}
+
+#send-form input {
+   width: 98%;
+   border-radius: 10px 10px 10px 10px;
+   height: 25px;
+   border-color: #000;
+   outline: none;
+   float: left;
+}
+
+#ksayac {
+   color: #fff;
+}
+
+#send-form button {
+   width: 100%;
+   height: 47px;
+   color: #000;
+   border: 0;
+   align: center;
+   background: #fcc41d;
+   border-radius: 10px 10px 10px 10px;
+}
+
+.btn-footer {
+   max-width: 450px;
+   width: 100%;
+   background: #31314e;
+   border-radius: 10px 10px 10px 10px;
+   color: #fff;
+}
+
+.btn-footer a:link {
+  color: #fff;
+  text-decoration: none;
+}
+
+.btn-footer a:visited {
+  color: #fff;
+}
+
+.btn-footer a:hover {
+  color: #fcc41d;
+}
+
+.btn-footer a:active {
+  color: #fcc41d;
+}
+
+.msgb {
+   max-width: 450px;
+   width: 100%;
+   background: #31314e;
+   border-radius: 10px 10px 10px 10px;
+   color: #fff;
+}
+
+
+.msga {
+   width: 50px;
+   height: 50px;
+   float: left;
+   color: #fff;
+   background: #191935;
+   border-radius: 20px 100% 100% 100%;
+}
+
+.msgu {
+   color: #fff;
+   margin: 2px;
+}
+
+.msgt {
+   color: #fff;
+   float: right;
+   font-size: 10px;
+}
+
+.msgm a:link {
+  color: #fcc41d;
+}
+
+.msgm a:visited {
+  color: #fff;
+}
+
+.msgm a:hover {
+  color: #ff0000;
+}
+
+.msgm a:active {
+  color: #ff0000;
+}
+
+.msgm img {
+   width: 100%;
+   border-radius: 10px 10px 10px 10px;
+}
+.msgm code {
+   font-family: 'Nunito', sans-serif;
+   color: #191935;
+   background-color: #fff;
+   padding: 5px;
+   border-radius: 10px;
+}
+
+/* menü */
+
+#header {
+   position: fixed;
+   width: 100%;
+   height: 50px;
+   background: #31314e; 
+   z-index: 9;
+   top: 0; 
+   left: 0;
+}
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  background-color: #31314e;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  text-align:center;
+}
+
+.sidenav select {
+  width: 100%; 
+  height: 50px; 
+  border: 0; 
+  background: #29294a; 
+  font-size: 20px; 
+  color: #fff;
+}
+
+.sidenav button {
+  width: 100%; 
+  height: 50px; 
+  border: 0; 
+  background: #191935; 
+  font-size: 20px; 
+  color: #fff;
+}
+
+.sidenav a {
+  text-decoration: none;
+  font-size: 20px;
+  color: #fff;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav input {
+   width: 100%;
+   height: 25px;
+   outline: none;
+   border: 0px;
+   outline: none;
+}
+
+.sidenav img {
+  border-radius: 100%;
+}
+
+.sidenav a:hover{
+  color: #fcc41d;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-left: 0;
+  margin-top: 11px;
+  float: left;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+/* Paylaşım Kutusu */
+
+.sidebox {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  bottom: 0;
+  background-color: #31314e;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  text-align:center;
+}
+
+.sidebox select {
+  width: 100%; 
+  height: 50px; 
+  border: 0; 
+  background: #29294a; 
+  font-size: 20px; 
+  color: #fff;
+}
+
+.sidebox button {
+  width: 100%; 
+  height: 50px; 
+  border: 0; 
+  background: #191935; 
+  font-size: 20px; 
+  color: #fff;
+}
+
+.sidebox a {
+  text-decoration: none;
+  font-size: 20px;
+  color: #fff;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebox input {
+   width: 100%;
+   height: 25px;
+   outline: none;
+   border: 0px;
+   outline: none;
+}
+
+.sidebox img {
+  border-radius: 100%;
+}
+
+.sidebox a:hover{
+  color: #fcc41d;
+}
+
+.sidebox .closebtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-left: 0;
+  margin-top: 11px;
+  float: left;
+}
+
+@media screen and (max-height: 450px) {
+  .sidebox {padding-top: 15px;}
+  .sidebox a {font-size: 18px;}
+}
