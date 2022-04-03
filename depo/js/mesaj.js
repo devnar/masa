@@ -1,62 +1,4 @@
-// yasaklı kelimeler
-
-function paylas() {
-    var mak = document.getElementById("sender").value;
-    var yasak1 = mak.indexOf("<script");
-    var yasak2 = mak.indexOf("<SCRİPT");
-    var yasak3 = mak.indexOf("<style");
-    var yasak4 = mak.indexOf("<STYLE");
-    var yasak5 = mak.indexOf("<html");
-    var yasak6 = mak.indexOf("<HTML");
-    var yasak7 = mak.indexOf("<div");
-    var yasak8 = mak.indexOf("<DİV");
-    var yasak9 = mak.indexOf("<link");
-    var yasak10 = mak.indexOf("<LİNK");
-    
-
-   if(yasak1 != -1) {
-        alert("<script> kodunu yazamazsın")
-  document.getElementById("sender").value = ""; }
-  
-  if(yasak2 != -1) {
-        alert("<script> kodunu yazamazsın")
-  document.getElementById("sender").value = ""; }
- 
-   if(yasak3 != -1) {
-        alert("<style> kodunu yazamazsın")
-  document.getElementById("sender").value = ""; }
-  
-  if(yasak4 != -1) {
-        alert("<style> kodunu yazamazsın")
-  document.getElementById("sender").value = ""; }
-  
-   if(yasak5 != -1) {
-        alert("<html> kodunu yazamazsın")
-  document.getElementById("sender").value = ""; }
-  
-  if(yasak6 != -1) {
-        alert("<html> kodunu yazamazsın")
-  document.getElementById("sender").value = ""; }
- 
-   if(yasak7 != -1) {
-        alert("<div> kodunu yazamazsın")
-  document.getElementById("sender").value = ""; }
-  
-  if(yasak8 != -1) {
-        alert("<div> kodunu yazamazsın")
-  document.getElementById("sender").value = ""; }
-  
-      if(yasak9 != -1) {
-        alert("<link> kodunu yazamazsın")
-  document.getElementById("sender").value = ""; }
-  
-      if(yasak10 != -1) {
-        alert("<link> kodunu yazamazsın")
-  document.getElementById("sender").value = ""; }
-}
-
 // karakter sınırı
-
 function karaktersiniri() {
 var val = document.getElementById("sender").value;
 
@@ -69,6 +11,11 @@ if (kalankarakter >= 0) {
            document.getElementById("ksayac").innerHTML = kalankarakter;
   }
 }  
+
+//
+function sort() {
+  nj.sortHTML('#messages', 'li')
+}
 
 // Tarih
 
@@ -89,12 +36,12 @@ month[11] = "Aralık";
 
 // firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyAZw_BmlTSDPAQmEAe7pqdlTFem8BYpsrM",
-  authDomain: "bot-11000.firebaseapp.com",
-  projectId: "bot-11000",
-  storageBucket: "bot-11000.appspot.com",
-  messagingSenderId: "469897704425",
-  appId: "1:469897704425:web:16d3b1b7aa3d6cd8cd1178",
+  apiKey: "AIzaSyBM4YWWGOhN0u_AX9QzGOm5qclRZ4YPMjA",
+  authDomain: "nar-masa.firebaseapp.com",
+  projectId: "nar-masa",
+  storageBucket: "nar-masa.appspot.com",
+  messagingSenderId: "647998946387",
+  appId: "1:647998946387:web:895df4a8c2f09e1c7cdaa6"
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
@@ -107,10 +54,11 @@ function postChat(e) {
   const message = chatTxt.value;
   chatTxt.value = "";
   db.ref("mesaj/" + timestamp).set({
-    usr: document.getElementById("user").innerHTML,
+    usr: document.getElementById("user").innerText,
     pp: document.getElementById("avatar").src,
     tit: document.getElementById("title").value,
     msg: message,
+    id: timestamp,
     time: n.getHours() + ":" + n.getMinutes() + "  " + n.getDate() + "-" + month[n.getMonth()] + "-" + n.getFullYear()
   });
 document.getElementById("title").value =""
@@ -119,4 +67,4 @@ document.getElementById("title").value =""
 const fetchChat = db.ref("mesaj/");
 fetchChat.on("child_added", function (snapshot) {
   const messages = snapshot.val();
-  const msg2 = "<div class='msgb'>" + "<table width='100%'>" + "<tr width='100%'>" + "<td width='50px'><img src='" + messages.pp + "' class='msga'></td>" + "<td><h3 class='msgu'>" + messages.usr + "</h3></td><td><p class='msgt'>" + messages.time +"</p></td>" + "</tr>" + "<td></td>" + "<td colspan='2'><p class='msgm'>" + messages.msg + "</p></td>" + "</table>" + "</div>" + "<br>"; document.getElementById("messages").innerHTML += msg2;})
+  document.getElementById("messages").innerHTML += "<li class='msgb' id='" + messages.id + "'>" + "<table width='100%'>" + "<tr width='100%'>" + "<td width='50px'><img src='" + messages.pp + "' class='msga'></td>" + "<td><h3 class='msgu'>" + messages.usr + "</h3></td><td><p class='msgt'>" + messages.time +"</p></td>" + "</tr>" + "<td></td>" + "<td colspan='2'><p class='msgm'>" + messages.msg + "</p></td>" + "</table>" + "</li>" + "<br>";})
