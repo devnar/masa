@@ -95,6 +95,8 @@ body {
    background: #31314e;
    border-radius: 10px 10px 10px 10px;
    color: #fff;
+   margin-top: 10px;
+   list-style: none;
 }
 
 
