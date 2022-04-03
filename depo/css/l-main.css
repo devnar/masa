@@ -86,6 +86,8 @@ body {
    background: #eee;
    border-radius: 10px 10px 10px 10px;
    color: #000;
+   margin-top: 10px;
+   list-style: none;
 }
 
 
