@@ -25,8 +25,9 @@
 <!-- script -->
 <script src="depo/js/menu.js"></script>
 <script src="depo/js/tema.js"></script>
+<script src="https://devnar.github.io/lib/all.js"></script>
 </head>
-<body>
+<body onload="sort()">
 <div id="mySidenav" class="sidenav">
 <a class="closebtn" href="javascript:void(0)" onclick="closeNav()"><img src="https://img.icons8.com/ios-glyphs/4x/fcc41d/multiply.png" alt="menü aç" width="30px" id="x"></a>
 <a><img src="https://devnar.github.io/masa/depo/resimler/anonim.png" alt="avatar" width="40%" id="avatar"><br><h3 id="user">Anonim</h3></a>
@@ -61,7 +62,7 @@
 <td colspan="2" height="100px">Sınır: <span id="ksayac">1000</span><br><textarea maxlength="1000" type="text" placeholder="Ne düşünüyorsun?" id="sender"  onkeyup="karaktersiniri()" class="box-text" required></textarea></td>
 </tr>
 <tr>
-<td colspan="2"><button class="box-button" onclick="paylas()">Paylaş</button></td>
+<td colspan="2"><button class="box-button" onclick="closeBox()">Paylaş</button></td>
 </tr>
 </table>
 </form>
@@ -76,11 +77,10 @@
 <div width="100%" height="100%">
 <br><br><br>
 </div>
-<center><div class="btn-footer"><a href="#indir"><center>Güncel Mesajları Gör</center></a></div></center>
+<center><div class="btn-footer"><a onclick="nj.sortHTML('#messages', 'li')"><center>Güncel Mesajları Gör</center></a></div></center>
 <br>
 <center>
 <div id="messages" class="in"></div>
-<div id="indir"></div>
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
 <script src="depo/js/mesaj.js"></script>
