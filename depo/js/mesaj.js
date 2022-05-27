@@ -12,11 +12,6 @@ if (kalankarakter >= 0) {
   }
 }  
 
-//
-function sort() {
-  nj.sortHTML('#messages', 'li')
-}
-
 // Tarih
 
 var n = new Date();
@@ -67,4 +62,4 @@ document.getElementById("title").value =""
 const fetchChat = db.ref("mesaj/");
 fetchChat.on("child_added", function (snapshot) {
   const messages = snapshot.val();
-  document.getElementById("messages").innerHTML += "<li class='msgb' id='" + messages.id + "'>" + "<table width='100%'>" + "<tr width='100%'>" + "<td width='50px'><img src='" + messages.pp + "' class='msga'></td>" + "<td><h3 class='msgu'>" + messages.usr + "</h3></td><td><p class='msgt'>" + messages.time +"</p></td>" + "</tr>" + "<td></td>" + "<td colspan='2'><p class='msgm'>" + messages.msg + "</p></td>" + "</table>" + "</li>" + "<br>";})
+  document.getElementById("messages").innerHTML = "<li class='msgb' id='" + messages.id + "'>" + "<table width='100%'>" + "<tr width='100%'>" + "<td width='50px'><img src='" + messages.pp + "' class='msga'></td>" + "<td><h3 class='msgu'>" + messages.usr + "</h3></td><td><p class='msgt'>" + messages.time +"</p></td>" + "</tr>" + "<td></td>" + "<td colspan='2'><p class='msgm'>" + messages.msg + "</p></td>" + "</table>" + "</li>" + "<br>" + document.getElementById("messages").innerHTML;})
