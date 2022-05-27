@@ -1,3 +1,11 @@
+function loaded() {
+    if (localStorage.getItem("thema") == null) {
+        localStorage.setItem("thema","depo/css/l-main.css")
+    } else {
+        document.getElementById("l-d").href = localStorage.getItem("thema");
+    }
+}
+
 // menü aç kapat
 
 function openNav() {
@@ -23,6 +31,5 @@ document.getElementById("mySidebox").style.width = "0";
 
 function tema() {
 var css = document.getElementById("thema").value;
-
-document.getElementById("l-d").href = css;
+localStorage.setItem("thema",css);
 }
