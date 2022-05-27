@@ -54,7 +54,7 @@ function postChat(e) {
     tit: document.getElementById("title").value,
     msg: message,
     id: timestamp,
-    time: n.getHours() + ":" + n.getMinutes() + "  " + n.getDate() + "-" + month[n.getMonth()] + "-" + n.getFullYear()
+    time: n.getHours() + ":" + n.getMinutes() + " - " + n.getDate() + " " + month[n.getMonth()] + " " + n.getFullYear()
   });
 document.getElementById("title").value =""
 }
