@@ -32,4 +32,5 @@ document.getElementById("mySidebox").style.width = "0";
 function tema() {
 var css = document.getElementById("thema").value;
 localStorage.setItem("thema",css);
+window.location.reload()
 }
