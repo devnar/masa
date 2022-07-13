@@ -137,7 +137,11 @@ body {
 }
 
 .msgm img {
-   width: 100%;
+   width: 25%;
+   height: auto;
+   float: left;
+   margin-right: 20px;
+   margin-bottom: 20px;
    border-radius: 10px 10px 10px 10px;
 }
 .msgm code {
