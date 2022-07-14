@@ -205,6 +205,14 @@ body {
   transition: 0.3s;
 }
 
+.sidenav input {
+  width: 100%;
+  height: 25px;
+  outline: none;
+  border: 0px;
+  outline: none;
+}
+
 .sidenav img {
   border-radius: 100%;
 }
