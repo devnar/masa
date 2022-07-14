@@ -9,13 +9,14 @@ body {
    color: #fff;
 }
 
-.box-title {
+.box-img {
    width: 99%;
    color: #fff;
    border: 0;
    background: #191935;
    outline: none;
    border-radius: 5px;
+   padding: 5px;
 }
 
 .box-text {
@@ -26,6 +27,7 @@ body {
    background: #191935;
    outline: none;
    border-radius: 5px;
+   padding: 5px;
 }
 
 .box-button {
@@ -59,7 +61,6 @@ body {
    height: 47px;
    color: #000;
    border: 0;
-   align: center;
    background: #fcc41d;
    border-radius: 10px 10px 10px 10px;
 }
@@ -274,14 +275,6 @@ body {
   color: #fff;
   display: block;
   transition: 0.3s;
-}
-
-.sidebox input {
-   width: 100%;
-   height: 25px;
-   outline: none;
-   border: 0px;
-   outline: none;
 }
 
 .sidebox img {
