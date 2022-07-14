@@ -143,6 +143,14 @@ body {
 
 /* menü */
 
+#user {
+  text-align: center;
+  background-color: transparent;
+  margin-top: 10px;
+  outline: none;
+  border: none;
+}
+
 #header {
   position: fixed;
   width: 100%;
@@ -151,6 +159,10 @@ body {
   z-index: 9;
   top: 0;
   left: 0;
+}
+
+.cizgi {
+  border-top: 2px black solid !important;
 }
 
 .sidenav {

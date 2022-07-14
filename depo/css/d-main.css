@@ -156,6 +156,15 @@ body {
 
 /* menü */
 
+#user {
+  text-align: center;
+  background-color: transparent;
+  margin-top: 10px;
+  color: white;
+  outline: none;
+  border: none;
+}
+
 #header {
    position: fixed;
    width: 100%;

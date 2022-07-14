@@ -49,7 +49,7 @@ function postChat(e) {
   const message = chatTxt.value;
   chatTxt.value = "";
   db.ref("mesaj/" + timestamp).set({
-      usr: document.getElementById("user").innerText,
+      usr: document.getElementById("user").value,
       pp: document.getElementById("avatar").src,
       msg: "<img onclick='if (this.style.width != full) {this.style.width= full} else {this.style.width = normal}' src=" + document.getElementById("pic").value + "></img>" + message,
       id: timestamp,

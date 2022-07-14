@@ -33,14 +33,14 @@
             <a class="closebtn" href="javascript:void(0)" onclick="closeNav()"><img src="https://img.icons8.com/ios-glyphs/4x/fcc41d/multiply.png" alt="menü aç" width="30px" id="x" /></a>
             <a>
                 <img src="https://devnar.github.io/masa/depo/resimler/anonim.png" alt="avatar" width="40%" id="avatar" /><br />
-                <h3 id="user">Anonim</h3>
+                <input value="Anonim" id="user" onchange="localStorage.setItem('pn', this.value);window.location.reload()" >
             </a>
-            <hr color="#000" />
+            <hr class="cizgi">
             <p></p>
             <a onclick="openShareBox()">Paylaş</a>
             <p></p>
             <a href="404.html">Duvarım</a>
-            <br />
+            <br>
             <select onchange="tema()" id="thema">
                 <option selected>Tema Seç...</option>
                 <option name="#000000" value="depo/css/l-main.css">Açık Tema</option>

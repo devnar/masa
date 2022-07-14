@@ -4,6 +4,13 @@ function loaded() {
     } else {
         document.getElementById("l-d").href = localStorage.getItem("thema");
     }
+
+    // ad
+    if(localStorage.getItem("pn") == null) {
+        localStorage.setItem("pn", "Anonim")
+    } else {
+        document.getElementById("user").value = localStorage.getItem("pn");
+    }
 }
 
 // menü aç kapat
