@@ -1,16 +1,16 @@
 // karakter sınırı
 function karaktersiniri() {
-var val = document.getElementById("sender").value;
+  var val = document.getElementById("sender").value;
 
-var tt = val.split(' ');
-var kesa = tt.length;
+  var tt = val.split(" ");
+  var kesa = tt.length;
 
-var kalankarakter = 1000 - val.length;
+  var kalankarakter = 1000 - val.length;
 
-if (kalankarakter >= 0) {
-           document.getElementById("ksayac").innerHTML = kalankarakter;
+  if (kalankarakter >= 0) {
+      document.getElementById("ksayac").innerHTML = kalankarakter;
   }
-}  
+}
 
 // Tarih
 
@@ -36,7 +36,7 @@ const firebaseConfig = {
   projectId: "nar-masa",
   storageBucket: "nar-masa.appspot.com",
   messagingSenderId: "647998946387",
-  appId: "1:647998946387:web:895df4a8c2f09e1c7cdaa6"
+  appId: "1:647998946387:web:895df4a8c2f09e1c7cdaa6",
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
@@ -49,17 +49,39 @@ function postChat(e) {
   const message = chatTxt.value;
   chatTxt.value = "";
   db.ref("mesaj/" + timestamp).set({
-    usr: document.getElementById("user").innerText,
-    pp: document.getElementById("avatar").src,
-    tit: document.getElementById("title").value,
-    msg: message,
-    id: timestamp,
-    time: n.getHours() + ":" + n.getMinutes() + " - " + n.getDate() + " " + month[n.getMonth()] + " " + n.getFullYear()
+      usr: document.getElementById("user").innerText,
+      pp: document.getElementById("avatar").src,
+      msg: "<img onclick='if (this.style.width != full) {this.style.width= full} else {this.style.width = normal}' src=" + document.getElementById("pic").value + "></img>" + message,
+      id: timestamp,
+      time: n.getHours() + ":" + n.getMinutes() + " - " + n.getDate() + " " + month[n.getMonth()] + " " + n.getFullYear(),
   });
-document.getElementById("title").value =""
+  document.getElementById("pic").value = "";
 }
 
 const fetchChat = db.ref("mesaj/");
 fetchChat.on("child_added", function (snapshot) {
   const messages = snapshot.val();
-  document.getElementById("messages").innerHTML = "<li class='msgb' id='" + messages.id + "'>" + "<table width='100%'>" + "<tr width='100%'>" + "<td width='50px'><img src='" + messages.pp + "' class='msga'></td>" + "<td><h3 class='msgu'>" + messages.usr + "</h3></td><td><p class='msgt'>" + messages.time +"</p></td>" + "</tr>" + "<td></td>" + "<td colspan='2'><p class='msgm'>" + messages.msg + "</p></td>" + "</table>" + "</li>" + "<br>" + document.getElementById("messages").innerHTML;})
+  document.getElementById("messages").innerHTML =
+      "<li class='msgb' id='" +
+      messages.id +
+      "'>" +
+      "<table width='100%'>" +
+      "<tr width='100%'>" +
+      "<td width='50px'><img src='" +
+      messages.pp +
+      "' class='msga'></td>" +
+      "<td><h3 class='msgu'>" +
+      messages.usr +
+      "</h3></td><td><p class='msgt'>" +
+      messages.time +
+      "</p></td>" +
+      "</tr>" +
+      "<td></td>" +
+      "<td colspan='2'><p class='msgm'>" +
+      messages.msg +
+      "</p></td>" +
+      "</table>" +
+      "</li>" +
+      "<br>" +
+      document.getElementById("messages").innerHTML;
+});
