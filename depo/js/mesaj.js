@@ -30,14 +30,7 @@ month[10] = "Kasım";
 month[11] = "Aralık";
 
 // firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyBM4YWWGOhN0u_AX9QzGOm5qclRZ4YPMjA",
-  authDomain: "nar-masa.firebaseapp.com",
-  projectId: "nar-masa",
-  storageBucket: "nar-masa.appspot.com",
-  messagingSenderId: "647998946387",
-  appId: "1:647998946387:web:895df4a8c2f09e1c7cdaa6",
-};
+const firebaseConfig = {apiKey: "AIzaSyBM4YWWGOhN0u_AX9QzGOm5qclRZ4YPMjA",authDomain: "nar-masa.firebaseapp.com",projectId: "nar-masa",messagingSenderId: "647998946387",appId: "1:647998946387:web:895df4a8c2f09e1c7cdaa6",};
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
