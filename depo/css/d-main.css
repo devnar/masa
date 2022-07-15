@@ -1,76 +1,79 @@
 body {
-   background: #191935;
-   font-family: 'Roboto Slab', serif;
+  background: #191935;
+  font-family: "Roboto Slab", serif;
 }
 
 .send-box {
-   width: 100%;
-   height: 100%;
-   color: #fff;
+  width: 100%;
+  height: 100%;
+  color: #fff;
 }
 
 .box-img {
-   width: 99%;
-   color: #fff;
-   border: 0;
-   background: #191935;
-   outline: none;
-   border-radius: 5px;
-   padding: 5px;
+  max-width: 550px;
+  width: 99%;
+  color: #fff;
+  border: 0;
+  background: #191935;
+  outline: none;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 .box-text {
-   width: 99%;
-   height: 90px;
-   color: #fff;
-   border: 0;
-   background: #191935;
-   outline: none;
-   border-radius: 5px;
-   padding: 5px;
+  max-width: 550px;
+  width: 99%;
+  height: 90px;
+  color: #fff;
+  border: 0;
+  background: #191935;
+  outline: none;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 .box-button {
-   width: 100%;
-   color: #fff;
-   border: 0;
-   border-radius: 5px;
-   background: #fcc41d;
+  max-width: 550px;
+  width: 99%;
+  color: #fff;
+  border: 0;
+  border-radius: 5px;
+  background: #fcc41d;
 }
 
 #send-form {
-   width: 100%;
-   height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 #send-form input {
-   width: 98%;
-   border-radius: 10px 10px 10px 10px;
-   height: 25px;
-   border-color: #000;
-   outline: none;
-   float: left;
+  width: 98%;
+  border-radius: 10px 10px 10px 10px;
+  height: 25px;
+  border-color: #000;
+  outline: none;
+  float: left;
 }
 
 #ksayac {
-   color: #fff;
+  color: #fff;
 }
 
 #send-form button {
-   width: 100%;
-   height: 47px;
-   color: #000;
-   border: 0;
-   background: #fcc41d;
-   border-radius: 10px 10px 10px 10px;
+  width: 100%;
+  height: 47px;
+  color: #000;
+  border: 0;
+  background: #fcc41d;
+  border-radius: 10px 10px 10px 10px;
 }
 
 .btn-footer {
-   max-width: 450px;
-   width: 100%;
-   background: #31314e;
-   border-radius: 10px 10px 10px 10px;
-   color: #fff;
+  max-width: 450px;
+  width: 100%;
+  background: #31314e;
+  border-radius: 10px 10px 10px 10px;
+  color: #fff;
 }
 
 .btn-footer a:link {
@@ -91,35 +94,34 @@ body {
 }
 
 .msgb {
-   max-width: 700px;
-   width: 100%;
-   background: #31314e;
-   border-radius: 10px 10px 10px 10px;
-   color: #fff;
-   margin-top: 10px;
-   list-style: none;
+  max-width: 700px;
+  width: 100%;
+  background: #31314e;
+  border-radius: 10px 10px 10px 10px;
+  color: #fff;
+  margin-top: 10px;
+  list-style: none;
 }
 
-
 .msga {
-   width: 50px;
-   height: 50px;
-   float: left;
-   color: #fff;
-   background: #191935;
-   border-radius: 20px 100% 100% 100%;
+  width: 50px;
+  height: 50px;
+  float: left;
+  color: #fff;
+  background: #191935;
+  border-radius: 20px 100% 100% 100%;
 }
 
 .msgu {
-   color: #fff;
-   margin: 2px;
+  color: #fff;
+  margin: 2px;
 }
 
 .msgt {
-   color: #fff;
-   margin-right: 10px;
-   float: right;
-   font-size: 10px;
+  color: #fff;
+  margin-right: 10px;
+  float: right;
+  font-size: 10px;
 }
 
 .msgm a:link {
@@ -139,19 +141,19 @@ body {
 }
 
 .msgm img {
-   width: 35%;
-   height: auto;
-   float: left;
-   margin-right: 20px;
-   margin-bottom: 20px;
-   border-radius: 10px 10px 10px 10px;
+  width: 35%;
+  height: auto;
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px 10px 10px 10px;
 }
 .msgm code {
-   font-family: 'Nunito', sans-serif;
-   color: #191935;
-   background-color: #fff;
-   padding: 5px;
-   border-radius: 10px;
+  font-family: "Nunito", sans-serif;
+  color: #191935;
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 10px;
 }
 
 /* menü */
@@ -166,17 +168,18 @@ body {
 }
 
 #header {
-   position: fixed;
-   width: 100%;
-   height: 50px;
-   background: #31314e; 
-   z-index: 9;
-   top: 0; 
-   left: 0;
+  position: fixed;
+  width: 100%;
+  height: 50px;
+  background: #31314e;
+  z-index: 9;
+  top: 0;
+  left: 0;
 }
 
 .sidenav {
   height: 100%;
+  max-width: 350px;
   width: 0;
   position: fixed;
   z-index: 10;
@@ -186,24 +189,24 @@ body {
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
-  text-align:center;
+  text-align: center;
 }
 
 .sidenav select {
-  width: 100%; 
-  height: 50px; 
-  border: 0; 
-  background: #29294a; 
-  font-size: 20px; 
+  width: 100%;
+  height: 50px;
+  border: 0;
+  background: #29294a;
+  font-size: 20px;
   color: #fff;
 }
 
 .sidenav button {
-  width: 100%; 
-  height: 50px; 
-  border: 0; 
-  background: #191935; 
-  font-size: 20px; 
+  width: 100%;
+  height: 50px;
+  border: 0;
+  background: #191935;
+  font-size: 20px;
   color: #fff;
 }
 
@@ -216,18 +219,18 @@ body {
 }
 
 .sidenav input {
-   width: 100%;
-   height: 25px;
-   outline: none;
-   border: 0px;
-   outline: none;
+  width: 100%;
+  height: 25px;
+  outline: none;
+  border: 0px;
+  outline: none;
 }
 
 .sidenav img {
   border-radius: 100%;
 }
 
-.sidenav a:hover{
+.sidenav a:hover {
   color: #fcc41d;
 }
 
@@ -241,8 +244,12 @@ body {
 }
 
 @media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+  .sidenav {
+      padding-top: 15px;
+  }
+  .sidenav a {
+      font-size: 18px;
+  }
 }
 
 /* Paylaşım Kutusu */
@@ -257,25 +264,23 @@ body {
   background-color: #31314e;
   overflow-x: hidden;
   transition: 0.5s;
-  padding-top: 60px;
-  text-align:center;
+  text-align: center;
 }
 
 .sidebox select {
-  width: 100%; 
-  height: 50px; 
-  border: 0; 
-  background: #29294a; 
-  font-size: 20px; 
+  width: 100%;
+  height: 50px;
+  border: 0;
+  background: #29294a;
+  font-size: 20px;
   color: #fff;
 }
 
 .sidebox button {
-  width: 100%; 
-  height: 50px; 
-  border: 0; 
-  background: #191935; 
-  font-size: 20px; 
+  height: 50px;
+  border: 0;
+  background: #191935;
+  font-size: 20px;
   color: #fff;
 }
 
@@ -291,7 +296,7 @@ body {
   border-radius: 100%;
 }
 
-.sidebox a:hover{
+.sidebox a:hover {
   color: #fcc41d;
 }
 
@@ -305,6 +310,10 @@ body {
 }
 
 @media screen and (max-height: 450px) {
-  .sidebox {padding-top: 15px;}
-  .sidebox a {font-size: 18px;}
+  .sidebox {
+      padding-top: 15px;
+  }
+  .sidebox a {
+      font-size: 18px;
+  }
 }
