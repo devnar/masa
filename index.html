@@ -16,7 +16,7 @@
         <meta property="og:description" content="Haberleşme, Eğlence ve Paylaşım Topluluğudur. hadi sende bir sandalye çek ve aramıza otur!" />
         <meta property="og:image" content="depo/resimler/main.png" />
         <!-- link -->
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@350&display=swap" rel="stylesheet" />
@@ -24,7 +24,10 @@
         <link rel="shortcut icon" type="image/png" href="depo/resimler/main.png" />
         <link id="l-d" rel="stylesheet" href="depo/css/l-main.css" />
         <!-- script -->
-        <script>var full= "99%";var normal = "35%";</script>
+        <script>
+            var full = "99%";
+            var normal = "35%";
+        </script>
         <script src="depo/js/menu.js"></script>
         <script src="https://devnar.github.io/lib/all.js"></script>
     </head>
@@ -33,14 +36,16 @@
             <a class="closebtn" href="javascript:void(0)" onclick="closeNav()"><img src="https://img.icons8.com/ios-glyphs/4x/fcc41d/multiply.png" alt="menü aç" width="30px" id="x" /></a>
             <a>
                 <img src="https://devnar.github.io/masa/depo/resimler/anonim.png" alt="avatar" width="40%" id="avatar" /><br />
-                <input value="Anonim" id="user" onchange="localStorage.setItem('pn', this.value);window.location.reload()" >
+                <form>
+                    <input value="Anonim" id="user" onchange="if (this.value == ' ') {localStorage.setItem('pn','Anonim')} else {localStorage.setItem('pn', this.value);window.location.reload()}" required />
+                </form>
             </a>
-            <hr class="cizgi">
+            <hr class="cizgi" />
             <p></p>
             <a onclick="openShareBox()">Paylaş</a>
             <p></p>
             <a href="404.html">Duvarım</a>
-            <br>
+            <br />
             <select onchange="tema()" id="thema">
                 <option selected>Tema Seç...</option>
                 <option name="#000000" value="depo/css/l-main.css">Açık Tema</option>
@@ -63,7 +68,7 @@
                         <td colspan="2"><br /></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input maxlength="100" type="url" placeholder="Resim URL'si (zorunlu değil)" class="box-img" id="pic"></td>
+                        <td colspan="2"><input maxlength="100" type="url" placeholder="Resim URL'si (zorunlu değil)" class="box-img" id="pic" /></td>
                     </tr>
                     <tr>
                         <td colspan="2"></td>
