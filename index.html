@@ -16,41 +16,35 @@
         <meta property="og:description" content="Haberleşme, Eğlence ve Paylaşım Topluluğudur. hadi sende bir sandalye çek ve aramıza otur!" />
         <meta property="og:image" content="depo/resimler/main.png" />
         <!-- link -->
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@350&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet" />
         <link rel="shortcut icon" type="image/png" href="depo/resimler/main.png" />
-        <link id="l-d" rel="stylesheet" href="depo/css/l-main.css" />
+        <link id="l-d" rel="stylesheet" href="https://devnar.github.io/masa/depo/css/l-main.css" />
         <!-- script -->
-        <script>
-            var full = "99%";
-            var normal = "35%";
-            var none = "none";
-        </script>
-        <script src="depo/js/menu.js"></script>
+        <script>var full= "99%";var normal = "35%";var none = "none";</script>
+        <script src="https://devnar.github.io/masa/depo/js/menu.js"></script>
         <script src="https://devnar.github.io/lib/all.js"></script>
     </head>
     <body onload="loaded()">
         <div id="mySidenav" class="sidenav">
             <a class="closebtn" href="javascript:void(0)" onclick="closeNav()"><img src="https://img.icons8.com/ios-glyphs/4x/fcc41d/multiply.png" alt="menü aç" width="30px" id="x" /></a>
             <a>
-                <img src="https://devnar.github.io/masa/depo/resimler/anonim.png" alt="avatar" width="40%" id="avatar" /><br />
-                <form>
-                    <input value="Anonim" id="user" onchange="if (this.value == ' ') {localStorage.setItem('pn','Anonim')} else {localStorage.setItem('pn', this.value);window.location.reload()}" required />
-                </form>
+                <img src="https://devnar.github.io/logos/nar.png" alt="avatar" width="40%" id="avatar" onclick="var p = prompt('Buraya avatar URL sini girin'); if (p == null || p == '') {alert('iptal edildi')} else {localStorage.setItem('pp', p);this.src = p;window.location.reload()}" onerror="this.src = 'https://devnar.github.io/masa/depo/resimler/anonim.png'"/><br />
+                <form><input value="Anonim" id="user" onchange="if (this.value == ' ') {localStorage.setItem('pn','Anonim')} else {localStorage.setItem('pn', this.value);window.location.reload()}" required></form>
             </a>
-            <hr class="cizgi" />
+            <hr class="cizgi">
             <p></p>
             <a onclick="openShareBox()">Paylaş</a>
             <p></p>
             <a href="404.html">Duvarım</a>
-            <br />
+            <br>
             <select onchange="tema()" id="thema">
                 <option selected>Tema Seç...</option>
-                <option name="#000000" value="depo/css/l-main.css">Açık Tema</option>
-                <option name="#ffffff" value="depo/css/d-main.css">Koyu Tema</option>
+                <option name="#000000" value="https://devnar.github.io/masa/depo/css/l-main.css">Açık Tema</option>
+                <option name="#ffffff" value="https://devnar.github.io/masa/depo/css/d-main.css">Koyu Tema</option>
             </select>
             <button onclick="location='mailto:yardim.nar@yaani.com?subject=MASA'">İletişim</button>
         </div>
@@ -69,7 +63,7 @@
                         <td colspan="2"><br /></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input maxlength="100" type="url" placeholder="Resim URL'si (zorunlu değil)" class="box-img" id="pic" /></td>
+                        <td colspan="2"><input maxlength="100" type="url" placeholder="Resim URL'si (zorunlu değil)" class="box-img" id="pic"></td>
                     </tr>
                     <tr>
                         <td colspan="2"></td>
@@ -92,7 +86,7 @@
                     <span style="cursor: pointer;" onclick="openNav()"><img src="https://img.icons8.com/ios-glyphs/4x/fcc41d/menu.png" alt="menü aç" width="30px" id="menu" /></span>
                 </td>
                 <td width="100%">
-                    <center><img src="depo/resimler/l-logo.png" alt="MASA" width="50px" /></center>
+                    <center><img src="https://devnar.github.io/masa/depo/resimler/l-logo.png" alt="MASA" width="50px" /></center>
                 </td>
                 <td width="30px"><img src="https://img.icons8.com/ios-glyphs/4x/fcc41d/translation.png" width="35px" /></td>
             </tr>
@@ -105,6 +99,6 @@
         <center><div id="messages" class="in"></div></center>
         <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
-        <script src="depo/js/mesaj.js"></script>
+        <script src="https://devnar.github.io/masa/depo/js/mesaj.js"></script>
     </body>
 </html>
