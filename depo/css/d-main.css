@@ -157,6 +157,9 @@ body {
 }
 
 /* menü */
+@media screen and (min-width: 1000px) {
+  .sidenav {width: 50% !important;}
+}
 
 #user {
   text-align: center;
