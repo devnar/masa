@@ -5,11 +5,17 @@ function loaded() {
         document.getElementById("l-d").href = localStorage.getItem("thema");
     }
 
-    // ad
+    //pn
     if(localStorage.getItem("pn") == null) {
         localStorage.setItem("pn", "Anonim")
     } else {
         document.getElementById("user").value = localStorage.getItem("pn");
+    }
+    //pp
+    if(localStorage.getItem("pp") == null) {
+        localStorage.setItem("pp", "https://devnar.github.io/masa/depo/resimler/anonim.png")
+    } else {
+        document.getElementById("avatar").src = localStorage.getItem("pp");
     }
 }
 

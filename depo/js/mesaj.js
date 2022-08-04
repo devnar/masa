@@ -44,7 +44,7 @@ function postChat(e) {
   db.ref("mesaj/" + timestamp).set({
       usr: document.getElementById("user").value,
       pp: document.getElementById("avatar").src,
-      msg: "<img onclick='if (this.style.width != full) {this.style.width= full} else {this.style.width = normal}' src=" + document.getElementById("pic").value + "></img>" + message,
+      msg: "<img onerror='this.style.display = none' onclick='if (this.style.width != full) {this.style.width= full} else {this.style.width = normal}' src=" + document.getElementById("pic").value + "></img>" + message,
       id: timestamp,
       time: n.getHours() + ":" + n.getMinutes() + " - " + n.getDate() + " " + month[n.getMonth()] + " " + n.getFullYear(),
   });
