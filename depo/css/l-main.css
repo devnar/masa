@@ -142,7 +142,7 @@ body {
 }
 
 /* menü */
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1400px) {
   .sidenav {width: 50% !important;}
 }
 
