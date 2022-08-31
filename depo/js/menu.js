@@ -52,8 +52,8 @@ window.location.reload()
     // create and show the notification
     const showNotification = () => {
         // create a new notification
-        const notification = new Notification('MASA da', {
-            body: 'Yeni Sohbet Var',
+        const notification = new Notification('MASA ya hoş geldin', {
+            body: '',
             icon: 'https://devnar.github.io/logos/masa.png'
         });
 
