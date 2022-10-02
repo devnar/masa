@@ -163,7 +163,6 @@ body {
 }
 
 #user {
-  text-align: center;
   background-color: transparent;
   margin-top: 10px;
   color: white;
@@ -192,7 +191,6 @@ body {
   background-color: #31314e;
   overflow-x: hidden;
   transition: 0.5s;
-  padding-top: 60px;
   text-align: center;
 }
 

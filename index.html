@@ -16,6 +16,7 @@
         <meta property="og:description" content="Haberleşme, Eğlence ve Paylaşım Topluluğudur. hadi sende bir sandalye çek ve aramıza otur!" />
         <meta property="og:image" content="depo/resimler/main.png" />
         <!-- link -->
+        <link rel="stylesheet" href="https://devnar.github.io/lib/all.css">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -24,22 +25,24 @@
         <link rel="shortcut icon" type="image/png" href="depo/resimler/main.png" />
         <link id="l-d" rel="stylesheet" href="depo/css/l-main.css" />
         <!-- script -->
-        <script>var full= "99%";var normal = "35%";var none = "none"</script>
+        <script>var full= "99%";var normal = "35%";var none = "none";</script>
         <script src="depo/js/menu.js"></script>
         <script src="https://devnar.github.io/lib/all.js"></script>
     </head>
     <body onload="loaded()">
         <div id="mySidenav" class="sidenav">
-            <a class="closebtn" href="javascript:void(0)" onclick="closeNav()"><img src="https://img.icons8.com/ios-glyphs/4x/fcc41d/multiply.png" alt="menü aç" width="30px" id="x" /></a>
-            <a>
-                <img src="https://devnar.github.io/masa/depo/resimler/anonim.png" alt="avatar" width="40%" id="avatar" /><br />
-                <input value="Anonim" id="user" onchange="localStorage.setItem('pn', this.value);window.location.reload()" >
+            <a style="background-color: rgba(0,0,0,0.2);border-radius: 10px; margin: 10px !important;">
+                <table><tr>
+                    <td colspan="2" style="text-align: right !important; position: absolute;padding-right: 20px !important;" width="100%"><img src="https://img.icons8.com/ios-glyphs/4x/fcc41d/multiply.png" onclick="closeNav()" alt="menü aç" width="30px" id="x"/></td>
+                    </tr><tr><td width="25%"><img src="https://devnar.github.io/masa/depo/resimler/anonim.png" alt="avatar" width="100%" id="avatar"  onclick="pp()"></td>
+                    <td width="100%"><input value="Anonim" id="user" onchange="localStorage.setItem('pn', this.value);window.location.reload()" ></td>
+                </tr></table>
             </a>
             <hr class="cizgi">
             <p></p>
             <a onclick="openShareBox()">Paylaş</a>
             <p></p>
-            <a href="404.html">Duvarım</a>
+            <a href="404.html">Kaydedilenler</a>
             <br>
             <select onchange="tema()" id="thema">
                 <option selected>Tema Seç...</option>
@@ -88,7 +91,7 @@
                 <td width="100%">
                     <center><img src="depo/resimler/l-logo.png" alt="MASA" width="50px" /></center>
                 </td>
-                <td width="30px"><img src="https://img.icons8.com/ios-glyphs/4x/fcc41d/translation.png" width="35px" /></td>
+                <td width="30px"><img src="https://img.icons8.com/ios-glyphs/4x/fcc41d/chat-room.png" alt="menü aç" width="30px" id="menu" /></td>
             </tr>
         </table>
         <div width="100%">
@@ -100,5 +103,14 @@
         <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
         <script src="depo/js/mesaj.js"></script>
+        <script>
+            function pp() {
+                var newVal = prompt("Profil Fotoğrafı'nın URL'si",);
+                if (newVal == null || newVal == "") {
+                } else {
+                    localStorage.setItem("pp", newVal)
+                };window.location.reload()
+            }
+        </script>
     </body>
 </html>
