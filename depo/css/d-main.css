@@ -226,10 +226,12 @@ body {
   outline: none;
   border: 0px;
   outline: none;
+  margin: 10px;
 }
 
 .sidenav img {
   border-radius: 100%;
+  margin: 10px;
 }
 
 .sidenav a:hover {
