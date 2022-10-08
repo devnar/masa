@@ -184,6 +184,7 @@ body {
 
 .sidenav select {
   width: 100%;
+  border-radius: 0px 0px 10px 10px;
   height: 50px;
   border: 0;
   background: #ddd;
@@ -256,15 +257,6 @@ body {
   transition: 0.5s;
   padding-top: 60px;
   text-align: center;
-}
-
-.sidebox select {
-  width: 100%;
-  height: 50px;
-  border: 0;
-  background: #ddd;
-  font-size: 20px;
-  color: #000;
 }
 
 .sidebox button {
