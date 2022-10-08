@@ -23,10 +23,12 @@ function loaded() {
 
 function openNav() {
 document.getElementById("mySidenav").style.width = "50%";
+document.getElementById("navCloser").style.width = "100%";
 }
 
 function closeNav() {
 document.getElementById("mySidenav").style.width = "0";
+document.getElementById("navCloser").style.width = "0";
 }
 
 // Paylaşım kutusu aç kapat
@@ -38,6 +40,7 @@ document.getElementById("mySidenav").style.width = "0";
 
 function closeBox() {
 document.getElementById("mySidebox").style.width = "0";
+document.getElementById("navCloser").style.width = "0";
 }
 
 // tema karanlığa geç

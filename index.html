@@ -30,10 +30,10 @@
         <script src="https://devnar.github.io/lib/all.js"></script>
     </head>
     <body onload="loaded()">
+        <div onclick="closeNav()" id="navCloser" style="height: 100%;z-index: 10;position: fixed;background-color: rgba(0,0,0,0.5);"></div>
         <div id="mySidenav" class="sidenav">
             <a style="background-color: rgba(0,0,0,0.2);border-radius: 10px; margin: 10px !important;">
                 <table><tr>
-                    <td colspan="2" style="text-align: right !important;position: absolute;padding-right: 20px !important;" width="100%"><img src="https://img.icons8.com/ios-glyphs/4x/fcc41d/multiply.png" onclick="closeNav()" alt="menü aç" style="margin: 0;" width="30px" id="x"/></td>
                     </tr><tr><td width="25%"><img src="https://devnar.github.io/masa/depo/resimler/anonim.png" alt="avatar" width="100%" id="avatar"  onclick="pp()"></td>
                     <td width="100%"><input value="Anonim" id="user" onchange="localStorage.setItem('pn', this.value);window.location.reload()" ></td>
                 </tr></table>
