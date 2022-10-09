@@ -9,6 +9,7 @@ body {
 }
 
 .box-img {
+  max-width: 550px;
   width: 99%;
   border: 0;
   outline: none;
@@ -17,6 +18,7 @@ body {
 }
 
 .box-text {
+  max-width: 550px;
   width: 99%;
   height: 90px;
   border: 0;
@@ -26,7 +28,8 @@ body {
 }
 
 .box-button {
-  width: 100%;
+  max-width: 550px;
+  width: 99%;
   color: #fff;
   border: 0;
   border-radius: 5px;
@@ -173,7 +176,7 @@ body {
   max-width: 350px;
   width: 0;
   position: fixed;
-  z-index: 10;
+  z-index: 12;
   top: 0;
   left: 0;
   background-color: #eee;
@@ -259,7 +262,6 @@ body {
 }
 
 .sidebox button {
-  width: 100%;
   height: 50px;
   border: 0;
   background: #ccc;
