@@ -12,6 +12,7 @@ body {
 .box-img {
   max-width: 550px;
   width: 99%;
+  height: 50px;
   color: #fff;
   border: 0;
   background: #191935;
@@ -23,7 +24,7 @@ body {
 .box-text {
   max-width: 550px;
   width: 99%;
-  height: 90px;
+  height: 100px;
   color: #fff;
   border: 0;
   background: #191935;
@@ -38,7 +39,11 @@ body {
   color: #fff;
   border: 0;
   border-radius: 5px;
-  background: #fcc41d;
+  height: 50px;
+  border: 0;
+  background: #191935;
+  font-size: 20px;
+  padding: 10px;
 }
 
 #send-form {
@@ -158,8 +163,12 @@ body {
 
 /* menü */
 @media screen and (min-width: 1400px) {
-  .sidenav {width: 50% !important;}
-  #x {display: none;}
+  .sidenav {
+    width: 50% !important;
+  }
+  .pinbox {
+    width: 50% !important;
+  }
 }
 
 #user {
@@ -312,4 +321,31 @@ body {
   .sidebox a {
       font-size: 18px;
   }
+}
+
+/* Pinbox */
+
+.pinbox {
+  height: 100%;
+  max-width: 350px;
+  width: 0;
+  position: fixed;
+  z-index: 12;
+  top: 0;
+  right: 0;
+  background-color: #31314e;
+  overflow-x: hidden;
+  transition: 0.5s;
+  text-align: center;
+}
+
+.pinbox a {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.2);
+  margin: 10px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 20px;
+  display: block;
+  transition: 0.3s;
 }
