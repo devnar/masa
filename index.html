@@ -16,8 +16,8 @@
         <meta property="og:description" content="Haberleşme, Eğlence ve Paylaşım Topluluğudur. hadi sende bir sandalye çek ve aramıza otur!" />
         <meta property="og:image" content="depo/resimler/main.png" />
         <!-- link -->
-        <link rel="stylesheet" href="https://devnar.github.io/lib/all.css">
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://devnar.github.io/lib/all.css" />
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@350&display=swap" rel="stylesheet" />
@@ -25,21 +25,32 @@
         <link rel="shortcut icon" type="image/png" href="depo/resimler/main.png" />
         <link id="l-d" rel="stylesheet" href="depo/css/l-main.css" />
         <!-- script -->
-        <script>var full= "99%";var normal = "35%";var none = "none";var myPinbox = "myPinbox"; var pinc = "<a href='#";var pinc1 = "'>";var pinc2 = "</a>";</script>
+        <script>
+            var full = "99%";
+            var normal = "35%";
+            var none = "none";
+            var myPinbox = "myPinbox";
+            var pinc = "<a href='#";
+            var pinc1 = "'>";
+            var pinc2 = "</a>";
+        </script>
         <script src="depo/js/menu.js"></script>
         <script src="https://devnar.github.io/lib/all.js"></script>
     </head>
     <body onload="loaded()">
-        <div onclick="closeNav()" id="navCloser" style="height: 100%;z-index: 10;position: fixed;background-color: rgba(0,0,0,0.5);"></div>
+        <div onclick="closeNav()" id="navCloser" style="height: 100%; z-index: 10; position: fixed; background-color: rgba(0, 0, 0, 0.5);"></div>
         <div id="mySidenav" class="sidenav">
-            <a style="background-color: rgba(0,0,0,0.2);border-radius: 10px; margin: 10px !important;">
-                <table><tr>
-                    </tr><tr><td width="25%"><img src="https://devnar.github.io/masa/depo/resimler/anonim.png" alt="avatar" width="100%" id="avatar"  onclick="pp()"></td>
-                    <td width="100%"><input value="Anonim" id="user" onchange="localStorage.setItem('pn', this.value);window.location.reload()" ></td>
-                </tr></table>
+            <a style="background-color: rgba(0, 0, 0, 0.2); border-radius: 10px; margin: 10px !important;">
+                <table>
+                    <tr></tr>
+                    <tr>
+                        <td width="25%"><img src="https://devnar.github.io/masa/depo/resimler/anonim.png" alt="avatar" width="100%" id="avatar" onclick="pp()" /></td>
+                        <td width="100%"><input value="Anonim" id="user" onchange="localStorage.setItem('pn', this.value);window.location.reload()" /></td>
+                    </tr>
+                </table>
             </a>
-            <hr class="cizgi">
-            <div style="padding-top: 10px;background-color: rgba(0,0,0,0.2);border-radius: 10px; margin: 10px !important;">
+            <hr class="cizgi" />
+            <div style="padding-top: 10px; background-color: rgba(0, 0, 0, 0.2); border-radius: 10px; margin: 10px !important;">
                 <a onclick="openBox()">Paylaş</a>
                 <p></p>
                 <select onchange="tema()" id="thema">
@@ -49,27 +60,33 @@
                 </select>
             </div>
         </div>
-        <div onclick="closePin()" id="pinCloser" style="height: 100%;z-index: 10;position: fixed;background-color: rgba(0,0,0,0.5);"></div>
-        <div id="myPinbox" class="pinbox"></div>
+        <div onclick="closePin()" id="pinCloser" style="height: 100%; z-index: 10; position: fixed; background-color: rgba(0, 0, 0, 0.5);"></div>
+        <div id="myPinbox" class="pinbox" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
         <div id="mySidebox" class="sidebox">
             <form id="send-box" class="send-box">
                 <table width="100%">
                     <tr>
-                        <td><br></td>
+                        <td><br /></td>
                     </tr>
                     <tr>
-                        <td ><input type="url" placeholder="Resim URL'si (zorunlu değil)" class="box-img" id="pic"></td>
+                        <td><input type="url" placeholder="Resim URL'si (zorunlu değil)" class="box-img" id="pic" /></td>
                     </tr>
                     <tr>
-                        <td ></td>
+                        <td></td>
                     </tr>
                     <tr>
-                        <td  height="100px">
+                        <td height="100px">
                             <textarea maxlength="2000" type="text" placeholder="Ne düşünüyorsun?" id="sender" onkeyup="karaktersiniri()" class="box-text" required></textarea>
                         </td>
                     </tr>
                     <tr>
-                        <td><button class="box-button" onclick="closeBox()">Paylaş <br><br>(boş bırakırsan göndermez)</button></td>
+                        <td>
+                            <button class="box-button" onclick="closeBox()">
+                                Paylaş <br />
+                                <br />
+                                (boş bırakırsan göndermez)
+                            </button>
+                        </td>
                     </tr>
                 </table>
             </form>
@@ -77,7 +94,7 @@
         <table width="100%" id="header">
             <tr width="100%">
                 <td width="30px">
-                    <img style="cursor: pointer;" onclick="openNav()" src="https://img.icons8.com/ios-glyphs/4x/fcc41d/menu.png" alt="menü aç" width="30px" id="menu" /></span>
+                    <img style="cursor: pointer;" onclick="openNav()" src="https://img.icons8.com/ios-glyphs/4x/fcc41d/menu.png" alt="menü aç" width="30px" id="menu" />
                 </td>
                 <td width="100%">
                     <center><img src="depo/resimler/l-logo.png" alt="MASA" width="50px" /></center>
@@ -96,11 +113,26 @@
         <script src="depo/js/mesaj.js"></script>
         <script>
             function pp() {
-                var newVal = prompt("Profil Fotoğrafı'nın URL'si",);
+                var newVal = prompt("Profil Fotoğrafı'nın URL'si");
                 if (newVal == null || newVal == "") {
                 } else {
-                    localStorage.setItem("pp", newVal)
-                };window.location.reload()
+                    localStorage.setItem("pp", newVal);
+                }
+                window.location.reload();
+            }
+
+            function dragStart(event) {
+                event.dataTransfer.setData("Text", event.target.id);
+            }
+            function dragging(event) {
+                openPin();
+            }
+            function allowDrop(event) {
+                event.preventDefault();
+            }
+            function drop(event) {
+                event.preventDefault();
+                event.target.appendChild(document.getElementById(event.dataTransfer.getData("Text")));
             }
         </script>
     </body>

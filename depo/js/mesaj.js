@@ -55,7 +55,7 @@ const fetchChat = db.ref("mesaj/");
 fetchChat.on("child_added", function (snapshot) {
   const messages = snapshot.val();
   document.getElementById("messages").innerHTML =
-      "<li class='msgb' onclick='document.getElementById(myPinbox).innerHTML += pinc + this.id + pinc1 + this.id + pinc2' id='" +
+      "<li class='msgb' ondragstart='dragStart(event)' ondrag='dragging(event)' draggable='true' id='" +
       messages.id +
       "'>" +
       "<table width='100%' >" +
@@ -75,6 +75,5 @@ fetchChat.on("child_added", function (snapshot) {
       "</p></td>" +
       "</table>" +
       "</li>" +
-      "<br>" +
       document.getElementById("messages").innerHTML;
 });

@@ -101,10 +101,11 @@ body {
 .msgb {
   max-width: 700px;
   width: 100%;
-  background: #31314e;
+  background: #29294a;
   border-radius: 10px 10px 10px 10px;
   color: #fff;
   margin-top: 10px;
+  margin-bottom: 25px;
   list-style: none;
 }
 
@@ -336,16 +337,5 @@ body {
   background-color: #31314e;
   overflow-x: hidden;
   transition: 0.5s;
-  text-align: center;
-}
-
-.pinbox a {
-  color: white;
-  background-color: rgba(0, 0, 0, 0.2);
-  margin: 10px;
-  border-radius: 10px;
-  text-decoration: none;
-  font-size: 20px;
-  display: block;
-  transition: 0.3s;
+  padding: 2px;
 }
