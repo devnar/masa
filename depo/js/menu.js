@@ -19,7 +19,7 @@ function loaded() {
     }
     //pin
     if (localStorage.getItem("pinbox") == null) {
-        localStorage.setItem("pinbox", "<button onclick='pinboxdel()' class='pinboxdel'>Tüm mesajları sil</button>");
+        localStorage.setItem("pinbox", "<button onclick='pinboxdel()' class='pinboxdel'>Tüm kaydı sil</button>");
     } else {
         document.getElementById("myPinbox").innerHTML = localStorage.getItem("pinbox");
     }
