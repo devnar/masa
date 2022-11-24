@@ -17,25 +17,35 @@ function loaded() {
     } else {
         document.getElementById("avatar").src = localStorage.getItem("pp");
     }
+    //pin
+    if (localStorage.getItem("pinbox") == null) {
+        localStorage.setItem("pinbox", "<button onclick='pinboxdel()' class='pinboxdel'>Tüm mesajları sil</button>");
+    } else {
+        document.getElementById("myPinbox").innerHTML = localStorage.getItem("pinbox");
+    }
 }
 
 // menü aç kapat
 
 function openNav() {
-    document.getElementById("mySidenav").style.width = "50%";
-    document.getElementById("navCloser").style.width = "100%";
+    document.getElementById("mySidenav").style.width = "45%";
+    if (window.innerWidth < 1400) {
+        document.getElementById("navCloser").style.width = "100%";
+    }
 }
 
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
-    document.getElementById("navCloser").style.width = "0";
+    document.getElementById("navCloser").style.width = "0";    
 }
 
 // Pin aç kapat
 
 function openPin() {
-    document.getElementById("myPinbox").style.width = "50%";
-    document.getElementById("pinCloser").style.width = "100%";
+    document.getElementById("myPinbox").style.width = "55%";
+    if (window.innerWidth < 1400) {
+        document.getElementById("pinCloser").style.width = "100%";
+    }
 }
 
 function closePin() {
@@ -55,7 +65,7 @@ function closeBox() {
     document.getElementById("navCloser").style.width = "0";
 }
 
-// tema karanlığa geç
+// tema değiş
 
 function tema() {
     var css = document.getElementById("thema").value;

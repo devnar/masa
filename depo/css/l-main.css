@@ -325,3 +325,14 @@ body {
   transition: 0.5s;
   padding: 2px;
 }
+
+.pinboxdel {
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: black;
+  border: 0;
+  border-radius: 10px;
+}
