@@ -49,6 +49,7 @@ function postChat(e) {
       time: n.getHours() + ":" + n.getMinutes() + " - " + n.getDate() + " " + month[n.getMonth()] + " " + n.getFullYear(),
   });
   document.getElementById("pic").value = "";
+  closeBox()
 }
 
 const fetchChat = db.ref("mesaj/");
