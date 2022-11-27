@@ -5,7 +5,7 @@ function karaktersiniri() {
   var tt = val.split(" ");
   var kesa = tt.length;
 
-  var kalankarakter = 2000 - val.length;
+  var kalankarakter = 1000 - val.length;
 
   if (kalankarakter >= 0) {
       document.getElementById("ksayac").innerHTML = kalankarakter;

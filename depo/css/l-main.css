@@ -15,16 +15,19 @@ body {
   outline: none;
   border-radius: 5px;
   padding: 5px;
+  background: #ccc;
 }
 
 .box-text {
   max-width: 550px;
   width: 99%;
-  height: 90px;
+  height: 100px;
   border: 0;
+  background: #ccc;
   outline: none;
   border-radius: 5px;
   padding: 5px;
+  resize: none;
 }
 
 .box-button {
