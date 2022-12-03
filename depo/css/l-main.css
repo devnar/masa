@@ -8,9 +8,10 @@ body {
   height: 100%;
 }
 
-.box-img {
+.box-input {
   max-width: 550px;
   width: 99%;
+  height: 50px;
   border: 0;
   outline: none;
   border-radius: 5px;
@@ -21,7 +22,7 @@ body {
 .box-text {
   max-width: 550px;
   width: 99%;
-  height: 100px;
+  height: 100%;
   border: 0;
   background: #ccc;
   outline: none;
@@ -130,6 +131,16 @@ body {
 
 .msgm a:active {
   color: #ff0000;
+}
+
+.msgm a {
+  width: 90%;
+  display: block;
+  background: rgba(0,0,0,0.2);
+  padding: 5px;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
 }
 
 .msgm img {

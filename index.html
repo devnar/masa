@@ -26,6 +26,24 @@
         <link id="l-d" rel="stylesheet" href="depo/css/l-main.css" />
         <!-- script -->
         <script>
+            function inputImg() {
+                var x = document.getElementById("pic")
+                if (x.style.display == none) {
+                    x.style.display = "inline"
+                } else {
+                    x.style.display = "none"
+                }
+            }
+            function inputLnk() {
+                var x = document.getElementById("lnk")
+                if (x.style.display == none) {
+                    x.style.display = "inline"
+                } else {
+                    x.style.display = "none"
+                }
+            }
+        </script>
+        <script>
             var full = "99%";
             var normal = "35%";
             var none = "none";
@@ -66,17 +84,17 @@
             <form id="send-box" class="send-box">
                 <table width="100%">
                     <tr>
-                        <td><br /></td>
+                        <td class="box"><li class="icon ns-image-add" onclick="inputImg()"></li><li class="icon n-link" onclick="inputLnk()"></li></td>
                     </tr>
-                    <tr>
-                        <td><input type="url" placeholder="Resim URL'si (zorunlu değil)" class="box-img" id="pic" /></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td height="100px">
+                        <td height="150px">
                             <textarea maxlength="1000" type="text" placeholder="Ne düşünüyorsun?" id="sender" onkeyup="karaktersiniri()" class="box-text" required></textarea>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <input class="box-input" id="pic" style="display: none;margin-bottom: 5px;" placeholder="Resim Ekle">
+                            <input class="box-input" id="lnk" style="display: none;" placeholder="Link Ekle">
                         </td>
                     </tr>
                     <tr>

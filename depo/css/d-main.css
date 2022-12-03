@@ -9,7 +9,18 @@ body {
   color: #fff;
 }
 
-.box-img {
+.box li {
+  width: fit-content;
+  padding: 15px;
+  text-align: center;
+  display: inline-block;
+  background: #191935;
+  font-size: 20px;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.box-input {
   max-width: 550px;
   width: 99%;
   height: 50px;
@@ -24,7 +35,7 @@ body {
 .box-text {
   max-width: 550px;
   width: 99%;
-  height: 100px;
+  height: 100%;
   color: #fff;
   border: 0;
   background: #191935;
@@ -145,6 +156,16 @@ body {
 
 .msgm a:active {
   color: #ff0000;
+}
+
+.msgm a {
+  width: 90%;
+  display: grid;
+  background: #191935;
+  padding: 5px;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
 }
 
 .msgm img {
@@ -281,14 +302,6 @@ body {
   overflow-x: hidden;
   transition: 0.5s;
   text-align: center;
-}
-
-.sidebox button {
-  height: 50px;
-  border: 0;
-  background: #191935;
-  font-size: 20px;
-  color: #fff;
 }
 
 .sidebox a {
