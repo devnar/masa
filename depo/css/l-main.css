@@ -110,6 +110,10 @@ body {
   list-style: none;
 }
 
+.msgb:target {
+  background: #fcc41d;
+}
+
 .msga {
   width: 50px;
   height: 50px;
