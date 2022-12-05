@@ -13,7 +13,6 @@ function karaktersiniri() {
 }
 
 // Tarih
-
 var n = new Date();
 var month = new Array();
 month[0] = "Ocak";
