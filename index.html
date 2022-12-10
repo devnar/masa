@@ -70,7 +70,7 @@
             <hr class="cizgi" />
             <div style="padding-top: 10px; background-color: rgba(0, 0, 0, 0.2); border-radius: 10px; margin: 10px !important;">
                 <a onclick="openBox()">Paylaş</a>
-                <p></p>
+                <input class="search" oninput="nj.filterHTML('#messages', 'li', this.value)" placeholder="Mesajlarda Ara...">
                 <select onchange="tema()" id="thema">
                     <option selected>Tema Seç...</option>
                     <option name="#000000" value="depo/css/l-main.css">Açık Tema</option>
