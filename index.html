@@ -58,7 +58,7 @@
     <body onload="loaded()">
         <div onclick="closeNav()" id="navCloser" style="height: 100%; z-index: 10; position: fixed; background-color: rgba(0, 0, 0, 0.5);"></div>
         <div id="mySidenav" class="sidenav">
-            <a style="background-color: rgba(0, 0, 0, 0.2); border-radius: 10px; margin: 10px !important;">
+            <a class="back1">
                 <table>
                     <tr></tr>
                     <tr>
@@ -68,7 +68,7 @@
                 </table>
             </a>
             <hr class="cizgi" />
-            <div style="padding-top: 10px; background-color: rgba(0, 0, 0, 0.2); border-radius: 10px; margin: 10px !important;">
+            <div class="back2">
                 <a onclick="openBox()">Paylaş</a>
                 <input class="search" oninput="nj.filterHTML('#messages', 'li', this.value)" placeholder="Mesajlarda Ara...">
                 <select onchange="tema()" id="thema">
@@ -90,7 +90,6 @@
                             <textarea maxlength="1000" type="text" placeholder="Ne düşünüyorsun?" id="sender" onkeyup="karaktersiniri()" class="box-text" required></textarea>
                         </td>
                     </tr>
-                    
                     <tr>
                         <td>
                             <input class="box-input" id="pic" style="display: none;margin-bottom: 5px;" placeholder="Resim Ekle">

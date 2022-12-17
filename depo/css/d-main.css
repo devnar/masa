@@ -1,5 +1,5 @@
 body {
-  background: #191935;
+  background: #0d1117;
   font-family: "Roboto Slab", serif;
 }
 
@@ -14,7 +14,7 @@ body {
   padding: 15px;
   text-align: center;
   display: inline-block;
-  background: #191935;
+  background: #0d1117;
   font-size: 20px;
   border-radius: 10px;
   margin: 10px;
@@ -26,7 +26,7 @@ body {
   height: 50px;
   color: white;
   border: 0;
-  background: #191935;
+  background: #0d1117;
   outline: none;
   border-radius: 5px;
   padding: 5px;
@@ -38,7 +38,7 @@ body {
   height: 100%;
   color: white;
   border: 0;
-  background: #191935;
+  background: #0d1117;
   outline: none;
   border-radius: 5px;
   padding: 5px;
@@ -53,7 +53,7 @@ body {
   border-radius: 5px;
   height: 50px;
   border: 0;
-  background: #191935;
+  background: #0d1117;
   font-size: 20px;
   padding: 10px;
 }
@@ -88,7 +88,7 @@ body {
 .btn-footer {
   max-width: 450px;
   width: 100%;
-  background: #31314e;
+  background: #1d2126;
   border-radius: 10px 10px 10px 10px;
   color: white;
 }
@@ -113,7 +113,7 @@ body {
 .msgb {
   max-width: 700px;
   width: 100%;
-  background: #29294a;
+  background: #1d2126;
   border-radius: 10px 10px 10px 10px;
   color: white;
   margin-top: 10px;
@@ -130,7 +130,7 @@ body {
   height: 50px;
   float: left;
   color: white;
-  background: #191935;
+  background: #0d1117;
   border-radius: 20px 100% 100% 100%;
 }
 
@@ -165,7 +165,7 @@ body {
 .msgm a {
   width: 90%;
   display: grid;
-  background: #191935;
+  background: #0d1117;
   padding: 5px;
   border-radius: 10px;
   text-align: center;
@@ -182,7 +182,7 @@ body {
 }
 .msgm code {
   font-family: "Nunito", sans-serif;
-  color: #191935;
+  color: #0d1117;
   background-color: white;
   padding: 5px;
   border-radius: 10px;
@@ -210,7 +210,7 @@ body {
   position: fixed;
   width: 100%;
   height: 50px;
-  background: #31314e;
+  background: #1d2126;
   z-index: 9;
   top: 0;
   left: 0;
@@ -224,17 +224,29 @@ body {
   z-index: 12;
   top: 0;
   left: 0;
-  background-color: #31314e;
+  background-color: #1d2126;
   overflow-x: hidden;
   transition: 0.5s;
   text-align: center;
+}
+
+.back1 {
+  background-color: rgba(0, 0, 0, 0.2); 
+  border-radius: 10px; 
+  margin: 10px !important;
+}
+.back2 {
+  padding-top: 10px; 
+  background-color: rgba(0, 0, 0, 0.2); 
+  border-radius: 10px; 
+  margin: 10px !important;
 }
 
 .sidenav select {
   width: 100%;
   height: 50px;
   border: 0;
-  background: #29294a;
+  background: #121518;
   font-size: 20px;
   color: white;
   border-radius: 0px 0px 10px 10px;
@@ -268,7 +280,7 @@ body {
 
 .sidenav img {
   border-radius: 100%;
-  margin: 10px;
+  margin: 5px;
 }
 
 .sidenav a:hover {
@@ -302,7 +314,7 @@ body {
   z-index: 10;
   left: 0;
   bottom: 0;
-  background-color: #31314e;
+  background-color: #1d2126;
   overflow-x: hidden;
   transition: 0.5s;
   text-align: center;
@@ -352,7 +364,7 @@ body {
   z-index: 12;
   top: 0;
   right: 0;
-  background-color: #31314e;
+  background-color: #1d2126;
   overflow-x: hidden;
   transition: 0.5s;
   padding: 2px;
@@ -363,7 +375,7 @@ body {
   margin-left: 5%;
   margin-right: 5%;
   margin-top: 10px;
-  background-color: #191935;
+  background-color: #0d1117;
   color: white;
   border: 0;
   border-radius: 10px;
