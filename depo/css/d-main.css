@@ -370,6 +370,10 @@ body {
   padding: 2px;
 }
 
+.pinbox li {
+  background: rgba(0, 0, 0, 0.2);
+}
+
 .pinboxdel {
   width: 90%;
   margin-left: 5%;
