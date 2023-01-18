@@ -72,3 +72,27 @@ function tema() {
     localStorage.setItem("thema", css);
     window.location.reload();
 }
+
+// paylaşım kutusu içeriği
+
+function inputImg() {
+    var x = document.getElementById("pic")
+    var y = document.getElementById("lnk")
+    if (x.style.display == none) {
+        x.style.display = "inline-block";
+        y.style.display = "none"
+    } else {
+        x.style.display = "none"
+    }
+}
+
+function inputLnk() {
+    var x = document.getElementById("lnk")
+    var y = document.getElementById("pic")
+    if (x.style.display == none) {
+        x.style.display = "inline-block";
+        y.style.display = "none"
+    } else {
+        x.style.display = "none"
+    }
+}
