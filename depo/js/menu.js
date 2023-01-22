@@ -74,25 +74,56 @@ function tema() {
 }
 
 // paylaşım kutusu içeriği
-
-function inputImg() {
-    var x = document.getElementById("pic")
-    var y = document.getElementById("lnk")
-    if (x.style.display == none) {
+function inputImg() {    
+    var p = document.getElementById("pic")
+    var l = document.getElementById("lnk")
+    var x = document.getElementById("x")
+    var i = document.getElementById("Iimg")
+    var y = document.getElementById("Ilnk")
+        
+    if (p.style.display == none) {
+        p.style.display = "inline-block";
         x.style.display = "inline-block";
+        l.style.display = "none"
+        i.style.display = "none"
         y.style.display = "none"
     } else {
-        x.style.display = "none"
+        p.style.display = "none"
+        i.style.display = "inline-block";
+        y.style.display = "inline-block";
     }
 }
 
 function inputLnk() {
-    var x = document.getElementById("lnk")
-    var y = document.getElementById("pic")
-    if (x.style.display == none) {
+    var p = document.getElementById("pic")
+    var l = document.getElementById("lnk")
+    var x = document.getElementById("x")
+    var i = document.getElementById("Iimg")
+    var y = document.getElementById("Ilnk")
+        
+    if (p.style.display == none) {
+        l.style.display = "inline-block";
         x.style.display = "inline-block";
+        p.style.display = "none"
+        i.style.display = "none"
         y.style.display = "none"
     } else {
-        x.style.display = "none"
+        l.style.display = "none"
+        i.style.display = "inline-block";
+        y.style.display = "inline-block";
     }
+}
+
+function clsInput() {
+    var p = document.getElementById("pic")
+    var l = document.getElementById("lnk")
+    var x = document.getElementById("x")
+    var i = document.getElementById("Iimg")
+    var y = document.getElementById("Ilnk")
+        
+    i.style.display = "inline-block";
+    y.style.display = "inline-block";
+    p.style.display = "none"
+    l.style.display = "none"
+    x.style.display = "none"
 }

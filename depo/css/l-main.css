@@ -21,8 +21,8 @@ body {
 }
 
 .box-input {
-  max-width: 445px;
-  width: calc(100% - 130px);
+  max-width: 500px;
+  width: calc(100% - 60px);
   height: 50px;
   border: 0;
   outline: none;
