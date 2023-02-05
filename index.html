@@ -67,7 +67,7 @@
                 <table width="100%">
                     <tr>
                         <td height="150px">
-                            <textarea maxlength="1000" type="text" placeholder="Ne düşünüyorsun?" id="sender" onkeyup="karaktersiniri()" class="box-text" required></textarea>
+                            <textarea maxlength="500" type="text" placeholder="Ne düşünüyorsun?" id="sender" onkeyup="karaktersiniri()" class="box-text" required></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -75,8 +75,9 @@
                             <li class="icon n-x" id="x" style="display: none;" onclick="clsInput()"></li>
                             <li class="icon n-image-add" id="Iimg" onclick="inputImg()"></li>
                             <li class="icon n-link" id="Ilnk" onclick="inputLnk()"></li>
+                            <li class="icon" id="ksayac">500</li>
                             <input class="box-input" id="pic" style="display: none;margin-bottom: 5px;" placeholder="Resim Ekle">
-                            <input class="box-input" id="lnk" style="display: none;margin-bottom: 5px;" placeholder="Link Ekle" value="none">
+                            <input class="box-input" id="lnk" style="display: none;margin-bottom: 5px;" placeholder="Link Ekle">
                         </td>
                     </tr>
                     <tr>
@@ -99,45 +100,9 @@
                 <td width="30px"><img style="cursor: pointer;" onclick="openPin()" src="https://img.icons8.com/ios-glyphs/4x/fcc41d/pin.png" alt="menü aç" width="30px" id="menu" /></td>
             </tr>
         </table>
-        <div width="100%">
-            <br />
-            <br />
-            <br />
-        </div>
         <center><div id="messages" class="in"></div></center>
         <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
         <script src="depo/js/mesaj.js"></script>
-        <script>
-            function pp() {
-                var newVal = prompt("Profil Fotoğrafı'nın URL'si");
-                if (newVal == null || newVal == "") {
-                } else {
-                    localStorage.setItem("pp", newVal);
-                }
-                window.location.reload();
-            }
-
-            function pinboxdel() {
-                localStorage.removeItem("pinbox")
-                window.location.reload();
-            }
-
-            function dragStart(event) {
-                event.dataTransfer.setData("Text", event.target.id);
-            }
-            function dragging(event) {
-                openPin();
-            }
-            function allowDrop(event) {
-                event.preventDefault();
-            }
-            function drop(event) {
-                event.preventDefault();
-                event.target.appendChild(document.getElementById(event.dataTransfer.getData("Text")));
-                localStorage.setItem("pinbox", document.getElementById("myPinbox").innerHTML)
-            }
-        </script>
     </body>
 </html>

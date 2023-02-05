@@ -59,6 +59,10 @@ body {
   padding: 10px;
 }
 
+#messages {
+  margin-top: 70px;
+}
+
 #send-form {
   width: 100%;
   height: 100%;
@@ -71,10 +75,6 @@ body {
   border-color: #000;
   outline: none;
   float: left;
-}
-
-#ksayac {
-  color: white;
 }
 
 #send-form button {

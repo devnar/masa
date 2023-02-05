@@ -5,7 +5,7 @@ function karaktersiniri() {
   var tt = val.split(" ");
   var kesa = tt.length;
 
-  var kalankarakter = 1000 - val.length;
+  var kalankarakter = 500 - val.length;
 
   if (kalankarakter >= 0) {
       document.getElementById("ksayac").innerHTML = kalankarakter;
@@ -40,10 +40,14 @@ function postChat(e) {
   const chatTxt = document.getElementById("sender");
   const message = chatTxt.value;
   chatTxt.value = "";
+  if (document.getElementById("lnk").value == "") {
+    var x = "none";
+  };
   db.ref("mesaj/" + timestamp).set({
       usr: document.getElementById("user").value,
       pp: document.getElementById("avatar").src,
-      msg: "<img onerror='this.style.display = none' onclick='if (this.style.width != full) {this.style.width= full} else {this.style.width = normal}' src=" + document.getElementById("pic").value + "></img>" + message,
+      msg: message + "<a class='icon n-link' style='display:"+x+"' href='"+ document.getElementById("lnk").value +"'></a>",
+      img:document.getElementById("pic").value,
       id: timestamp,
       time: n.getHours() + ":" + n.getMinutes() + " - " + n.getDate() + " " + month[n.getMonth()] + " " + n.getFullYear(),
   });
@@ -71,7 +75,9 @@ fetchChat.on("child_added", function (snapshot) {
       "</p></td>" +
       "</tr>" +
       "<td></td>" +
-      "<td colspan='2'><p class='msgm'>" +
+      "<td colspan='2'><p class='msgm'><img onerror='this.style.display = none' onclick='if (this.style.width != full) {this.style.width= full} else {this.style.width = normal}' src="+
+      messages.img +
+      "></img>" +
       messages.msg +
       "</p></td>" +
       "</table>" +

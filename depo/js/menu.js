@@ -1,3 +1,32 @@
+function pp() {
+    var newVal = prompt("Profil Fotoğrafı'nın URL'si");
+    if (newVal == null || newVal == "") {
+    } else {
+        localStorage.setItem("pp", newVal);
+    }
+    window.location.reload();
+}
+
+function pinboxdel() {
+    localStorage.removeItem("pinbox")
+    window.location.reload();
+}
+
+function dragStart(event) {
+    event.dataTransfer.setData("Text", event.target.id);
+}
+function dragging(event) {
+    openPin();
+}
+function allowDrop(event) {
+    event.preventDefault();
+}
+function drop(event) {
+    event.preventDefault();
+    event.target.appendChild(document.getElementById(event.dataTransfer.getData("Text")));
+    localStorage.setItem("pinbox", document.getElementById("myPinbox").innerHTML)
+}
+
 function loaded() {
     if (localStorage.getItem("thema") == null) {
         localStorage.setItem("thema", "depo/css/l-main.css");
@@ -80,6 +109,7 @@ function inputImg() {
     var x = document.getElementById("x")
     var i = document.getElementById("Iimg")
     var y = document.getElementById("Ilnk")
+    var s = document.getElementById("ksayac")
         
     if (p.style.display == none) {
         p.style.display = "inline-block";
@@ -87,10 +117,12 @@ function inputImg() {
         l.style.display = "none"
         i.style.display = "none"
         y.style.display = "none"
+        s.style.display = "none";
     } else {
         p.style.display = "none"
         i.style.display = "inline-block";
         y.style.display = "inline-block";
+        s.style.display = "inline-block";
     }
 }
 
@@ -100,6 +132,7 @@ function inputLnk() {
     var x = document.getElementById("x")
     var i = document.getElementById("Iimg")
     var y = document.getElementById("Ilnk")
+    var s = document.getElementById("ksayac")
         
     if (p.style.display == none) {
         l.style.display = "inline-block";
@@ -107,10 +140,12 @@ function inputLnk() {
         p.style.display = "none"
         i.style.display = "none"
         y.style.display = "none"
+        s.style.display = "none";
     } else {
         l.style.display = "none"
         i.style.display = "inline-block";
         y.style.display = "inline-block";
+        s.style.display = "inline-block";
     }
 }
 
@@ -120,9 +155,11 @@ function clsInput() {
     var x = document.getElementById("x")
     var i = document.getElementById("Iimg")
     var y = document.getElementById("Ilnk")
+    var s = document.getElementById("ksayac")
         
     i.style.display = "inline-block";
     y.style.display = "inline-block";
+    s.style.display = "inline-block";
     p.style.display = "none"
     l.style.display = "none"
     x.style.display = "none"
