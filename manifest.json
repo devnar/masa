@@ -1,7 +1,7 @@
 {
     "background_color": "white",
     "description": "MASA, Haberleşme, Eğlence ve Paylaşım Topluluğudur.",
-    "display": "fullscreen",
+    "display": "standalone",
     "icons": [
       {
         "src": "depo/resimler/main.png",
