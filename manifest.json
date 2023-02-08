@@ -1,20 +1,18 @@
 {
-    "short_name": "masa",
+    "short_name": "MASA",
     "name": "MASA",
     "shortcuts": [
         {
           "name": "How's weather today?",
           "short_name": "Today",
           "description": "View weather information for today",
-          "url": "/today?source=pwa",
-          "icons": [{ "src": "/images/today.png", "sizes": "192x192" }]
+          "url": "/today?source=pwa"
         },
         {
           "name": "How's weather tomorrow?",
           "short_name": "Tomorrow",
           "description": "View weather information for tomorrow",
-          "url": "/tomorrow?source=pwa",
-          "icons": [{ "src": "/images/tomorrow.png", "sizes": "192x192" }]
+          "url": "/tomorrow?source=pwa"
         }
       ],
     "icons": [
@@ -25,8 +23,8 @@
     ],
     "id": "index.html",
     "start_url": "index.html",
-    "background_color": "#fcc41d",
-    "display": "standalone",
+    "background_color": "#1d2126",
+    "display": "fullscreen",
     "scope": "/",
     "theme_color": "#1d2126"
   }
