@@ -1,3 +1,32 @@
+let deferredPrompt;
+const addBtn = document.querySelector(".add-button");
+addBtn.style.display = "none";
+window.addEventListener("beforeinstallprompt", (e) => {
+    // Prevent Chrome 67 and earlier from automatically showing the prompt
+    e.preventDefault();
+    // Stash the event so it can be triggered later.
+    deferredPrompt = e;
+    // Update UI to notify the user they can add to home screen
+    addBtn.style.display = "block";
+  
+    addBtn.addEventListener("click", (e) => {
+      // hide our user interface that shows our A2HS button
+      addBtn.style.display = "none";
+      // Show the prompt
+      deferredPrompt.prompt();
+      // Wait for the user to respond to the prompt
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === "accepted") {
+          console.log("User accepted the A2HS prompt");
+        } else {
+          console.log("User dismissed the A2HS prompt");
+        }
+        deferredPrompt = null;
+      });
+    });
+  });
+  
+
 function pp() {
     var newVal = prompt("Profil Fotoğrafı'nın URL'si");
     if (newVal == null || newVal == "") {
@@ -106,22 +135,55 @@ function tema() {
 function inputImg() {    
     var p = document.getElementById("pic")
     var l = document.getElementById("lnk")
+    var r = document.getElementById("ifr")
     var x = document.getElementById("x")
     var i = document.getElementById("Iimg")
     var y = document.getElementById("Ilnk")
+    var f = document.getElementById("Iifr")
     var s = document.getElementById("ksayac")
         
     if (p.style.display == none) {
         p.style.display = "inline-block";
         x.style.display = "inline-block";
-        l.style.display = "none"
-        i.style.display = "none"
-        y.style.display = "none"
+        l.style.display = "none";
+        r.style.display = "none";
+        i.style.display = "none";
+        y.style.display = "none";
+        f.style.display = "none";
         s.style.display = "none";
     } else {
-        p.style.display = "none"
+        p.style.display = "none";
         i.style.display = "inline-block";
         y.style.display = "inline-block";
+        f.style.display = "inline-block";
+        s.style.display = "inline-block";
+    }
+}
+
+function inputIfr() {    
+    var p = document.getElementById("pic")
+    var l = document.getElementById("lnk")
+    var r = document.getElementById("ifr")
+    var x = document.getElementById("x")
+    var i = document.getElementById("Iimg")
+    var y = document.getElementById("Ilnk")
+    var f = document.getElementById("Iifr")
+    var s = document.getElementById("ksayac")
+        
+    if (r.style.display == none) {
+        r.style.display = "inline-block";
+        x.style.display = "inline-block";
+        p.style.display = "none";
+        l.style.display = "none";
+        i.style.display = "none";
+        y.style.display = "none";
+        f.style.display = "none";
+        s.style.display = "none";
+    } else {
+        r.style.display = "none";
+        i.style.display = "inline-block";
+        y.style.display = "inline-block";
+        f.style.display = "inline-block";
         s.style.display = "inline-block";
     }
 }
@@ -129,22 +191,27 @@ function inputImg() {
 function inputLnk() {
     var p = document.getElementById("pic")
     var l = document.getElementById("lnk")
+    var r = document.getElementById("ifr")
     var x = document.getElementById("x")
     var i = document.getElementById("Iimg")
     var y = document.getElementById("Ilnk")
+    var f = document.getElementById("Iifr")
     var s = document.getElementById("ksayac")
         
     if (p.style.display == none) {
         l.style.display = "inline-block";
         x.style.display = "inline-block";
-        p.style.display = "none"
-        i.style.display = "none"
-        y.style.display = "none"
+        p.style.display = "none";
+        r.style.display = "none";
+        i.style.display = "none";
+        y.style.display = "none";
+        f.style.display = "none";
         s.style.display = "none";
     } else {
-        l.style.display = "none"
+        l.style.display = "none";
         i.style.display = "inline-block";
         y.style.display = "inline-block";
+        f.style.display = "inline-block";
         s.style.display = "inline-block";
     }
 }
@@ -152,15 +219,19 @@ function inputLnk() {
 function clsInput() {
     var p = document.getElementById("pic")
     var l = document.getElementById("lnk")
+    var r = document.getElementById("ifr")
     var x = document.getElementById("x")
     var i = document.getElementById("Iimg")
     var y = document.getElementById("Ilnk")
+    var f = document.getElementById("Iifr")
     var s = document.getElementById("ksayac")
         
     i.style.display = "inline-block";
     y.style.display = "inline-block";
+    f.style.display = "inline-block";
     s.style.display = "inline-block";
-    p.style.display = "none"
-    l.style.display = "none"
-    x.style.display = "none"
+    p.style.display = "none";
+    l.style.display = "none";
+    r.style.display = "none";
+    x.style.display = "none";
 }

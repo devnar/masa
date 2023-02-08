@@ -1,0 +1,15 @@
+{
+    "background_color": "white",
+    "description": "MASA, Haberleşme, Eğlence ve Paylaşım Topluluğudur.",
+    "display": "fullscreen",
+    "icons": [
+      {
+        "src": "depo/resimler/main.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      }
+    ],
+    "name": "Masa sosyal medya",
+    "short_name": "MASA",
+    "start_url": "index.html"
+  }  

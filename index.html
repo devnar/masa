@@ -16,6 +16,7 @@
         <meta property="og:description" content="Haberleşme, Eğlence ve Paylaşım Topluluğudur. hadi sende bir sandalye çek ve aramıza otur!" />
         <meta property="og:image" content="depo/resimler/main.png" />
         <!-- link -->
+        <link rel="manifest" href="manifest.json">
         <link rel="stylesheet" href="https://devnar.github.io/lib/all.css" />
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -53,6 +54,7 @@
             <div class="back2">
                 <a onclick="openBox()">Paylaş</a>
                 <input class="search" oninput="nj.filterHTML('#messages', 'li', this.value)" placeholder="Mesajlarda Ara...">
+                <button class="add-button" style="position: absolute;top: 1px;left: 1px;">Add to home screen</button>
                 <select onchange="tema()" id="thema">
                     <option selected>Tema Seç...</option>
                     <option name="#000000" value="depo/css/l-main.css">Açık Tema</option>
@@ -74,10 +76,12 @@
                         <td class="box">
                             <li class="icon n-x" id="x" style="display: none;" onclick="clsInput()"></li>
                             <li class="icon n-image-add" id="Iimg" onclick="inputImg()"></li>
+                            <li class="icon n-crop" id="Iifr" onclick="inputIfr()"></li>
                             <li class="icon n-link" id="Ilnk" onclick="inputLnk()"></li>
                             <li class="icon" id="ksayac">500</li>
                             <input class="box-input" id="pic" style="display: none;margin-bottom: 5px;" placeholder="Resim Ekle">
                             <input class="box-input" id="lnk" style="display: none;margin-bottom: 5px;" placeholder="Link Ekle">
+                            <input class="box-input" id="ifr" style="display: none;margin-bottom: 5px;" placeholder="Resim, video veya site linki ekle Ekle"disabled>
                         </td>
                     </tr>
                     <tr>
