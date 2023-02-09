@@ -106,11 +106,11 @@ function tema() {
 function inputImg() {    
     var p = document.getElementById("pic")
     var l = document.getElementById("lnk")
-    var r = document.getElementById("ifr")
+    var r = document.getElementById("cod")
     var x = document.getElementById("x")
     var i = document.getElementById("Iimg")
     var y = document.getElementById("Ilnk")
-    var f = document.getElementById("Iifr")
+    var f = document.getElementById("Icod")
     var s = document.getElementById("ksayac")
         
     if (p.style.display == none) {
@@ -131,14 +131,14 @@ function inputImg() {
     }
 }
 
-function inputIfr() {    
+function inputCod() {    
     var p = document.getElementById("pic")
     var l = document.getElementById("lnk")
-    var r = document.getElementById("ifr")
+    var r = document.getElementById("cod")
     var x = document.getElementById("x")
     var i = document.getElementById("Iimg")
     var y = document.getElementById("Ilnk")
-    var f = document.getElementById("Iifr")
+    var f = document.getElementById("Icod")
     var s = document.getElementById("ksayac")
         
     if (r.style.display == none) {
@@ -162,11 +162,11 @@ function inputIfr() {
 function inputLnk() {
     var p = document.getElementById("pic")
     var l = document.getElementById("lnk")
-    var r = document.getElementById("ifr")
+    var r = document.getElementById("cod")
     var x = document.getElementById("x")
     var i = document.getElementById("Iimg")
     var y = document.getElementById("Ilnk")
-    var f = document.getElementById("Iifr")
+    var f = document.getElementById("Icod")
     var s = document.getElementById("ksayac")
         
     if (p.style.display == none) {
@@ -190,11 +190,11 @@ function inputLnk() {
 function clsInput() {
     var p = document.getElementById("pic")
     var l = document.getElementById("lnk")
-    var r = document.getElementById("ifr")
+    var r = document.getElementById("cod")
     var x = document.getElementById("x")
     var i = document.getElementById("Iimg")
     var y = document.getElementById("Ilnk")
-    var f = document.getElementById("Iifr")
+    var f = document.getElementById("Icod")
     var s = document.getElementById("ksayac")
         
     i.style.display = "inline-block";

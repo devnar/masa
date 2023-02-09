@@ -40,13 +40,16 @@ function postChat(e) {
   const chatTxt = document.getElementById("sender");
   const message = chatTxt.value;
   chatTxt.value = "";
-  if (document.getElementById("lnk").value == "") {
+  if (document.getElementById("cod").value == "") {
     var x = "none";
+  };
+  if (document.getElementById("lnk").value == "") {
+    var y = "none";
   };
   db.ref("mesaj/" + timestamp).set({
       usr: document.getElementById("user").value,
       pp: document.getElementById("avatar").src,
-      msg: message + "<a class='icon n-link' style='display:"+x+"' href='"+ document.getElementById("lnk").value +"'></a>",
+      msg: "<code style='display:"+x+"' href='"+ document.getElementById("cod").value +"'></code>" + message + "<a class='icon n-link' style='display:"+y+"' href='"+ document.getElementById("lnk").value +"'></a>",
       img:document.getElementById("pic").value,
       id: timestamp,
       time: n.getHours() + ":" + n.getMinutes() + " - " + n.getDate() + " " + month[n.getMonth()] + " " + n.getFullYear(),
