@@ -171,12 +171,13 @@ body {
   margin-bottom: 20px;
   border-radius: 10px 10px 10px 10px;
 }
-.msgm code {
+.msgm code {    
+  display: block;
   font-family: "Nunito", sans-serif;
-  color: #eee;
-  background-color: #904100;
+  background-color: rgba(0,0,0,0.2);
   padding: 5px;
   border-radius: 10px;
+  margin: 10px;
 }
 
 /* menü */

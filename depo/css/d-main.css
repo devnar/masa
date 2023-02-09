@@ -172,7 +172,6 @@ body {
   text-align: center;
   text-decoration: none;
 }
-
 .msgm img {
   width: 35%;
   height: auto;
@@ -181,12 +180,14 @@ body {
   margin-bottom: 20px;
   border-radius: 10px 10px 10px 10px;
 }
-.msgm code {
+.msgm code {    
+  display: block;
   font-family: "Nunito", sans-serif;
-  color: #0d1117;
-  background-color: white;
+  color: #8bc34a;
+  background-color: #0d1117;
   padding: 5px;
   border-radius: 10px;
+  margin: 10px;
 }
 
 /* menü */
