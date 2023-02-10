@@ -39,7 +39,7 @@
         <script src="https://devnar.github.io/lib/all.js"></script>
     </head>
     <body onload="loaded()">
-        <div onclick="closeNav()" id="navCloser" style="height: 100%; z-index: 10; position: fixed; background-color: rgba(0, 0, 0, 0.5);"></div>
+        <div onclick="closeNav()" id="navCloser" style="top:0;height: 100%; z-index: 10; position: fixed; background-color: rgba(0, 0, 0, 0.5);"></div>
         <div id="mySidenav" class="sidenav">
             <a class="back1">
                 <table>
@@ -61,7 +61,7 @@
                 </select>
             </div>
         </div>
-        <div onclick="closePin()" id="pinCloser" style="height: 100%; z-index: 10; position: fixed; background-color: rgba(0, 0, 0, 0.5);"></div>
+        <div onclick="closePin()" id="pinCloser" style="top:0;height: 100%; z-index: 10; position: fixed; background-color: rgba(0, 0, 0, 0.5);"></div>
         <div id="myPinbox" class="pinbox" ondrop="drop(event)" ondragover="allowDrop(event)"><button onclick="pinboxdel()" class="pinboxdel">Tüm kaydı sil</button></div>
         <div id="mySidebox" class="sidebox">
             <form id="send-box" class="send-box">
