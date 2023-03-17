@@ -29,7 +29,7 @@ month[10] = "Kasım";
 month[11] = "Aralık";
 
 // firebase
-const firebaseConfig = {apiKey: "AIzaSyBM4YWWGOhN0u_AX9QzGOm5qclRZ4YPMjA" ,projectId: "nar-masa",};
+const firebaseConfig = {apiKey: "AIzaSyBUVIPi-kduciF6h25AXoaJSyTXR1WAyzo" ,projectId: "masa-nar",};
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
