@@ -46,7 +46,7 @@ function postChat(e) {
   if (document.getElementById("lnk").value == "") {
     var y = "none";
   };
-  db.ref("mesaj/" + timestamp).set({
+  db.ref("emo/" + timestamp).set({
       usr: document.getElementById("user").value,
       pp: document.getElementById("avatar").src,
       msg: "<code style='display:"+x+"' href='"+ document.getElementById("cod").value +"'></code>" + message + "<a class='icon n-link' style='display:"+y+"' href='"+ document.getElementById("lnk").value +"'></a>",
@@ -59,7 +59,7 @@ function postChat(e) {
   closeBox()
 }
 
-const fetchChat = db.ref("mesaj/");
+const fetchChat = db.ref("emo/");
 fetchChat.on("child_added", function (snapshot) {
   const messages = snapshot.val();
   document.getElementById("messages").innerHTML =
