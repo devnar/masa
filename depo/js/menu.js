@@ -24,10 +24,10 @@ function loaded() {
     }
     //pid
     if (localStorage.getItem("pid") == 'null') {
-        localStorage.setItem("pid", "nar")
+        localStorage.setItem("pid", "mesaj")
     } 
     if (localStorage.getItem("pid") == null) {
-        localStorage.setItem("pid", "nar")
+        localStorage.setItem("pid", "mesaj")
     } 
 }
 
