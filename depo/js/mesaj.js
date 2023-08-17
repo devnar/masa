@@ -29,7 +29,7 @@ month[10] = "Kasım";
 month[11] = "Aralık";
 
 // firebase
-const firebaseConfig = {apiKey: "AIzaSyBM4YWWGOhN0u_AX9QzGOm5qclRZ4YPMjA" ,projectId: "nar-masa",};
+const firebaseConfig = {projectId: "masa-"+localStorage.getItem("pid")};
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
@@ -41,22 +41,23 @@ function postChat(e) {
   const message = chatTxt.value;
   chatTxt.value = "";
   if (document.getElementById("cod").value == "") {
-    var x = "none";
-  };
+      var x = "none";
+  }
   if (document.getElementById("lnk").value == "") {
-    var y = "none";
-  };
+      var y = "none";
+  }
   db.ref("mesaj/" + timestamp).set({
       usr: document.getElementById("user").value,
       pp: document.getElementById("avatar").src,
-      msg: "<code style='display:"+x+"' href='"+ document.getElementById("cod").value +"'></code>" + message + "<a class='icon n-link' style='display:"+y+"' href='"+ document.getElementById("lnk").value +"'></a>",
-      img:document.getElementById("pic").value,
+      msg: "<code style='display:" + x + "'>" + document.getElementById("cod").value.replace(/</g, "<span class='icon n-chevron-left'></span>") + "'</code>" + message + "<a class='icon n-link' style='display:" + y + "' href='" + document.getElementById("lnk").value + "'></a>",
+      img: document.getElementById("pic").value,
       id: timestamp,
       time: n.getHours() + ":" + n.getMinutes() + " - " + n.getDate() + " " + month[n.getMonth()] + " " + n.getFullYear(),
   });
   document.getElementById("pic").value = "";
   document.getElementById("lnk").value = "";
-  closeBox()
+  document.getElementById("cod").value = "";
+  closeBox();
 }
 
 const fetchChat = db.ref("mesaj/");
@@ -78,7 +79,7 @@ fetchChat.on("child_added", function (snapshot) {
       "</p></td>" +
       "</tr>" +
       "<td></td>" +
-      "<td colspan='2'><p class='msgm'><img onerror='this.style.display = none' onclick='if (this.style.width != full) {this.style.width= full} else {this.style.width = normal}' src="+
+      "<td colspan='2'><p class='msgm'><img onerror='this.style.display = none' onclick='if (this.style.width != full) {this.style.width= full} else {this.style.width = normal}' src=" +
       messages.img +
       "></img>" +
       messages.msg +

@@ -3,6 +3,27 @@ body {
   font-family: "Roboto Slab", serif;
 }
 
+.sv {
+  max-width: 700px;
+  margin-top: 70px;
+  margin-bottom: 5px;
+  width: 100%;
+  display: inline-flex;
+  list-style: none;
+  background: white;
+  border-radius: 10px;
+}
+
+.sv li {
+  float: left;
+  margin: 10px;
+}
+
+.sv li img {
+  border-radius: 100%;
+  height: 30px;
+}
+
 .send-box {
   width: 100%;
   height: 100%;
@@ -50,10 +71,6 @@ body {
   border: 0;
   border-radius: 5px;
   background: white;
-}
-
-#messages {
-  margin-top: 70px;
 }
 
 #send-form {
@@ -154,15 +171,15 @@ body {
 }
 
 .msgm a {
-  width: 90%;
-  display: grid;
+  width: 93%;
+  display: inline-block;
   background: rgba(0,0,0,0.2);
   padding: 5px;
   border-radius: 10px;
   text-align: center;
   text-decoration: none;
+  margin: 5px;
 }
-
 .msgm img {
   width: 35%;
   height: auto;
@@ -172,7 +189,7 @@ body {
   border-radius: 10px 10px 10px 10px;
 }
 .msgm code {    
-  display: block;
+  display: table;
   font-family: "Nunito", sans-serif;
   background-color: rgba(0,0,0,0.2);
   padding: 5px;

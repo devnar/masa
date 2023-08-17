@@ -1,3 +1,36 @@
+function loaded() {
+    if (localStorage.getItem("thema") == null) {
+        localStorage.setItem("thema", "depo/css/l-main.css");
+    } else {
+        document.getElementById("l-d").href = localStorage.getItem("thema");
+    }
+    //pn
+    if (localStorage.getItem("pn") == null) {
+        localStorage.setItem("pn", "Anonim");
+    } else {
+        document.getElementById("user").value = localStorage.getItem("pn");
+    }
+    //pp
+    if (localStorage.getItem("pp") == null) {
+        localStorage.setItem("pp", "https://devnar.github.io/masa/depo/resimler/anonim.png");
+    } else {
+        document.getElementById("avatar").src = localStorage.getItem("pp");
+    }
+    //pin
+    if (localStorage.getItem("pinbox") == null) {
+        localStorage.setItem("pinbox", "<button onclick='pinboxdel()' class='pinboxdel'>Tüm kaydı sil</button>");
+    } else {
+        document.getElementById("myPinbox").innerHTML = localStorage.getItem("pinbox");
+    }
+    //pid
+    if (localStorage.getItem("pid") == 'null') {
+        localStorage.setItem("pid", "nar")
+    } 
+    if (localStorage.getItem("pid") == null) {
+        localStorage.setItem("pid", "nar")
+    } 
+}
+
 function pp() {
     var newVal = prompt("Profil Fotoğrafı'nın URL'si");
     if (newVal == null || newVal == "") {
@@ -27,35 +60,7 @@ function drop(event) {
     localStorage.setItem("pinbox", document.getElementById("myPinbox").innerHTML)
 }
 
-function loaded() {
-    if (localStorage.getItem("thema") == null) {
-        localStorage.setItem("thema", "depo/css/l-main.css");
-    } else {
-        document.getElementById("l-d").href = localStorage.getItem("thema");
-    }
-
-    //pn
-    if (localStorage.getItem("pn") == null) {
-        localStorage.setItem("pn", "Anonim");
-    } else {
-        document.getElementById("user").value = localStorage.getItem("pn");
-    }
-    //pp
-    if (localStorage.getItem("pp") == null) {
-        localStorage.setItem("pp", "https://devnar.github.io/masa/depo/resimler/anonim.png");
-    } else {
-        document.getElementById("avatar").src = localStorage.getItem("pp");
-    }
-    //pin
-    if (localStorage.getItem("pinbox") == null) {
-        localStorage.setItem("pinbox", "<button onclick='pinboxdel()' class='pinboxdel'>Tüm kaydı sil</button>");
-    } else {
-        document.getElementById("myPinbox").innerHTML = localStorage.getItem("pinbox");
-    }
-}
-
 // menü aç kapat
-
 function openNav() {
     document.getElementById("mySidenav").style.width = "45%";
     if (window.innerWidth < 1400) {
@@ -69,21 +74,24 @@ function closeNav() {
 }
 
 // Pin aç kapat
-
 function openPin() {
-    document.getElementById("myPinbox").style.width = "55%";
+    function x () {document.getElementById("myPinbox").style.width = "55%"}
+    setTimeout(x, 100);
+    document.getElementById("myPinbox").style.display = "block";
     if (window.innerWidth < 1400) {
         document.getElementById("pinCloser").style.width = "100%";
+        document.getElementById("myPinbox").style.display = "block";
     }
 }
 
 function closePin() {
     document.getElementById("myPinbox").style.width = "0";
     document.getElementById("pinCloser").style.width = "0";
+    function x () {document.getElementById("myPinbox").style.display = "none"}
+    setTimeout(x, 500);
 }
 
 // Paylaşım aç kapat
-
 function openBox() {
     document.getElementById("mySidebox").style.width = "100%";
     document.getElementById("mySidenav").style.width = "0";

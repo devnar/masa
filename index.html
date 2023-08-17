@@ -80,7 +80,7 @@
                             <li class="icon" id="ksayac">500</li>
                             <input class="box-input" id="pic" style="display: none;margin-bottom: 5px;" placeholder="Resim Ekle">
                             <input class="box-input" id="lnk" style="display: none;margin-bottom: 5px;" placeholder="Link Ekle">
-                            <input class="box-input" id="cod" style="display: none;margin-bottom: 5px;" placeholder="Kod ekle" disabled>
+                            <input class="box-input" id="cod" style="display: none;margin-bottom: 5px;" placeholder="Kod ekle" onchange="a(this.value)">
                         </td>
                     </tr>
                     <tr>
@@ -95,15 +95,23 @@
         <table width="100%" id="header">
             <tr width="100%">
                 <td width="30px">
-                    <img style="cursor: pointer;" onclick="openNav()" src="https://img.icons8.com/ios-glyphs/4x/fcc41d/menu.png" alt="menü aç" width="30px" id="menu" />
+                    <img style="cursor: pointer;" onclick="openNav()" src="https://img.icons8.com/ios-glyphs/4x/fcc41d/menu.png" alt="menü aç" width="30px" id="menu">
                 </td>
                 <td width="100%">
-                    <center><img src="depo/resimler/main.png" alt="MASA" width="40px" style="padding: 2px;"/></center>
+                    <center><img src="depo/resimler/main.png" alt="MASA" width="40px" style="padding: 2px;"></center>
                 </td>
-                <td width="30px"><img style="cursor: pointer;" onclick="openPin()" src="https://img.icons8.com/ios-glyphs/4x/fcc41d/pin.png" alt="menü aç" width="30px" id="menu" /></td>
+                <td width="30px"><img style="cursor: pointer;" onclick="openPin()" src="https://img.icons8.com/ios-glyphs/4x/fcc41d/pin.png" alt="menü aç" width="30px" id="menu"></td>
             </tr>
         </table>
-        <center><div id="messages" class="in"></div></center>
+        <center><div id="servers" class="sv">
+            <li onclick="localStorage.setItem('pid',prompt('projectId',));window.location.reload();">
+                <img src="https://img.icons8.com/ios-glyphs/4x/fcc41d/plus-math.png">
+            </li>
+            <li onclick="localStorage.setItem('pid','nar');window.location.reload();">
+                <img src="depo/resimler/main.png">
+            </li>
+        </div></center>
+        <center><div id="messages" class="msg"></div></center>
         <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
         <script src="depo/js/mesaj.js"></script>
