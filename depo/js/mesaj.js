@@ -46,7 +46,7 @@ function postChat(e) {
   if (document.getElementById("lnk").value == "") {
       var y = "none";
   }
-  db.ref(localStorage.getItem("pid") + timestamp).set({
+  db.ref(localStorage.getItem("pid")+ "/" + timestamp).set({
       usr: document.getElementById("user").value,
       pp: document.getElementById("avatar").src,
       msg: "<code style='display:" + x + "'>" + document.getElementById("cod").value.replace(/</g, "<span class='icon n-chevron-left'></span>") + "'</code>" + message + "<a class='icon n-link' style='display:" + y + "' href='" + document.getElementById("lnk").value + "'></a>",
