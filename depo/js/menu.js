@@ -1,4 +1,5 @@
 function loaded() {
+    getSv()
     if (localStorage.getItem("thema") == null) {
         localStorage.setItem("thema", "depo/css/l-main.css");
     } else {
@@ -60,6 +61,29 @@ function drop(event) {
     localStorage.setItem("pinbox", document.getElementById("myPinbox").innerHTML)
 }
 
+var pid = "pid";
+var mesaj = "mesaj";
+
+function getSv() {
+    if (localStorage.getItem("servers") == null) {
+        localStorage.setItem("servers","<li onclick='localStorage.setItem("+pid+","+mesaj+");window.location.reload();'><span>Masa</span></li>");
+        window.location.reload();
+    } else if (localStorage.getItem("servers") == "") {
+        localStorage.setItem("servers","<li onclick='localStorage.setItem("+pid+","+mesaj+");window.location.reload();'><span>Masa</span></li>");
+        window.location.reload();
+    } else {
+        document.getElementById("servers").innerHTML += localStorage.getItem("servers");
+    }
+    
+}
+
+function addSv(a) {
+    var x = prompt('Sunucu Adı',);
+    localStorage.setItem('pid',x)
+    localStorage.setItem("servers", localStorage.getItem("servers") + "<li onclick='localStorage.setItem("+pid+","+ x +");window.location.reload();'><span>"+ x +"</span></li>");
+    window.location.reload();
+}
+
 // menü aç kapat
 function openNav() {
     document.getElementById("mySidenav").style.width = "45%";
@@ -118,7 +142,7 @@ function inputImg() {
     var x = document.getElementById("x")
     var i = document.getElementById("Iimg")
     var y = document.getElementById("Ilnk")
-    var f = document.getElementById("Icod")
+    
     var s = document.getElementById("ksayac")
         
     if (p.style.display == none) {
@@ -128,13 +152,13 @@ function inputImg() {
         r.style.display = "none";
         i.style.display = "none";
         y.style.display = "none";
-        f.style.display = "none";
+       
         s.style.display = "none";
     } else {
         p.style.display = "none";
         i.style.display = "inline-block";
         y.style.display = "inline-block";
-        f.style.display = "inline-block";
+        
         s.style.display = "inline-block";
     }
 }
@@ -146,7 +170,7 @@ function inputCod() {
     var x = document.getElementById("x")
     var i = document.getElementById("Iimg")
     var y = document.getElementById("Ilnk")
-    var f = document.getElementById("Icod")
+    
     var s = document.getElementById("ksayac")
         
     if (r.style.display == none) {
@@ -156,13 +180,13 @@ function inputCod() {
         l.style.display = "none";
         i.style.display = "none";
         y.style.display = "none";
-        f.style.display = "none";
+       
         s.style.display = "none";
     } else {
         r.style.display = "none";
         i.style.display = "inline-block";
         y.style.display = "inline-block";
-        f.style.display = "inline-block";
+        
         s.style.display = "inline-block";
     }
 }
@@ -174,7 +198,7 @@ function inputLnk() {
     var x = document.getElementById("x")
     var i = document.getElementById("Iimg")
     var y = document.getElementById("Ilnk")
-    var f = document.getElementById("Icod")
+    
     var s = document.getElementById("ksayac")
         
     if (p.style.display == none) {
@@ -184,13 +208,13 @@ function inputLnk() {
         r.style.display = "none";
         i.style.display = "none";
         y.style.display = "none";
-        f.style.display = "none";
+       
         s.style.display = "none";
     } else {
         l.style.display = "none";
         i.style.display = "inline-block";
         y.style.display = "inline-block";
-        f.style.display = "inline-block";
+        
         s.style.display = "inline-block";
     }
 }
@@ -202,12 +226,12 @@ function clsInput() {
     var x = document.getElementById("x")
     var i = document.getElementById("Iimg")
     var y = document.getElementById("Ilnk")
-    var f = document.getElementById("Icod")
+    
     var s = document.getElementById("ksayac")
         
     i.style.display = "inline-block";
     y.style.display = "inline-block";
-    f.style.display = "inline-block";
+    
     s.style.display = "inline-block";
     p.style.display = "none";
     l.style.display = "none";

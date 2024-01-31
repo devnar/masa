@@ -1,9 +1,17 @@
+:root {
+  --background-color: #0d1117;
+  --text-color: white;
+  --highlight-color: #fcc41d;
+  --border-radius: 10px;
+}
+
 * {
   font-family: 'Nunito', sans-serif;
 }
 
 body {
-  background: #0d1117;
+  background: var(--background-color);
+  color: var(--text-color);
   font-family: "Roboto Slab", serif;
 }
 
@@ -14,16 +22,26 @@ body {
   width: 100%;
   display: inline-flex;
   list-style: none;
-  background: #1d2126;
-  border-radius: 10px;
 }
 
 .sv li {
   float: left;
-  margin: 10px;
+  margin-right: 10px;
+  background-color: #1d2126;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex; /* Dikeyde ortaya hizalamak için flex container yapısı oluşturuyoruz */
+    align-items: center; /* Dikeyde ortaya hizalamak için kullanılır */
+}
+
+.sv li span {
+  cursor: pointer;
+  margin-top: 10px;
+  margin: auto; /* Dikeyde ve yatayda ortaya hizalamak için kullanılır */
 }
 
 .sv li img {
+  cursor: pointer;
   border-radius: 100%;
   height: 30px;
 }
@@ -40,7 +58,7 @@ body {
   padding: 10px;
   text-align: center;
   display: inline-block;
-  background: #0d1117;
+  background: var(--background-color);
   font-size: 20px;
   border-radius: 10px;
   margin: 5px;
@@ -52,7 +70,7 @@ body {
   height: 50px;
   color: white;
   border: 0;
-  background: #0d1117;
+  background: var(--background-color);
   outline: none;
   border-radius: 5px;
   padding: 5px;
@@ -64,7 +82,7 @@ body {
   height: 100%;
   color: white;
   border: 0;
-  background: #0d1117;
+  background: var(--background-color);
   outline: none;
   border-radius: 5px;
   padding: 5px;
@@ -79,7 +97,7 @@ body {
   border-radius: 5px;
   height: 50px;
   border: 0;
-  background: #0d1117;
+  background: var(--background-color);
   font-size: 20px;
   padding: 10px;
 }
@@ -103,7 +121,7 @@ body {
   height: 47px;
   color: #000;
   border: 0;
-  background: #fcc41d;
+  background: var(--highlight-color);
   border-radius: 10px 10px 10px 10px;
 }
 
@@ -125,11 +143,11 @@ body {
 }
 
 .btn-footer a:hover {
-  color: #fcc41d;
+  color: var(--highlight-color);
 }
 
 .btn-footer a:active {
-  color: #fcc41d;
+  color: var(--highlight-color);
 }
 
 .msgb {
@@ -144,7 +162,7 @@ body {
 }
 
 .msgb:target {
-  background: #fcc41d;
+  background: var(--highlight-color);
 }
 
 .msga {
@@ -152,7 +170,7 @@ body {
   height: 50px;
   float: left;
   color: white;
-  background: #0d1117;
+  background: var(--background-color);
   border-radius: 20px 100% 100% 100%;
 }
 
@@ -169,7 +187,7 @@ body {
 }
 
 .msgm a:link {
-  color: #fcc41d;
+  color: var(--highlight-color);
 }
 
 .msgm a:visited {
@@ -187,7 +205,7 @@ body {
 .msgm a {
   width: 93%;
   display: inline-block;
-  background: #0d1117;
+  background: var(--background-color);
   padding: 5px;
   border-radius: 10px;
   text-align: center;
@@ -201,15 +219,6 @@ body {
   margin-right: 20px;
   margin-bottom: 20px;
   border-radius: 10px 10px 10px 10px;
-}
-.msgm code {    
-  display: table;
-  font-family: "Nunito", sans-serif;
-  color: #8bc34a;
-  background-color: #0d1117;
-  padding: 5px;
-  border-radius: 10px;
-  margin: 10px;
 }
 
 /* menü */
@@ -308,7 +317,7 @@ body {
 }
 
 .sidenav a:hover {
-  color: #fcc41d;
+  color: var(--highlight-color);
 }
 
 .sidenav .closebtn {
@@ -357,7 +366,7 @@ body {
 }
 
 .sidebox a:hover {
-  color: #fcc41d;
+  color: var(--highlight-color);
 }
 
 .sidebox .closebtn {
@@ -403,7 +412,7 @@ body {
   margin-left: 5%;
   margin-right: 5%;
   margin-top: 10px;
-  background-color: #0d1117;
+  background-color: var(--background-color);
   color: white;
   border: 0;
   border-radius: 10px;

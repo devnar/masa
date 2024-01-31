@@ -3,7 +3,7 @@
     <head>
         <title>MASA</title>
         <!-- meta -->
-        <meta name="viewport" content="width=device-width,  initial-scale=1, maximum-scale=1 user-scalable=0" />
+        <meta name="viewport" content="width=device-width,  initial-scale=1, maximum-scale=1 user-scalable=no" />
         <meta name="description" content="MASA, Haberleşme, Eğlence ve Paylaşım Topluluğudur. hadi sende bir sandalye çek ve aramıza otur!" />
         <meta name="copyright" content="MASA © 2021 Tüm hakları saklı" />
         <meta name="keywords" content="MASA, MASA sohbet, yerli, masa topluluk, masa sosyal, masa sosyal medya, türk yapımı, konuşma, eğlen, Haberleş, Topluluk, sohbet, yeni, türkiye" />
@@ -53,7 +53,9 @@
             <hr class="cizgi" />
             <div class="back2">
                 <a onclick="openBox()">Paylaş</a>
-                <input class="search" oninput="n1.filterHTML('#messages', 'li', this.value)" placeholder="Mesajlarda Ara...">
+            </div>
+            <div class="back2">
+                <h4>Ayarlar</h4>
                 <select onchange="tema()" id="thema">
                     <option selected>Tema Seç...</option>
                     <option name="#000000" value="depo/css/l-main.css">Açık Tema</option>
@@ -75,7 +77,6 @@
                         <td class="box">
                             <li class="icon n-x" id="x" style="display: none;" onclick="clsInput()"></li>
                             <li class="icon n-image-add" id="Iimg" onclick="inputImg()"></li>
-                            <li class="icon n-code" id="Icod" onclick="inputCod()"></li>
                             <li class="icon n-link" id="Ilnk" onclick="inputLnk()"></li>
                             <li class="icon" id="ksayac">500</li>
                             <input class="box-input" id="pic" style="display: none;margin-bottom: 5px;" placeholder="Resim Ekle">
@@ -94,21 +95,14 @@
         </div>
         <table width="100%" id="header">
             <tr width="100%">
-                <td width="30px">
-                    <img style="cursor: pointer;" onclick="openNav()" src="https://img.icons8.com/ios-glyphs/4x/fcc41d/menu.png" alt="menü aç" width="30px" id="menu">
-                </td>
-                <td width="100%">
-                    <center><img src="depo/resimler/main.png" alt="MASA" width="40px" style="padding: 2px;"></center>
-                </td>
+                <td width="30px"><img style="cursor: pointer;" onclick="openNav()" src="https://img.icons8.com/ios-glyphs/4x/fcc41d/menu.png" alt="menü aç" width="30px" id="menu"></td>
+                <td width="100%"><center><img src="depo/resimler/main.png" alt="MASA" width="40px" style="padding: 2px;"></center></td>
                 <td width="30px"><img style="cursor: pointer;" onclick="openPin()" src="https://img.icons8.com/ios-glyphs/4x/fcc41d/pin.png" alt="menü aç" width="30px" id="menu"></td>
             </tr>
         </table>
         <center><div id="servers" class="sv">
-            <li onclick="localStorage.setItem('pid',prompt('Sunucu Adı',));window.location.reload();">
-                <img src="https://img.icons8.com/ios-glyphs/4x/fcc41d/plus-math.png">
-            </li>
-            <li onclick="localStorage.setItem('pid','mesaj');window.location.reload();">
-                <img src="depo/resimler/main.png">
+            <li onclick="addSv()">
+                <img src="https://img.icons8.com/ios-glyphs/4x/fcc41d/add.png">
             </li>
         </div></center>
         <center><div id="messages" class="msg"></div></center>
