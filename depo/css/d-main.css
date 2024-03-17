@@ -30,8 +30,8 @@ body {
   background-color: #1d2126;
   padding: 10px;
   border-radius: 10px;
-  display: flex; /* Dikeyde ortaya hizalamak için flex container yapısı oluşturuyoruz */
-    align-items: center; /* Dikeyde ortaya hizalamak için kullanılır */
+  display: flex;
+  align-items: center;
 }
 
 .sv li span {

@@ -61,30 +61,34 @@ function drop(event) {
     localStorage.setItem("pinbox", document.getElementById("myPinbox").innerHTML)
 }
 
-var pid = "pid";
-var mesaj = "mesaj";
 
 function getSv() {
     if (localStorage.getItem("servers") == null) {
-        localStorage.setItem("servers","<li onclick='localStorage.setItem("+pid+","+mesaj+");window.location.reload();'><span>Masa</span></li>");
+        localStorage.setItem("servers","<li><span>masa</span></li>");
         window.location.reload();
     } else if (localStorage.getItem("servers") == "") {
-        localStorage.setItem("servers","<li onclick='localStorage.setItem("+pid+","+mesaj+");window.location.reload();'><span>Masa</span></li>");
+        localStorage.setItem("servers","<li><span>masa</span></li>");
         window.location.reload();
     } else {
         document.getElementById("servers").innerHTML += localStorage.getItem("servers");
     }
     
+    document.querySelectorAll("#servers li span").forEach(function(item) {
+        item.addEventListener('click', function() {
+            localStorage.setItem("pid",this.textContent);window.location.reload();
+        });
+    });
 }
 
 function addSv(a) {
     var x = prompt('Sunucu Adı',);
-    localStorage.setItem('pid',x)
-    localStorage.setItem("servers", localStorage.getItem("servers") + "<li onclick='localStorage.setItem("+pid+","+ x +");window.location.reload();'><span>"+ x +"</span></li>");
-    window.location.reload();
+    if (x !== null) {
+        localStorage.setItem('pid',x)
+        localStorage.setItem("servers", localStorage.getItem("servers") + "<li><span>"+ x +"</span></li>");
+        window.location.reload();
+    }
 }
 
-// menü aç kapat
 function openNav() {
     document.getElementById("mySidenav").style.width = "45%";
     if (window.innerWidth < 1400) {

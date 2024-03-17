@@ -14,16 +14,26 @@ body {
   width: 100%;
   display: inline-flex;
   list-style: none;
-  background: white;
-  border-radius: 10px;
 }
 
 .sv li {
   float: left;
-  margin: 10px;
+  margin-right: 10px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.sv li span {
+  cursor: pointer;
+  margin-top: 10px;
+  margin: auto; /* Dikeyde ve yatayda ortaya hizalamak için kullanılır */
 }
 
 .sv li img {
+  cursor: pointer;
   border-radius: 100%;
   height: 30px;
 }
