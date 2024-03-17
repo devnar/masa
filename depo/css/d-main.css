@@ -35,6 +35,7 @@ body {
 }
 
 .sv li span {
+  user-select: none;
   cursor: pointer;
   margin-top: 10px;
   margin: auto; /* Dikeyde ve yatayda ortaya hizalamak için kullanılır */
