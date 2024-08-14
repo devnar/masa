@@ -1,0 +1,163 @@
+:root {
+  --background-color: #0d1117;
+  --text-color: #fff;
+  --nav-bg-color: #1d2126;
+  --header-bg-color: #30343a;
+  --post-bg-color: #1d2126;
+  --user-info-bg-color: #fff;
+}
+
+[data-theme='light'] {
+  --background-color: #eee;
+  --text-color: #000;
+  --nav-bg-color: #fff;
+  --header-bg-color: #eee;
+  --post-bg-color: #fff;
+  --user-info-bg-color: #000;
+}
+
+* {
+  font-family: 'Nunito', sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--background-color);
+  color: var(--text-color);
+  font-family: "Roboto Slab", serif;
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--nav-bg-color);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+nav img {
+  width: 40px;
+  height: auto;
+}
+
+nav .icons {
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+  align-items: center;
+}
+
+nav .icons li {
+  list-style: none;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+nav .icons img {
+  border-radius: 50% 10px 50% 50%;
+}
+
+header {
+  padding: 20px;
+  max-width: 700px;
+  width: 100%;
+  margin: 70px auto 0;
+  display: flex;
+  justify-content: left;
+  gap: 10px;
+}
+
+header .server {
+  background-color: var(--nav-bg-color);
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+main {
+  padding: 20px;
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.post {
+  background-color: var(--post-bg-color);
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.post .server {
+  width: fit-content;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 2px;
+  background-color: var(--header-bg-color);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-info img {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px 50% 50% 50%;
+}
+
+.user-info .username {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.user-info .date {
+  margin-left: auto;
+  font-size: 12px;
+}
+
+.post-content {
+  display: flex;
+  gap: 10px;
+}
+
+.post-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 18px;
+  color: var(--text-color);
+}
+
+.post-body {
+  flex: 1;
+}
+
+.post-body p {
+  margin: 0;
+}
+
+.post-body img {
+  width: calc(100% - 30px);
+  height: auto;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.post-body a {
+  color: #fcc41d;
+}

@@ -1,0 +1,53 @@
+<body>
+    <head>
+        <title>MASA - Sign up</title>
+        <!-- meta -->
+        <meta name="viewport" content="width=device-width,  initial-scale=1, maximum-scale=1 user-scalable=no" />
+        <meta name="description" content="MASA, Haberleşme, Eğlence ve Paylaşım Topluluğudur. hadi sende bir sandalye çek ve aramıza otur!" />
+        <meta name="copyright" content="MASA © 2021 Tüm hakları saklı" />
+        <meta name="keywords" content="MASA, MASA sohbet, yerli, masa topluluk, masa sosyal, masa sosyal medya, türk yapımı, konuşma, eğlen, Haberleş, Topluluk, sohbet, yeni, türkiye" />
+        <!-- /robots -->
+        <meta name="robots" content="index,follow" />
+        <meta name="revisit-after" content="1 days" />
+        <!-- /site hakkında -->
+        <meta property="og:title" content="MASA" />
+        <meta property="og:description" content="Haberleşme, Eğlence ve Paylaşım Topluluğudur. hadi sende bir sandalye çek ve aramıza otur!" />
+        <meta property="og:image" content="https://devnar.github.io/logos/masa.png" />
+        <!-- link -->
+        <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@350&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet" />
+        <link rel="shortcut icon" type="image/png" href="https://devnar.github.io/logos/masa.png" />
+        <link id="theme" rel="stylesheet" href="assets/css/sign.css" />
+        <!-- script -->
+        <script src="assets/js/menu.js"></script>
+    </head>
+    <li id="theme-toggle" class="bx bx-moon"></li>
+	<div class="main">
+        <input type="checkbox" id="chk" aria-hidden="true">
+        <div class="signup">
+            <form id="signup-form">
+                <label for="chk" aria-hidden="true">Sign up</label>
+                <input type="text" id="signup-username" name="txt" placeholder="User Name" required>
+                <input type="email" id="signup-email" name="email" placeholder="Email" required>
+                <input type="password" id="signup-password" name="pswd" placeholder="Password" required>
+                <button type="submit">Sign up</button>
+            </form>
+        </div>
+
+        <div class="login">
+            <form id="login-form">
+                <label for="chk" aria-hidden="true">Sign in</label>
+                <input type="email" id="login-email" name="email" placeholder="Email" required>
+                <input type="password" id="login-password" name="pswd" placeholder="Password" required>
+                <button type="submit">Sign in</button>
+            </form>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+    <script src="assets/js/sign.js"></script>
+</body>
