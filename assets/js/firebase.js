@@ -219,10 +219,10 @@ function updateUI(user) {
                 console.error("Error fetching profile data:", error);
             });
     } else {
-        if (window.location.pathname == "/index.html") {
+        if (window.location.pathname == "/index.html" || window.location.pathname == "/masa/") {
             localStorage.setItem("profilepic", "https://pbs.twimg.com/profile_images/1545518896874242055/s8icSRfU_400x400.jpg");
             localStorage.setItem("username", "Anonim");
-            localStorage.setItem("tags", JSON.stringify(["duyurular","genel"]));
+            localStorage.setItem("tags", JSON.stringify(["duyurular","genel","ana masa"]));
         } else {window.location.href = "sign.html"}
     }
 }

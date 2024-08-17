@@ -21,8 +21,20 @@ function pencil() {
     window.location.href = "editor.html"
 }
 
-function sign() {
-    window.location.href = "sign.html"
+function toggleProfilePopup() {
+    var popup = document.getElementById("profile-popup");
+    if (popup.style.display === "none" || popup.style.display === "") {
+        popup.style.display = "block";
+    } else {
+        popup.style.display = "none";
+    }
+}
+
+window.onclick = function(event) {
+    var popup = document.getElementById("profile-popup");
+    if (event.target !== popup && !popup.contains(event.target) && event.target !== document.getElementById("profile-pic")) {
+        popup.style.display = "none";
+    }
 }
 
 function soon() {

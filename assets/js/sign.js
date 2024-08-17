@@ -19,7 +19,7 @@ document.getElementById("signup-form").addEventListener("submit", function (even
     const username = document.getElementById("signup-username").value;
     const email = document.getElementById("signup-email").value;
     const password = document.getElementById("signup-password").value;
-    const tags = ["duyurular", "@" + username];
+    const tags = ["duyurular", "ana masa", "@" + username];
 
     // Kullanıcı adı benzersizliğini kontrol et
     db.ref("duvar")

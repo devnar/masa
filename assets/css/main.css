@@ -64,6 +64,50 @@ nav .icons img {
   border-radius: 50% 10px 50% 50%;
 }
 
+.profile-popup {
+  display: none;
+  position: fixed;
+  top: 80px; 
+  right: 20px; 
+  background-color: var(--post-bg-color);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 10px;
+  z-index: 1000;
+}
+
+.profile-popup h2 {
+  margin: 0;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--header-bg-color);
+  color: var(--text-color);
+
+}
+
+.profile-popup ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0;
+  border-bottom: 1px solid var(--header-bg-color);
+}
+
+.profile-popup ul li {
+  margin: 5px 0;
+}
+
+.profile-popup ul li a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.profile-popup .logout {
+  display: block;
+  margin-top: 10px;
+  color: red;
+  text-decoration: none;
+  font-weight: bold;
+}
+
 header {
   padding: 20px;
   max-width: 700px;
@@ -72,6 +116,8 @@ header {
   display: flex;
   justify-content: left;
   gap: 10px;
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
 header .server {
