@@ -11,7 +11,7 @@
   --background-color: #eee;
   --text-color: #000;
   --nav-bg-color: #fff;
-  --header-bg-color: #eee;
+  --header-bg-color: #fcc41d;
   --post-bg-color: #fff;
   --user-info-bg-color: #000;
 }
@@ -67,45 +67,108 @@ nav .icons img {
 .profile-popup {
   display: none;
   position: fixed;
-  top: 80px; 
-  right: 20px; 
+  top: 90px;
+  left: 20px;
   background-color: var(--post-bg-color);
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  border-radius: 15px; 
   z-index: 1000;
+  max-width: 300px;
+  width: 100%;
 }
 
-.profile-popup h2 {
-  margin: 0;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--header-bg-color);
+@media (max-width: 1200px) {
+  .profile-popup {
+    top: 90px;
+    right: 20px;
+    max-width: 250px;
+  }
+
+  .sidebar {
+    display: none;
+  }
+}
+
+#card-username {
+  font-size: xx-large;
+  position: absolute;
+  top: 40px;
+  left: 130px;
+}
+
+#card-pfp {
+  border-radius: 50%;
+  width: 100px;
+  margin-bottom: 10px;
+  font-size: xx-large;
+}
+
+.logout {
+  width: 100%;
+  text-align: center;
+  padding: 10px;
   color: var(--text-color);
-
+  font-weight: bold;
+  cursor: pointer;
+  display: none;
+  background-color: var(--header-bg-color);
+  border-radius: 10px;
 }
 
-.profile-popup ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 10px 0;
-  border-bottom: 1px solid var(--header-bg-color);
-}
-
-.profile-popup ul li {
+#card-user-info h4, #card-user-info p, #card-user-info textarea {
   margin: 5px 0;
 }
 
-.profile-popup ul li a {
-  text-decoration: none;
+#card-note-content {
+  width: 100%;
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid var(--header-bg-color);
+  background-color: var(--nav-bg-color);
+  color: var(--text-color);
+  resize: none;
+}
+
+.sidebar {
+  width: 250px;
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  background-color: var(--nav-bg-color);
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.sidebar button {
+  width: 100%;
+  margin-top: 70px;
+  background: var(--nav-bg-color);
+  border-radius: 10px;
+  border: 1px solid var(--text-color);
   color: var(--text-color);
 }
 
-.profile-popup .logout {
-  display: block;
-  margin-top: 10px;
-  color: red;
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin-bottom: 10px;
+}
+
+.sidebar a {
+  color: var(--text-color);
   text-decoration: none;
-  font-weight: bold;
+  font-size: 18px;
+  font-family: 'Roboto Slab', serif;
+}
+
+.sidebar a:hover {
+  text-decoration: underline;
 }
 
 header {
@@ -144,6 +207,10 @@ main {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.post:target {
+  background-color:var(--header-bg-color);
 }
 
 .post .server {
@@ -206,4 +273,11 @@ main {
 
 .post-body a {
   color: #fcc41d;
+}
+
+.post-body article {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: var(--header-bg-color);
+  border-radius: 10px;
 }

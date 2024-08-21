@@ -24,15 +24,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const tags = localStorage.getItem("tags");
     const userSources = tags ? JSON.parse(tags) : [];
     const allMessages = [];
-    const promises = userSources.map(source => 
-        db.ref(source).once("value")
-            .then(snapshot => {
-                snapshot.forEach(childSnapshot => {
+    const promises = userSources.map((source) =>
+        db
+            .ref(source)
+            .once("value")
+            .then((snapshot) => {
+                snapshot.forEach((childSnapshot) => {
                     const messages = childSnapshot.val();
                     allMessages.push({ source, ...messages });
                 });
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error(`Error fetching data from ${source}:`, error);
             })
     );
@@ -43,23 +45,25 @@ document.addEventListener("DOMContentLoaded", () => {
             const messagesContainer = document.getElementById("messages");
             const messageFragments = document.createDocumentFragment();
 
-            allMessages.forEach(message => {
+            allMessages.forEach((message) => {
                 const messageHTML = document.createElement("div");
                 messageHTML.classList.add("post");
                 messageHTML.id = message.id;
-                const formattedSource = message.source.startsWith('@') ? message.source : `#${message.source}`;
+                const formattedSource = message.source.startsWith("@") ? message.source : `#${message.source}`;
+                const formatRedirect = `${message.source}#${message.id}`;
+                
                 messageHTML.innerHTML = `
-                    <div class='user-info'>
-                        <img src='${message.pp}' alt='user'>
+                    <div class='user-info' >
+                        <img src='${message.pp}' alt='user' onclick='updateUserProfile("${message.uid}")'>
                         <span class='username'>${message.usr}</span>
                         <div class='server'>${formattedSource}</div>
                         <span class='date'>${message.time}</span>
                     </div>
                     <div class='post-content'>
                         <div class='post-icons'>
-                            <li class='bx bx-share' onclick='soon()'></li>
-                            <li class='bx bx-bookmark' onclick='soon()'></li>
-                            <li class='bx bx-flag' onclick='soon()'></li>
+                            <li class='bx bx-share' onclick='redirectToEditor("${formatRedirect}")'></li>
+                            <li class='bx bx-bookmark' onclick='bookmarked(${message.id})'></li>
+                            <li class='bx bx-flag' onclick='flag("${formatRedirect}")'></li>
                         </div>
                         <div class='post-body'>
                             <img onerror='this.style.display = "none"' src='${message.img}'></img>
@@ -68,11 +72,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                 `;
                 messageFragments.appendChild(messageHTML);
-            });
+            });            
 
             messagesContainer.appendChild(messageFragments);
         })
-        .catch(error => {
+        .catch((error) => {
             console.error("Error loading all data:", error);
         });
 });
@@ -88,14 +92,23 @@ document.addEventListener("DOMContentLoaded", () => {
         const element = document.createElement(type);
         element.contentEditable = true;
         element.classList.add("editable-element");
-        addLinkConversionListeners(element); // Add link conversion functionality
+        addLinkConversionListeners(element); 
         return element;
+    };
+
+    const addElementBeforeOriginalMessage = (newElement) => {
+        const originalMessage = document.querySelector(".original-message"); // or another method to select the original message
+        if (originalMessage) {
+            editableArea.insertBefore(newElement, originalMessage);
+        } else {
+            editableArea.appendChild(newElement); // Fallback if #original-message is not found
+        }
     };
 
     addText.addEventListener("click", () => {
         const textElement = createElement("div");
         textElement.innerText = "New Text";
-        editableArea.appendChild(textElement);
+        addElementBeforeOriginalMessage(textElement);
     });
 
     addList.addEventListener("click", () => {
@@ -103,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const listItem = document.createElement("li");
         listItem.innerText = "New List Item";
         listElement.appendChild(listItem);
-        editableArea.appendChild(listElement);
+        addElementBeforeOriginalMessage(listElement);
     });
 
     addImage.addEventListener("click", () => {
@@ -119,13 +132,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 imgElement.src = e.target.result;
                 imgElement.alt = "Image";
                 imgElement.classList.add("editable-element");
-                editableArea.appendChild(imgElement);
+                addElementBeforeOriginalMessage(imgElement);
             };
             reader.readAsDataURL(file);
         }
     });
 
     document.getElementById("sendBox").addEventListener("submit", postChat);
+
     function addLinkConversionListeners(element) {
         element.addEventListener("input", convertLinks);
         element.addEventListener("paste", function () {
@@ -172,57 +186,165 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+
 // Create post
 
 function postChat(e) {
     e.preventDefault();
     const timestamp = Date.now();
-    const elements = document.querySelectorAll('#editable-area .editable-element');
+    const elements = document.querySelectorAll("#editable-area .editable-element");
+    const user = firebase.auth().currentUser;
 
-    elements.forEach(element => {
-        element.setAttribute('contentEditable', 'false');
-        element.classList.remove('editable-element');
+    const urlParams = new URLSearchParams(window.location.search);
+    const replyToId = urlParams.get('replyTo');
+
+    elements.forEach((element) => {
+        element.setAttribute("contentEditable", "false");
+        element.classList.remove("editable-element");
     });
 
-    db.ref(`${document.getElementById("tags").value}/${timestamp}`).set({
-        usr: localStorage.getItem("username"),
-        pp: localStorage.getItem("profilepic"),
-        msg: document.getElementById("editable-area").innerHTML,
-        id: timestamp,
-        time: `${new Date().getHours()}:${new Date().getMinutes()} - ${new Date().getDate()} ${monthNames[new Date().getMonth()]} ${new Date().getFullYear()}`,
-    })
-    .then(() => {
-        document.getElementById("editable-area").innerHTML = "";
-        document.getElementById("tags").value = "";
-    })
-    .catch((error) => {
-        console.error("Error sending message:", error);
-    });
+    db.ref(`${document.getElementById("tags").value}/${timestamp}`)
+        .set({
+            uid: user.uid,
+            usr: localStorage.getItem("username"),
+            pp: localStorage.getItem("profilepic"),
+            msg: document.getElementById("editable-area").innerHTML,
+            id: timestamp,
+            time: `${new Date().getHours()}:${new Date().getMinutes()} - ${new Date().getDate()} ${monthNames[new Date().getMonth()]} ${new Date().getFullYear()}`,
+            replyTo: replyToId || null,
+        })
+        .then(() => {
+            document.getElementById("editable-area").innerHTML = "";
+            document.getElementById("tags").value = "";
+        })
+        .catch((error) => {
+            console.error("Error sending message:", error);
+        });
+}
+
+
+window.addEventListener('DOMContentLoaded', (event) => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const replyToId = urlParams.get('replyTo');
+    const source = urlParams.get('source');
+    document.getElementById("tags").value = source;
+
+    if (replyToId && source) {
+        // Fetch the original message from your database using the source and ID
+        db.ref(`${source}/${replyToId}`).once('value').then((snapshot) => {
+            const originalMessage = snapshot.val();
+            if (originalMessage) {
+                displayOriginalMessage(originalMessage);
+            }
+        }).catch((error) => {
+            console.error("Error fetching original message:", error);
+        });
+    }
+});
+
+
+function displayOriginalMessage(message) {
+    const originalMessageDiv = document.createElement('div');
+    originalMessageDiv.classList.add('original-message');
+    
+    originalMessageDiv.innerHTML = `
+    <article><a href='#${message.id}'>
+        <div class="user-info">
+            <span class="username">${message.usr}</span>
+            <span class="date">${message.time}</span>
+        </div>
+        <div class="post-content">${message.msg}</div>
+    </a></article>
+        
+    `;
+
+    // Insert the original message before the editable area
+    originalMessageDiv.classList.add('original-message');
+
+    // 'editable-area' ID'sine sahip elemente erişin
+    const editorArea = document.getElementById('editable-area');
+
+    // 'originalMessageDiv' öğesini 'editorArea' elementinin içine ekleyin
+    editorArea.appendChild(originalMessageDiv);
 }
 
 // Fetch user profile data
 function updateUI(user) {
     if (user) {
-        db.ref(`duvar/${user.uid}`).once("value")
-            .then(snapshot => {
+        db.ref(`duvar/${user.uid}`)
+            .once("value")
+            .then((snapshot) => {
                 const userData = snapshot.val();
                 if (userData) {
-                    document.getElementById("profile-pic").src = userData.pp;
                     localStorage.setItem("profilepic", userData.pp);
                     localStorage.setItem("username", userData.username);
                     localStorage.setItem("tags", JSON.stringify(userData.followTags));
+                    
+                    document.getElementById("profile-pic").src = localStorage.getItem("profilepic");
+                    document.getElementById("card-pfp").src = localStorage.getItem("profilepic");
+                    document.getElementById("card-username").innerText = userData.username;
+                    document.getElementById("card-label-content").innerText = userData.followTags;
+                    document.querySelector(".logout").style.display = "inline-block";
+
+                    // Followed tags HTML integration
+                    const followedTagsContainer = document.getElementById("servers");
+
+                    userData.followTags.slice(2).forEach(tag => {
+                        followedTagsContainer.innerHTML += `<div class="server">${tag} <i class="bx bx-x"></i></div>`;
+                    });
                 } else {
                     console.error("User data not found.");
                 }
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error("Error fetching profile data:", error);
             });
     } else {
         if (window.location.pathname == "/index.html" || window.location.pathname == "/masa/") {
             localStorage.setItem("profilepic", "https://pbs.twimg.com/profile_images/1545518896874242055/s8icSRfU_400x400.jpg");
             localStorage.setItem("username", "Anonim");
-            localStorage.setItem("tags", JSON.stringify(["duyurular","genel","ana masa"]));
-        } else {window.location.href = "sign.html"}
+            localStorage.setItem("tags", JSON.stringify(["duyurular", "ortak"]));
+            document.getElementById("servers").innerHTML += `<div class="server">ortak</div>`;
+        } else {
+            window.location.href = "sign.html";
+        }
     }
+}
+
+function logout() {
+    firebase
+        .auth()
+        .signOut()
+        .then(() => {
+            console.log("signOut");window.location.href = "sign.html";
+        })
+        .catch((error) => {
+            console.error("Error sending message:", error);
+        });
+}
+
+function updateUserProfile(userId) {
+    const user = firebase.auth().currentUser
+    const userRef = db.ref("duvar/" + userId);
+
+    userRef.once("value")
+        .then(snapshot => {
+            const userData = snapshot.val();
+            if (userData) {
+                document.getElementById("card-pfp").src = userData.pp;
+                document.getElementById("card-username").innerText = userData.username;
+                document.getElementById("card-label-content").innerText = userData.followTags.join(', ');
+                document.getElementById("profile-popup").style.display = "block";
+                if (user.uid != userId) {
+                    document.querySelector(".logout").style.display = "none";
+                } else {
+                    document.querySelector(".logout").style.display = "inline-block";
+                }
+            } else {
+                console.error("Kullanıcı verileri bulunamadı.");
+            }
+        })
+        .catch(error => {
+            console.error("Profil alınırken hata oluştu:", error);
+        });
 }

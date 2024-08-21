@@ -25,31 +25,42 @@
         <link id="theme" rel="stylesheet" href="assets/css/main.css" />
         <!-- script -->
         <script src="assets/js/menu.js"></script>
-        <script>var none = "none";</script>
+        <script>
+            var none = "none";
+        </script>
     </head>
     <body>
         <nav>
-            <img onclick="main()" class="image" src="https://devnar.github.io/logos/masa.png"></img>
+            <img onclick="main()" class="image" src="https://devnar.github.io/logos/masa.png" />
             <div class="icons">
                 <li onclick="pencil()" class="bx bx-pencil"></li>
-                <li onclick="soon()" class="bx bx-bookmarks"></li>
+                <li onclick="toggleBookmarks()" class="bx bx-bookmarks"></li>
                 <li onclick="soon()" class="bx bx-gift"></li>
                 <li id="theme-toggle" class="bx bx-moon"></li>
-                <li onclick="toggleProfilePopup()"><img id="profile-pic" src="https://pbs.twimg.com/profile_images/1545518896874242055/s8icSRfU_400x400.jpg"></li>
+                <li onclick="toggleProfilePopup()"><img id="profile-pic" src="https://pbs.twimg.com/profile_images/1545518896874242055/s8icSRfU_400x400.jpg" /></li>
             </div>
         </nav>
         <div id="profile-popup" class="profile-popup">
-            <h2>Duvarım</h2>
-            <ul>
-                <li><a href="#">Bilgilerim</a></li>
-                <li><a href="#">Masalarım</a></li>
-            </ul>
+            <div id="card">
+                <div id="card-content">
+                    <img id="card-pfp" src="https://pbs.twimg.com/profile_images/1545518896874242055/s8icSRfU_400x400.jpg"/>
+                    <div id="card-user-info">
+                        <h4 id="card-username"></h4>
+                        <h4 id="card-label-aboutme">Katıldığım Masalar</h4>
+                        <p id="card-label-content"></p>
+                        <h4 id="card-label-note">Not</h4>
+                        <textarea placeholder="Click to add a note" id="card-note-content" type="text" onkeypress="this.value = this.value.substring(0,256);"></textarea>
+                    </div>
+                </div>
+            </div>
             <a onclick="logout()" class="logout">Çıkış Yap</a>
         </div>
-        <header class="servers">
+        <div id="sidebar" class="sidebar">
+            <button onclick="clearBookmarks()">Temizle</button>
+            <ul id="bookmarks-list"></ul>
+        </div>
+        <header id="servers" class="servers">
             <div class="server">duyurular <i class="bx bx-bell"></i></div>
-            <!--<div class="server">genel <i class="bx bx-x"></i></div>-->
-            <div class="server">Test Ediliyor Sabrınız İçin Teşekkürler<i class="bx bx-x"></i></div>
         </header>
         <main id="messages"></main>
         <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>

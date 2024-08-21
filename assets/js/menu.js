@@ -11,6 +11,10 @@ document.addEventListener('DOMContentLoaded', function() {
         themeToggle.classList.toggle('bx-moon');
         themeToggle.classList.toggle('bx-sun');
     });
+
+    if (isPc()) {
+        toggleBookmarks();
+    }
 });
 
 function main() {
@@ -24,7 +28,14 @@ function pencil() {
 function toggleProfilePopup() {
     var popup = document.getElementById("profile-popup");
     if (popup.style.display === "none" || popup.style.display === "") {
-        popup.style.display = "block";
+        const user = firebase.auth().currentUser;
+        if (user && user.uid) {
+            updateUserProfile(user.uid);
+            popup.style.display = "block";
+        } else {
+            window.location.href = "sign.html"
+            popup.style.display = "none";
+        }
     } else {
         popup.style.display = "none";
     }
@@ -35,6 +46,60 @@ window.onclick = function(event) {
     if (event.target !== popup && !popup.contains(event.target) && event.target !== document.getElementById("profile-pic")) {
         popup.style.display = "none";
     }
+}
+
+function toggleBookmarks() {
+    var bookmark = document.getElementById("sidebar");
+    if (bookmark.style.display === "none" || bookmark.style.display === "") {
+        updateBookmarks()
+        bookmark.style.display = "block";
+    } else {
+        bookmark.style.display = "none";
+    }
+}
+
+function bookmarked(id) {
+    let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+    if (!bookmarks.includes(id)) {
+        bookmarks.push(id);
+        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+    }
+    updateBookmarks();
+}
+
+function updateBookmarks() {
+    const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+    const bookmarksList = document.getElementById('bookmarks-list');
+    bookmarksList.innerHTML = '';
+
+    bookmarks.forEach(bookmark => {
+        const listItem = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = `#${bookmark}`; 
+        link.innerText = bookmark;
+        listItem.appendChild(link);
+        bookmarksList.appendChild(listItem);
+    });
+}
+
+function clearBookmarks() {
+    localStorage.removeItem("bookmarks");
+    updateBookmarks()
+}
+
+function isPc() {
+    return !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+}
+
+function redirectToEditor(redirect) {
+    const [source, id] = redirect.split('#');
+    window.location.href = `editor.html?source=${encodeURIComponent(source)}&replyTo=${id}`;
+}
+
+function flag(a) {
+    const email = "devnar@duck.com";
+    const subject = a + " Mesajı ile ilgi 🏳️";
+    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
 }
 
 function soon() {
