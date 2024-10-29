@@ -11,7 +11,7 @@
   --background-color: #eee;
   --text-color: #000;
   --nav-bg-color: #fff;
-  --header-bg-color: #fcc41d;
+  --header-bg-color: #eee;
   --post-bg-color: #fff;
   --user-info-bg-color: #000;
 }
@@ -280,4 +280,9 @@ main {
   padding: 10px;
   background-color: var(--header-bg-color);
   border-radius: 10px;
+}
+
+.post-body article a {
+  color: var(--text-color);
+  text-decoration: none;
 }

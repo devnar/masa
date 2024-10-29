@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 messageHTML.classList.add("post");
                 messageHTML.id = message.id;
                 const formattedSource = message.source.startsWith("@") ? message.source : `#${message.source}`;
-                const formatRedirect = `${message.source}#${message.id}`;
+                const formatRedirect = `${message.source}#${message.id}#${message.usr}`;
                 
                 messageHTML.innerHTML = `
                     <div class='user-info' >
@@ -227,10 +227,14 @@ window.addEventListener('DOMContentLoaded', (event) => {
     const urlParams = new URLSearchParams(window.location.search);
     const replyToId = urlParams.get('replyTo');
     const source = urlParams.get('source');
-    document.getElementById("tags").value = source;
+    const username = urlParams.get('username');
+    if (source && source.startsWith('@')) {
+        document.getElementById('tags').value = "@"+username;
+    } else {
+        document.getElementById('tags').value = source;
+    }
 
     if (replyToId && source) {
-        // Fetch the original message from your database using the source and ID
         db.ref(`${source}/${replyToId}`).once('value').then((snapshot) => {
             const originalMessage = snapshot.val();
             if (originalMessage) {
@@ -290,7 +294,7 @@ function updateUI(user) {
                     const followedTagsContainer = document.getElementById("servers");
 
                     userData.followTags.slice(2).forEach(tag => {
-                        followedTagsContainer.innerHTML += `<div class="server">${tag} <i class="bx bx-x"></i></div>`;
+                        followedTagsContainer.innerHTML += `<div class="server">${tag} <i class="bx bx-x" onclick="serverExit('${tag}')"></i></div>`;
                     });
                 } else {
                     console.error("User data not found.");
@@ -310,6 +314,36 @@ function updateUI(user) {
         }
     }
 }
+
+function serverExit(serverName) {
+    const userId = auth.currentUser.uid;
+    const userRef = db.ref("duvar/" + userId);
+
+    userRef.once("value")
+        .then(snapshot => {
+            const userData = snapshot.val();
+            if (userData && userData.followTags) {
+                const updatedTags = userData.followTags.filter(tag => tag !== serverName);
+
+                // Kullanıcının profilinde followTags listesini güncelle
+                userRef.update({ followTags: updatedTags })
+                    .then(() => {
+                        console.log(`Başarıyla ${serverName} sunucusundan çıkıldı.`);
+                        window.location.reload();
+                        // UI'dan sunucu bilgisini kaldırma vb. işlemleri burada yapabilirsiniz
+                    })
+                    .catch(error => {
+                        console.error("Sunucudan çıkış sırasında hata oluştu:", error);
+                    });
+            } else {
+                console.error("Kullanıcı verileri bulunamadı veya kullanıcı sunucuları takip etmiyor.");
+            }
+        })
+        .catch(error => {
+            console.error("Profil alınırken hata oluştu:", error);
+        });
+}
+
 
 function logout() {
     firebase
