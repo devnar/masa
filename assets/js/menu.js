@@ -1,16 +1,44 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const themeToggle = document.getElementById('theme-toggle');
     const currentTheme = localStorage.getItem('theme') || 'dark';
 
+    // Sayfa yüklendiğinde mevcut temayı ayarla
     document.documentElement.setAttribute('data-theme', currentTheme);
+    updateToggleIcon(currentTheme);
 
-    themeToggle.addEventListener('click', function() {
+    // Tema değiştirme butonuna tıklanıldığında
+    themeToggle.addEventListener('click', function () {
         const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
-        themeToggle.classList.toggle('bx-moon');
-        themeToggle.classList.toggle('bx-sun');
+        updateToggleIcon(newTheme);
     });
+
+    // Tema durumuna göre ikon değiştirme
+    function updateToggleIcon(theme) {
+        if (theme === 'dark') {
+            themeToggle.classList.remove('bx-sun');
+            themeToggle.classList.add('bx-moon');
+        } else {
+            themeToggle.classList.remove('bx-moon');
+            themeToggle.classList.add('bx-sun');
+        }
+    }
+
+    // Bilgisayarda çalışıp çalışmadığını kontrol et
+    if (isPc()) {
+        toggleBookmarks();
+    }
+
+    function isPc() {
+        return !/Mobi|Android/i.test(navigator.userAgent);
+    }
+
+    function toggleBookmarks() {
+        console.log('Bookmarks toggled!');
+    }
+});
+
 
     if (isPc()) {
         toggleBookmarks();
