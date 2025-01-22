@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>MASA - Login</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="https://devnar.github.io/logos/masa.png" type="image/x-icon" />
+    <link rel="stylesheet" href="assets/style.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --background: #09090b;
+            --foreground: white;
+            --muted: rgba(255, 255, 255, 0.1);
+            --primary: #fcc41d;
+            --primary-hover: #e5b717;
+            --border: #27272a;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--background);
+            color: var(--foreground);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: "Nunito", sans-serif;
+        }
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+            padding: 2rem;
+            background-color: var(--muted);
+            border-radius: 1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .login-box {
+            width: 100%;
+            text-align: center;
+        }
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1rem;
+        }
+        h1 {
+            margin: 0.5rem 0;
+            font-size: 1.5rem;
+        }
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            color: var(--foreground);
+        }
+        .input-group {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            font-size: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            background-color: var(--background);
+            color: var(--foreground);
+            box-sizing: border-box;
+        }
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        .primary-button {
+            width: 100%;
+            padding: 0.8rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            background-color: var(--primary);
+            color: var(--foreground);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .primary-button:hover {
+            background-color: var(--primary-hover);
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div class="login-container">
+        <div class="login-box">
+            <img src="https://devnar.github.io/logos/masa.png" alt="Logo" class="logo" />
+            <h1>Hoş Geldiniz</h1>
+            <p>E-posta adresinizi girerek giriş yapabilirsiniz.</p>
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="email">E-posta</label>
+                    <input type="email" id="email" placeholder="E-posta adresiniz" required />
+                </div>
+                <button type="button" id="sendCodeButton" class="primary-button">Kodu Gönder</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        // Firebase Config
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+        import { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBUVIPi-kduciF6h25AXoaJSyTXR1WAyzo",
+            authDomain: "masa-nar.firebaseapp.com",
+            databaseURL: "https://masa-nar-default-rtdb.firebaseio.com",
+            projectId: "masa-nar",
+            storageBucket: "masa-nar.appspot.com",
+            messagingSenderId: "622366621858",
+            appId: "1:622366621858:web:fd3931adc76b06023017fb",
+            measurementId: "G-W9J2VYCNMQ",
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        const loginForm = document.getElementById("loginForm");
+        const sendCodeButton = document.getElementById("sendCodeButton");
+
+        sendCodeButton.addEventListener("click", async () => {
+            const email = document.getElementById("email").value;
+
+            try {
+                const actionCodeSettings = {
+                    url: 'http://localhost:3434/login.html', // Veya canlı domain
+                    handleCodeInApp: true
+                };
+                alert("Doğrulama bağlantısı gönderildi!");
+                window.localStorage.setItem("emailForSignIn", email);
+            } catch (error) {
+                console.error("Kod gönderim hatası:", error);
+            }
+        });
+
+        if (isSignInWithEmailLink(auth, window.location.href)) {
+            let email = window.localStorage.getItem("emailForSignIn");
+            if (!email) {
+                email = window.prompt("Doğrulama için e-posta adresinizi girin:");
+            }
+
+            signInWithEmailLink(auth, email, window.location.href)
+                .then(() => {
+                    alert("Giriş başarılı!");
+                    window.localStorage.removeItem("emailForSignIn");
+                })
+                .catch((error) => {
+                    console.error("Giriş hatası:", error);
+                });
+        }
+    </script>
+</body>
+</html>
