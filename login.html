@@ -111,7 +111,7 @@
                         <label for="password">Şifre</label>
                         <input type="password" id="password" placeholder="Şifrenizi giriniz" required />
                     </div>
-                    <button type="button" id="sendCodeButton" class="primary-button">Giriş Yap</button>
+                    <button type="submit" id="sendCodeButton" class="primary-button">Giriş Yap</button>
                 </form>
             </div>
         </div>
@@ -136,20 +136,20 @@
             const app = initializeApp(firebaseConfig);
             const auth = getAuth(app);
 
-            const loginButton = document.getElementById("loginButton");
+            // Giriş yapma işlemi
+            document.getElementById("loginForm").addEventListener("submit", (e) => {
+                e.preventDefault(); // Formun otomatik olarak gönderilmesini engelle
 
-            document.getElementById("loginForm").addEventListener("submit", function (event) {
-                event.preventDefault();
                 const email = document.getElementById("email").value;
                 const password = document.getElementById("password").value;
 
-                auth.signInWithEmailAndPassword(email, password)
+                signInWithEmailAndPassword(auth, email, password)
                     .then((userCredential) => {
-                        console.log("Sign in successful!");
-                        window.location.path = "index.html";
+                        console.log("Giriş başarılı!");
+                        window.location.href = "index.html";
                     })
                     .catch((error) => {
-                        alert("Error: " + error.message);
+                        alert("Hata: " + error.message);
                     });
             });
         </script>
