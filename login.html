@@ -119,7 +119,7 @@
         <script type="module">
             // Firebase Config
             import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-            import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+            import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
 
             // Firebase Configuration
             const firebaseConfig = {
@@ -136,21 +136,35 @@
             const app = initializeApp(firebaseConfig);
             const auth = getAuth(app);
 
-            // Giriş yapma işlemi
-            document.getElementById("loginForm").addEventListener("submit", (e) => {
+            // Form gönderme işlemi
+            document.getElementById("loginForm").addEventListener("submit", async (e) => {
                 e.preventDefault(); // Formun otomatik olarak gönderilmesini engelle
 
                 const email = document.getElementById("email").value;
                 const password = document.getElementById("password").value;
 
-                signInWithEmailAndPassword(auth, email, password)
-                    .then((userCredential) => {
-                        console.log("Giriş başarılı!");
-                        window.location.href = "index.html";
-                    })
-                    .catch((error) => {
+                try {
+                    // Giriş yapmayı dene
+                    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                    console.log("Giriş başarılı!", userCredential.user);
+                    window.location.href = "index.html"; // Giriş başarılı olduğunda yönlendirme
+                } catch (error) {
+                    if (error.code === "auth/invalid-login-credentials") {
+                        // Kullanıcı bulunamadıysa, yeni bir hesap oluştur
+                        try {
+                            const newUser = await createUserWithEmailAndPassword(auth, email, password);
+                            console.log("Yeni kullanıcı oluşturuldu ve giriş yapıldı!", newUser.user);
+                            window.location.href = "index.html"; // Yeni kullanıcı için yönlendirme
+                        } catch (createError) {
+                            console.error("Kullanıcı oluşturma hatası:", createError.message);
+                            alert("Hata: " + createError.message);
+                        }
+                    } else {
+                        // Diğer giriş hatalarını göster
+                        console.error("Giriş hatası:", error.message);
                         alert("Hata: " + error.message);
-                    });
+                    }
+                }
             });
         </script>
     </body>
