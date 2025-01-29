@@ -161,7 +161,7 @@
                     // Giriş yapmayı dene
                     const userCredential = await signInWithEmailAndPassword(auth, email, password);
                     console.log("Giriş başarılı!", userCredential.user);
-                    window.location.href = "/"; // Giriş başarılı olduğunda yönlendirme
+                    window.location.href = "/masa"; // Giriş başarılı olduğunda yönlendirme
                 } catch (error) {
                     if (error.code === "auth/invalid-login-credentials") {
                         // Kullanıcı bulunamadıysa, yeni bir hesap oluştur
@@ -195,7 +195,7 @@
                             followTags: [], // Varsayılan olarak boş bir tag dizisi ekliyoruz
                         });
                         console.log("Profil başarıyla kaydedildi!");
-                        window.location.href = "/";
+                        window.location.href = "/masa";
                     } catch (error) {
                         console.error("Profil kaydedilirken hata oluştu:", error);
                     }
