@@ -51,9 +51,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 messageHTML.id = message.id;
                 const formattedSource = message.source.startsWith("@") ? message.source : `#${message.source}`;
                 const formatRedirect = `${message.source}#${message.id}#${message.usr}`;
-                
+
+                // Slider HTML yapısı
                 messageHTML.innerHTML = `
-                    <div class='user-info' >
+                    <div class='user-info'>
                         <img src='${message.pp}' alt='user' onclick='updateUserProfile("${message.uid}")'>
                         <span class='username'>${message.usr}</span>
                         <div class='server'>${formattedSource}</div>
@@ -66,13 +67,19 @@ document.addEventListener("DOMContentLoaded", () => {
                             <li class='bx bx-flag' onclick='flag("${formatRedirect}")'></li>
                         </div>
                         <div class='post-body'>
-                            <img onerror='this.style.display = "none"' src='${message.img}'></img>
+                            <div class='slider'>
+                                <div class='slider-container'>
+                                    ${message.images.map((img) => `<img src="${img}" onerror='this.style.display = "none"'>`).join("")}
+                                </div>
+                                <button class="slider-button prev" onclick="slide(this, -1)">&#10094;</button>
+                                <button class="slider-button next" onclick="slide(this, 1)">&#10095;</button>
+                            </div>
                             <p>${message.msg}</p>
                         </div>
                     </div>
                 `;
                 messageFragments.appendChild(messageHTML);
-            });            
+            });
 
             messagesContainer.appendChild(messageFragments);
         })
@@ -80,6 +87,23 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error("Error loading all data:", error);
         });
 });
+
+// Slider işlevselliği
+function slide(button, direction) {
+    const slider = button.closest(".slider");
+    const container = slider.querySelector(".slider-container");
+    const images = container.querySelectorAll("img");
+    const currentTransform = parseFloat(container.style.transform.replace("translateX(", "").replace("%)", "")) || 0;
+    const slideWidth = 100; // Her resim %100 genişlikte
+    let newTransform = currentTransform + direction * slideWidth;
+
+    // Sınır kontrolü
+    if (newTransform > 0) newTransform = -(images.length - 1) * slideWidth;
+    if (newTransform < -(images.length - 1) * slideWidth) newTransform = 0;
+
+    container.style.transform = `translateX(${newTransform}%)`;
+}
+
 
 // Create post functionality
 document.addEventListener("DOMContentLoaded", () => {

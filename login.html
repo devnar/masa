@@ -9,11 +9,22 @@
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet" />
         <style>
             :root {
+                --background: #ffffff;
+                --foreground: #09090b;
+                --muted: rgba(0, 0, 0, 0.05);
+                --muted-foreground: #6b7280;
+                --primary: #fcc41d;
+                --primary-foreground: #09090b;
+                --border: #e5e7eb;
+            }
+
+            [data-theme="dark"] {
                 --background: #09090b;
                 --foreground: white;
                 --muted: rgba(255, 255, 255, 0.1);
+                --muted-foreground: #a1a1aa;
                 --primary: #fcc41d;
-                --primary-hover: #e5b717;
+                --primary-foreground: white;
                 --border: #27272a;
             }
             body {
@@ -97,7 +108,7 @@
     </head>
     <body>
         <!-- Login Screen -->
-        <div class="login-container">
+        <div class="login-container" id="loginContent">
             <div class="login-box">
                 <img src="https://devnar.github.io/logos/masa.png" alt="Logo" class="logo" />
                 <h1>Hoş Geldiniz</h1>
@@ -116,25 +127,28 @@
             </div>
         </div>
 
+        <!-- User Create -->
+        <div class="login-container" style="display: none;" id="profileContent">
+            <div class="login-box">
+                <img src="https://devnar.github.io/logos/masa.png" alt="Logo" class="logo" />
+                <h1>Hoş Geldiniz</h1>
+                <p>Sizi aramızda görmek çok mutlu etti. Hadi bir profil oluşturalım.</p>
+                <form id="profileForm">
+                    <div class="input-group">
+                        <label for="username">Kullanıcı Adı</label>
+                        <input type="text" id="username" placeholder="kullanıcı adınız" required />
+                    </div>
+                    <div class="input-group">
+                        <label for="pp">Profil Fotoğrafı</label>
+                        <input type="url" id="pp" placeholder="Profil Fotoğrafınız" required />
+                    </div>
+                    <button type="submit" id="sendProfileButton" class="primary-button">Kaydet</button>
+                </form>
+            </div>
+        </div>
+
         <script type="module">
-            // Firebase Config
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-            import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
-
-            // Firebase Configuration
-            const firebaseConfig = {
-                apiKey: "AIzaSyBUVIPi-kduciF6h25AXoaJSyTXR1WAyzo",
-                authDomain: "masa-nar.firebaseapp.com",
-                databaseURL: "https://masa-nar-default-rtdb.firebaseio.com",
-                projectId: "masa-nar",
-                storageBucket: "masa-nar.appspot.com",
-                messagingSenderId: "622366621858",
-                appId: "1:622366621858:web:fd3931adc76b06023017fb",
-                measurementId: "G-W9J2VYCNMQ",
-            };
-
-            const app = initializeApp(firebaseConfig);
-            const auth = getAuth(app);
+            import { database, auth, set, ref, get, onValue, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "./assets/database.js";
 
             // Form gönderme işlemi
             document.getElementById("loginForm").addEventListener("submit", async (e) => {
@@ -147,14 +161,15 @@
                     // Giriş yapmayı dene
                     const userCredential = await signInWithEmailAndPassword(auth, email, password);
                     console.log("Giriş başarılı!", userCredential.user);
-                    window.location.href = "index.html"; // Giriş başarılı olduğunda yönlendirme
+                    window.location.href = "/"; // Giriş başarılı olduğunda yönlendirme
                 } catch (error) {
                     if (error.code === "auth/invalid-login-credentials") {
                         // Kullanıcı bulunamadıysa, yeni bir hesap oluştur
                         try {
                             const newUser = await createUserWithEmailAndPassword(auth, email, password);
                             console.log("Yeni kullanıcı oluşturuldu ve giriş yapıldı!", newUser.user);
-                            window.location.href = "index.html"; // Yeni kullanıcı için yönlendirme
+                            document.getElementById("loginContent").style.display = "none";
+                            document.getElementById("profileContent").style.display = "";
                         } catch (createError) {
                             console.error("Kullanıcı oluşturma hatası:", createError.message);
                             alert("Hata: " + createError.message);
@@ -166,6 +181,46 @@
                     }
                 }
             });
+
+            // Profil oluşturma fonksiyonu
+            const createProfile = async (username, pp) => {
+                const user = auth.currentUser; // Mevcut kullanıcıyı alıyoruz
+                if (user) {
+                    const userId = user.uid; // Kullanıcı ID'sini alıyoruz
+                    try {
+                        // Kullanıcı profilini veritabanına kaydediyoruz
+                        await set(ref(database, "duvar/" + userId), {
+                            username: username,
+                            pp: pp,
+                            followTags: [], // Varsayılan olarak boş bir tag dizisi ekliyoruz
+                        });
+                        console.log("Profil başarıyla kaydedildi!");
+                        window.location.href = "/";
+                    } catch (error) {
+                        console.error("Profil kaydedilirken hata oluştu:", error);
+                    }
+                } else {
+                    console.log("Kullanıcı oturum açmamış.");
+                }
+            };
+
+            // Form gönderildiğinde çağrılacak fonksiyon
+            document.getElementById("profileForm").addEventListener("submit", (e) => {
+                e.preventDefault();
+
+                const username = document.getElementById("username").value;
+                const pp = document.getElementById("pp").value;
+
+                if (username && pp) {
+                    createProfile(username, pp); 
+                } else {
+                    console.log("Kullanıcı adı ve profil fotoğrafı girilmelidir.");
+                }
+            });
+        </script>
+        <script>
+            const userTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            document.documentElement.setAttribute("data-theme", userTheme);
         </script>
     </body>
 </html>

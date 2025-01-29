@@ -1,71 +1,144 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>MASA</title>
-        <!-- meta -->
-        <meta name="viewport" content="width=device-width,  initial-scale=1, maximum-scale=1 user-scalable=no" />
-        <meta name="description" content="MASA'ya davetlisin. hadi sende bir sandalye çek ve aramıza otur!" />
-        <meta name="copyright" content="MASA © 2021 Tüm hakları saklı" />
-        <meta name="keywords" content="MASA, MASA sohbet, yerli, masa topluluk, masa sosyal, masa sosyal medya, türk yapımı, konuşma, eğlen, Haberleş, Topluluk, sohbet, yeni, türkiye" />
-        <!-- /robots -->
-        <meta name="robots" content="index,follow" />
-        <meta name="revisit-after" content="1 days" />
-        <meta name="google-site-verification" content="8KSQxlSD3fNLUgYHbCPmlUwTC05oTRsOdoe0aRUhNqo" />
-        <!-- /site hakkında -->
-        <meta property="og:title" content="MASA" />
-        <meta property="og:description" content="MASA'ya davetlisin. Hadi sende bir sandalye çek ve aramıza otur!" />
-        <meta property="og:image" content="https://devnar.github.io/logos/masa.png" />
-        <!-- link -->
-        <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@350&display=swap" rel="stylesheet" />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="shortcut icon" href="https://devnar.github.io/logos/masa.png" type="image/x-icon" />
+        <link rel="stylesheet" href="assets/style.css" />
+        <script src="https://unpkg.com/lucide@latest"></script>
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet" />
-        <link rel="shortcut icon" type="image/png" href="https://devnar.github.io/logos/masa.png" />
-        <link id="theme" rel="stylesheet" href="assets/css/main.css" />
-        <!-- script -->
-        <script src="assets/js/menu.js"></script>
-        <script>
-            var none = "none";
-        </script>
     </head>
     <body>
-        <nav>
-            <img onclick="main()" class="image" src="https://devnar.github.io/logos/masa.png" />
-            <div class="icons">
-                <li onclick="pencil()" class="bx bx-pencil"></li>
-                <li onclick="toggleBookmarks()" class="bx bx-bookmarks"></li>
-                <li onclick="soon()" class="bx bx-gift"></li>
-                <li id="theme-toggle" class="bx bx-sun"></li>
-                <li onclick="toggleProfilePopup()"><img id="profile-pic" src="https://pbs.twimg.com/profile_images/1545518896874242055/s8icSRfU_400x400.jpg" /></li>
-            </div>
-        </nav>
-        <div id="profile-popup" class="profile-popup">
-            <div id="card">
-                <div id="card-content">
-                    <img id="card-pfp" src="https://pbs.twimg.com/profile_images/1545518896874242055/s8icSRfU_400x400.jpg"/>
-                    <div id="card-user-info">
-                        <h4 id="card-username"></h4>
-                        <h4 id="card-label-aboutme">Katıldığım Masalar</h4>
-                        <p id="card-label-content"></p>
-                        <h4 id="card-label-note">Not</h4>
-                        <textarea placeholder="Click to add a note" id="card-note-content" type="text" onkeypress="this.value = this.value.substring(0,256);"></textarea>
+        <div class="app">
+            <!-- Mobile Header -->
+            <header class="mobile-header">
+                <img onclick="window.location='/';" src="https://devnar.github.io/logos/masa.png" alt="MASA Logo" class="logo" />
+                <div class="mobile-actions">
+                    <button class="icon-button" onclick="window.location = '/404.html'"><!--id="openMobileGift"--><i data-lucide="gift" ></i></button>
+                    <button class="icon-button" onclick="window.location = '/404.html'"><i data-lucide="bookmark"></i></button>
+                    <button class="icon-button" id="openMobileShare"><i data-lucide="circle-fading-plus"></i></button>
+                </div>
+                <div class="avatar" id="openMobileProfile">
+                    <img id="avatarMobile" src="https://pbs.twimg.com/profile_images/1545518896874242055/s8icSRfU_400x400.jpg" alt="User Avatar" />
+                </div>
+            </header>
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <img  onclick="window.location='/';" src="https://devnar.github.io/logos/masa.png" alt="MASA Logo" class="logo" />
+                <div class="sidebar-actions">
+                    <button class="icon-button" onclick="window.location = '/404.html'"><!--id="openGift"--><i data-lucide="gift"></i></button>
+                    <button class="icon-button" onclick="window.location = '/404.html'"><i data-lucide="bookmark"></i></button>
+                    <button class="icon-button" id="openShare"><i data-lucide="circle-fading-plus"></i></button>
+                </div>
+                <div class="avatar" id="openProfile">
+                    <img id="avatar" src="https://pbs.twimg.com/profile_images/1545518896874242055/s8icSRfU_400x400.jpg" alt="User Avatar" />
+                </div>
+            </aside>
+
+            <main class="main-content">
+                <!-- Filter Bar -->
+                <div class="filter-bar">
+                    <div class="tabs" id="tabs">
+                        <button class="tab active">Tüm Mesajlar</button>
                     </div>
                 </div>
-            </div>
-            <a onclick="logout()" class="logout">Çıkış Yap</a>
+
+                <div class="share-content" id="gift">
+                    <div class="message">
+                        <div class="message-header">
+                            <div class="avatar">
+                                <img src="https://pbs.twimg.com/profile_images/1545518896874242055/s8icSRfU_400x400.jpg" alt="Profile Photo" />
+                            </div>
+                            <span class="message-author">Yakında Geliyor</span>
+                            <span class="message-table">@you</span>
+                            <span class="message-timestamp" id="time"></span>
+                        </div>
+                        <div class="message-box">
+                            <div class="message-content">
+                                <b>Burası henüz hazır değil.</b><br>
+                                <span>Sandalyeni çekemediğin için üzgünüz lütfen geri dön.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Content -->
+                <div class="share-content" id="profile">
+                    <div class="message">
+                        <div class="message-header">
+                            <div class="avatar">
+                                <img id="profilePhotos" src="https://pbs.twimg.com/profile_images/1545518896874242055/s8icSRfU_400x400.jpg" alt="Profile Photo" />
+                            </div>
+                            <div class="message-author" id="profileUsername">John Doe</div>
+                            <span class="message-table">@you</span>
+                            <span class="message-timestamp" id="profileTime">Joined: Jan 2025</span>
+                        </div>
+                        <div class="message-box">
+                            <div class="message-content" id="profileAbout"></div>
+                        </div>
+                    </div>
+                    <button type="button" class="icon-button" id="logoutButton"><i data-lucide="log-out"></i></button>
+                    <button type="button" class="icon-button" id="editButton"><i data-lucide="grid-2x2-plus"></i></button>
+                    <button type="button" class="icon-button" id="chatButton"><i data-lucide="message-circle"></i></button>
+                </div>
+
+                <!-- Share Content -->
+                <div class="share-content" id="share">
+                    <form id="shareForm" class="share-form">
+                        <textarea placeholder="Ne düşünüyorsun?" rows="4"></textarea>
+                        <div class="button-group">
+                            <div>
+                                <button type="button" id="addMediaButton" class="icon-button"><i data-lucide="image"></i></button>
+                                <button type="button" id="addPollButton" class="icon-button"><i data-lucide="bar-chart-2"></i></button>
+                            </div>
+                            <button type="submit" class="submit-button"><i data-lucide="send"></i></button>
+                        </div>
+                        <div id="originalMessage" class="original-message" style="display: none;"></div>
+                    </form>
+                    <div id="mediaPreview" class="media-preview"></div>
+                    <div id="pollOptions" class="poll-options" style="display: none;">
+                        <input type="text" placeholder="Seçenek 1" />
+                        <input type="text" placeholder="Seçenek 2" />
+                        <button type="button" id="addOptionButton" class="icon-button"><i data-lucide="plus"></i></button>
+                    </div>
+                </div>
+
+                <!-- Message Feed -->
+                <div class="message-feed" id="feed">
+                    <div class="message">
+                        <div class="message-header">
+                            <div class="avatar">
+                                <img src="https://pbs.twimg.com/profile_images/1545518896874242055/s8icSRfU_400x400.jpg" alt="Profile Photo" />
+                            </div>
+                            <span class="message-author">Hoş geldin!</span>
+                            <span class="message-table">@you</span>
+                            <span class="message-timestamp" id="welcomeTime"></span>
+                        </div>
+                        <div class="message-box">
+                            <div class="message-icon">
+                                <i data-lucide="reply"></i>
+                                <i data-lucide="bookmark"></i>
+                            </div>
+                            <div class="message-content">mesajlar'ın yükleniyor...</div>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
-        <div id="sidebar" class="sidebar">
-            <button onclick="clearBookmarks()">Temizle</button>
-            <ul id="bookmarks-list"></ul>
-        </div>
-        <header id="servers" class="servers">
-            <div class="server">duyurular <i class="bx bx-bell"></i></div>
-        </header>
-        <main id="messages"></main>
-        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
-        <script src="assets/js/firebase.js"></script>
+        <script type="module" src="assets/app.js"></script>
+        <script>
+            const userTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            document.documentElement.setAttribute("data-theme", userTheme);
+            document.getElementById("time").innerText = new Date(Date.now()).toLocaleString("tr-TR", { hour: "2-digit", minute: "2-digit", day: "numeric", month: "short", year: "numeric" });
+            document.getElementById("welcomeTime").innerText = new Date(Date.now()).toLocaleString("tr-TR", { hour: "2-digit", minute: "2-digit", day: "numeric", month: "short", year: "numeric" });
+            function redirectToEditor(redirect) {
+                window.location.href = `?replyTo=${redirect}`;
+            }
+            function profileUidLoad(username) {
+                window.location.href = `?u=${username}`;
+            }
+        </script>
     </body>
 </html>
