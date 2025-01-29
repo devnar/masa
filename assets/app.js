@@ -213,10 +213,11 @@ function startTags() {
         } else if (tab.innerText == "Tüm Mesajlar") {
             fetchAllMessages();
             selectedTable = null;
-        } else {
-            table = tab.innerText;
-            selectedTable = tab.innerText;
+        } else if (tab.innerText.startsWith("@")) {
+            table = "@"+tab.innerText.slice(1);
+            selectedTable = "@/"+tab.innerText.slice(1);
         }
+        console.log(selectedTable)
         fetchMessages()
       })
     });
@@ -305,7 +306,7 @@ document.addEventListener("DOMContentLoaded", () => {
         //giftContent.style.display = "none";
         feedContent.style.display = "none";
         originalMessage.style.display = "none";
-        selectedTable = "@"+params.get("dm");
+        selectedTable = "@/"+ params.get("dm");
     }
 
     if (params.has("u")) {
