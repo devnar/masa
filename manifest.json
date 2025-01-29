@@ -3,16 +3,16 @@
     "name": "MASA",
     "icons": [
       {
-        "src": "depo/resimler/main512.png",
+        "src": "assets/logo.png",
         "type": "image/png",
-        "sizes": "512x512"
+        "sizes": "500x500"
       }
     ],
     "id": "index.html",
     "start_url": "index.html",
-    "background_color": "#0d1117",
+    "background_color": "#000",
     "display": "standalone",
     "scope": "/",
     "orientation": "portrait",
-    "theme_color": "#1d2126"
+    "theme_color": "#000"
   }
