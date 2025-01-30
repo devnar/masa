@@ -134,7 +134,6 @@ function displayMessages(messages) {
         messageDiv.classList.add("message");
         messageDiv.setAttribute("id", message.key);
         
-        // Eğer 'table' başında @ yoksa, # ekleyelim
         const timeDisplay = new Date(Number(message.key)).toLocaleString("tr-TR", { hour: "2-digit", minute: "2-digit", day: "numeric", month: "short", year: "numeric" });
         const tableDisplay = message.table.startsWith('@') ? message.table : `#${message.table}`;
         
@@ -175,7 +174,7 @@ function fetchMessages() {
             messageDiv.setAttribute("id", key);
 
             // Eğer 'table' başında @ yoksa, # ekleyelim
-            const tableDisplay = table.startsWith('@') ? table : `#${table}`;
+            const tableDisplay = table.startsWith('dm/') ? `@${table.slice(3)}` : `#${table}`;
             const timeDisplay = new Date(Number(key)).toLocaleString("tr-TR", { hour: "2-digit", minute: "2-digit", day: "numeric", month: "short", year: "numeric" });
 
             messageDiv.innerHTML = `
@@ -207,15 +206,15 @@ function startTags() {
       tab.addEventListener("click", () => {
         tabs.forEach((t) => t.classList.remove("active"))
         tab.classList.add("active")
-        if (tab.innerText.startsWith("#")) {
+        if (tab.innerText.startsWith("@")) {
+            table = "dm/" + tab.innerText.slice(1);
+            selectedTable = "dm/" + tab.innerText.slice(1);
+        } else if (tab.innerText.startsWith("#")) {
             table = tab.innerText.slice(1);
             selectedTable = tab.innerText.slice(1);
         } else if (tab.innerText == "Tüm Mesajlar") {
             fetchAllMessages();
             selectedTable = null;
-        } else {
-            table = tab.innerText;
-            selectedTable = tab.innerText;
         }
         console.log(selectedTable)
         fetchMessages()
