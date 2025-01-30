@@ -305,7 +305,7 @@ document.addEventListener("DOMContentLoaded", () => {
         //giftContent.style.display = "none";
         feedContent.style.display = "none";
         originalMessage.style.display = "none";
-        selectedTable = "@"+ params.get("dm");
+        selectedTable = "dm/"+ params.get("dm");
     }
 
     if (params.has("u")) {
