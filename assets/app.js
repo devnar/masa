@@ -101,6 +101,7 @@ function fetchAllMessages() {
         return;
     }
 
+    followTags = followTags.map(tag => tag.startsWith("@") ? "dm/" + tag.substring(1) : tag);
     const allMessages = []; // Tüm mesajları toplamak için bir array
     const fetchPromises = followTags.map((tag) => {
         const tableRef = ref(database, tag);
@@ -135,7 +136,7 @@ function displayMessages(messages) {
         messageDiv.setAttribute("id", message.key);
         
         const timeDisplay = new Date(Number(message.key)).toLocaleString("tr-TR", { hour: "2-digit", minute: "2-digit", day: "numeric", month: "short", year: "numeric" });
-        const tableDisplay = message.table.startsWith('@') ? message.table : `#${message.table}`;
+        const tableDisplay = message.table.startsWith('dm/') ? `@${message.table.slice(3)}` : `#${message.table}`;
         
         messageDiv.innerHTML = `
             <div class="message-header">
@@ -296,7 +297,8 @@ document.addEventListener("DOMContentLoaded", () => {
         originalMessage.style.display = "block";
         const replyToValue = params.get("replyTo");
         const [section,id] = replyToValue.split("$");
-        originalMessageLoad(section,id);
+        originalMessageLoad(section.startsWith("@") ? "dm/" + section.substring(1) : section,id);
+        selectedTable = section.startsWith("@") ? "dm/" + section.substring(1) : section;
     }
 
     if (params.has("dm")) {
