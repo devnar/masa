@@ -17,6 +17,17 @@
         <link rel="manifest" href="manifest.json">
         <script src="https://unpkg.com/lucide@latest"></script>
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet" />
+        <script>let deferredPrompt;window.addEventListener("beforeinstallprompt",(event)=>{event.preventDefault();deferredPrompt=event;if(localStorage.getItem("pwaDismissed")==="true"){return}
+            const installBanner=document.createElement("div");installBanner.id="install-banner";installBanner.innerHTML=`
+                    <div class="install-banner">
+                        <span>Bu siteyi uygulama olarak yükleyin</span>
+                        <div class="install-btns">
+                            <button id="install-btn">Yükle</button>
+                            <button id="dismiss-btn">İptal</button>
+                        </div>
+                    </div>
+                `;document.body.appendChild(installBanner);document.getElementById("install-btn").addEventListener("click",()=>{installBanner.remove();deferredPrompt.prompt();deferredPrompt.userChoice.then((choiceResult)=>{if(choiceResult.outcome==="dismissed"){localStorage.setItem("pwaDismissed","true")}
+            deferredPrompt=null})});document.getElementById("dismiss-btn").addEventListener("click",()=>{localStorage.setItem("pwaDismissed","true");installBanner.remove()})})</script>
     </head>
     <body>
         <div class="app">
@@ -24,8 +35,8 @@
             <header class="mobile-header">
                 <img onclick="window.location='/masa';" src="https://devnar.github.io/logos/masa.png" alt="MASA Logo" class="logo" />
                 <div class="mobile-actions">
-                    <button class="icon-button" onclick="window.location = '/404.html'"><!--id="openMobileGift"--><i data-lucide="gift" ></i></button>
-                    <button class="icon-button" onclick="window.location = '/404.html'"><i data-lucide="bookmark"></i></button>
+                    <button class="icon-button" onclick="window.location = '404.html'"><!--id="openMobileGift"--><i data-lucide="gift" ></i></button>
+                    <button class="icon-button" onclick="window.location = '404.html'"><i data-lucide="bookmark"></i></button>
                     <button class="icon-button" id="openMobileShare"><i data-lucide="circle-fading-plus"></i></button>
                 </div>
                 <div class="avatar" id="openMobileProfile">
