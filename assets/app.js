@@ -174,7 +174,6 @@ function fetchMessages() {
             messageDiv.classList.add("message");
             messageDiv.setAttribute("id", key);
 
-            // Eğer 'table' başında @ yoksa, # ekleyelim
             const tableDisplay = table.startsWith('dm/') ? `@${table.slice(3)}` : `#${table}`;
             const timeDisplay = new Date(Number(key)).toLocaleString("tr-TR", { hour: "2-digit", minute: "2-digit", day: "numeric", month: "short", year: "numeric" });
 
@@ -189,7 +188,7 @@ function fetchMessages() {
                 </div>
                 <div class="message-box">
                     <div class="message-icon">
-                        <i data-lucide="reply" onclick="redirectToEditor(&quot;${table}#${key}&quot;)"></i>
+                        <i data-lucide="reply" onclick="redirectToEditor(&quot;${table}$${key}&quot;)"></i>
                         <i data-lucide="bookmark"></i>
                     </div>
                     <div class="message-content">${message.msg}</div>
