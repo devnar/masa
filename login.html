@@ -136,11 +136,11 @@
                 <form id="profileForm">
                     <div class="input-group">
                         <label for="username">Kullanıcı Adı</label>
-                        <input type="text" id="username" placeholder="kullanıcı adınız" required />
+                        <input type="text" id="username" placeholder="kullanıcı adınız" maxlength="9" required />
                     </div>
                     <div class="input-group">
                         <label for="pp">Profil Fotoğrafı</label>
-                        <input type="url" id="pp" placeholder="Profil Fotoğrafınız" value="https://pbs.twimg.com/profile_images/1545518896874242055/s8icSRfU_400x400.jpg" required />
+                        <input type="file" id="pp" placeholder="Profil Fotoğrafınız" accept=".png, .jpg, .jpeg" required />
                     </div>
                     <button type="submit" id="sendProfileButton" class="primary-button">Kaydet</button>
                 </form>
@@ -205,14 +205,27 @@
             };
 
             // Form gönderildiğinde çağrılacak fonksiyon
+            document.getElementById("pp").addEventListener("change", function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById("pp").dataset.base64 = e.target.result; // Base64 değerini sakla
+                        document.getElementById("preview").src = e.target.result; // Önizleme göster
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Form gönderildiğinde çalışacak fonksiyon
             document.getElementById("profileForm").addEventListener("submit", (e) => {
                 e.preventDefault();
 
                 const username = document.getElementById("username").value;
-                const pp = document.getElementById("pp").value;
+                const ppBase64 = document.getElementById("pp").dataset.base64; // Base64 verisini al
 
-                if (username && pp) {
-                    createProfile(username, pp); 
+                if (username && ppBase64) {
+                    createProfile(username, ppBase64); // Base64 string ile fonksiyona gönder
                 } else {
                     console.log("Kullanıcı adı ve profil fotoğrafı girilmelidir.");
                 }
