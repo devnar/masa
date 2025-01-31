@@ -205,7 +205,8 @@
                         await set(ref(database, "duvar/" + userId), {
                             username: username,
                             pp: pp,
-                            followTags: [], // Varsayılan olarak boş bir tag dizisi ekliyoruz
+                            followTags: [],
+                            chatStatus: true,
                         });
 
                         console.log("Profil başarıyla kaydedildi!");

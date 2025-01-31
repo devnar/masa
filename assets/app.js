@@ -1,4 +1,4 @@
-import { database, auth, set, ref, get, onValue,signOut, onAuthStateChanged } from './database.js';
+import { database, auth, update, set, ref, get, onValue,signOut, onAuthStateChanged } from './database.js';
 
 lucide.createIcons();
 
@@ -32,6 +32,18 @@ onAuthStateChanged(auth, (user) => {
                     localStorage.setItem("username", snapshot.val())
                 } else {
                     console.log("Kullanıcı adı bulunamadı.");
+                }
+            })
+            .catch((error) => {
+                console.error("Hata:", error);
+            });
+
+        get(ref(database, `duvar/${uid}/chatStatus`))
+            .then((snapshot) => {
+                if (snapshot.exists()) {
+                    localStorage.setItem("chatStatus", snapshot.val())
+                } else {
+                    console.log("Dm durumu bulunamadı.");
                 }
             })
             .catch((error) => {
@@ -78,6 +90,37 @@ document.getElementById("logoutButton").addEventListener("click", () => {
 
 document.getElementById("chatButton").addEventListener("click", () => {
     window.location.href = `?dm=${document.getElementById("profileUsername").innerText}`;
+});
+
+document.getElementById("chatStatusButton").addEventListener("click", () => {
+    const user = auth.currentUser;
+    if (user) {
+        const userRef = ref(database, `duvar/${user.uid}`);
+        get(userRef)
+            .then((snapshot) => {
+                if (snapshot.exists()) {
+                    const currentStatus = snapshot.val().chatStatus;
+                    // chatStatus'u toggle et
+                    update(userRef, { chatStatus: !currentStatus })
+                        .then(() => console.log("Chat status toggled!"))
+                        .catch((error) => console.error("Error toggling chat status: ", error));
+                        if (!currentStatus == false) {
+                            document.getElementById("profileAbout").innerHTML = `<span>Merhaba, adım ${localStorage.getItem("username")}. Katıldığım masalar aşağıda. </span><p>${localStorage.getItem("table")}</p>`;
+                            document.getElementById("chatStatusButton").innerHTML = "<i data-lucide='message-circle-off'></i>";
+                            lucide.createIcons();
+                        } else {
+                            document.getElementById("profileAbout").innerHTML = `<span>Merhaba, adım ${localStorage.getItem("username")}. Katıldığım masalar aşağıda. Bana dm gönderebilirsiniz 😊</span><p>${localStorage.getItem("table")}</p>`;
+                            document.getElementById("chatStatusButton").innerHTML = "<i data-lucide='message-circle'></i>";
+                            lucide.createIcons();
+                        }
+                    } else {
+                    console.log("No user data found");
+                }
+            })
+            .catch((error) => console.error("Error fetching user data: ", error));
+    } else {
+        console.log("No user signed in");
+    }
 });
 
 // Veri çekme
@@ -256,7 +299,13 @@ function fetchUser(uid) {
         if (snapshot.exists()) {
             const foundUser = snapshot.val();
             profilePhotos.src = foundUser.pp;
-            profileAbout.innerHTML = `<span>Merhaba, adım ${foundUser.username}. Katıldığım masalar aşağıda. Bana dm gönderebilirsiniz 😊</span><p>${foundUser.followTags}</p>`;
+            if (foundUser.chatStatus == false) {
+                profileAbout.innerHTML = `<span>Merhaba, adım ${foundUser.username}. Katıldığım masalar aşağıda. </span><p>${foundUser.followTags}</p>`;
+                document.getElementById("chatButton").style.display = "none";
+            } else {
+                profileAbout.innerHTML = `<span>Merhaba, adım ${foundUser.username}. Katıldığım masalar aşağıda. Bana dm gönderebilirsiniz 😊</span><p>${foundUser.followTags}</p>`;
+                document.getElementById("chatButton").style.display = "";
+            }
             profileUsername.textContent = foundUser.username;
         }
     }, (error) => {
@@ -286,7 +335,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const pollOptions = document.getElementById("pollOptions");
     const addOptionButton = document.getElementById("addOptionButton");
     const originalMessage = document.getElementById("originalMessage");
-
+    
     const params = new URLSearchParams(window.location.search);
     if (params.has("replyTo")) {
         shareContent.style.display = "block";
@@ -316,6 +365,7 @@ document.addEventListener("DOMContentLoaded", () => {
             fetchUser(params.get("u"));
             document.getElementById("logoutButton").style.display = "none";
             document.getElementById("tableSearcButton").style.display = "none";
+            document.getElementById("chatStatusButton").style.display = "none";
         }
         profileContent.style.display = "block";
         shareContent.style.display = "none";
@@ -379,10 +429,20 @@ document.addEventListener("DOMContentLoaded", () => {
     function profileLoad() {
         document.getElementById("logoutButton").style.display = "";
         document.getElementById("tableSearcButton").style.display = "";
+        document.getElementById("chatStatusButton").style.display = "";
+        document.getElementById("chatButton").style.display = "none";
+        if (localStorage.getItem("chatStatus") == "false") {
+            profileAbout.innerHTML = `<span>Merhaba, adım ${localStorage.getItem("username")}. Katıldığım masalar aşağıda. </span><p>${localStorage.getItem("table")}</p>`;
+            document.getElementById("chatStatusButton").innerHTML = "<i data-lucide='message-circle-off'></i>";
+            lucide.createIcons();
+        } else {
+            profileAbout.innerHTML = `<span>Merhaba, adım ${localStorage.getItem("username")}. Katıldığım masalar aşağıda. Bana dm gönderebilirsiniz 😊</span><p>${localStorage.getItem("table")}</p>`;
+            document.getElementById("chatStatusButton").innerHTML = "<i data-lucide='message-circle'></i>";
+            lucide.createIcons();
+        }
         profilePhotos.src = localStorage.getItem("pp")
         profileUsername.innerText = localStorage.getItem("username")
         profileTime.innerText = "Joined: 26 01 2025"
-        profileAbout.innerHTML = `<span>Merhaba, adım ${localStorage.getItem("username")}. Katıldığım masalar aşağıda. Bana dm gönderebilirsiniz 😊</span><p>${localStorage.getItem("table")}</p>`;
     }
 
     // Add media
