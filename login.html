@@ -188,12 +188,26 @@
                 if (user) {
                     const userId = user.uid; // Kullanıcı ID'sini alıyoruz
                     try {
+                        // Kullanıcı adının mevcut olup olmadığını kontrol et
+                        const snapshot = await get(ref(database, "duvar"));
+                        if (snapshot.exists()) {
+                            const users = snapshot.val();
+                            for (const uid in users) {
+                                if (users[uid].username === username) {
+                                    console.log("Bu kullanıcı adı zaten kullanılıyor.");
+                                    alert("Bu kullanıcı adı zaten alınmış, lütfen farklı bir tane seçin.");
+                                    return; // Kullanıcı adı zaten varsa işlem iptal edilir
+                                }
+                            }
+                        }
+
                         // Kullanıcı profilini veritabanına kaydediyoruz
                         await set(ref(database, "duvar/" + userId), {
                             username: username,
                             pp: pp,
                             followTags: [], // Varsayılan olarak boş bir tag dizisi ekliyoruz
                         });
+
                         console.log("Profil başarıyla kaydedildi!");
                         window.location.href = "/masa";
                     } catch (error) {
@@ -203,6 +217,7 @@
                     console.log("Kullanıcı oturum açmamış.");
                 }
             };
+
 
             // Form gönderildiğinde çağrılacak fonksiyon
             document.getElementById("pp").addEventListener("change", function(event) {

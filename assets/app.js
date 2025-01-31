@@ -256,7 +256,7 @@ function fetchUser(uid) {
         if (snapshot.exists()) {
             const foundUser = snapshot.val();
             profilePhotos.src = foundUser.pp;
-            profileAbout.innerHTML = `<span>Hello, my name is ${foundUser.username}. Below are the table's I attended. You can send me a dm 😊</span><p>${foundUser.followTags}</p>`;
+            profileAbout.innerHTML = `<span>Merhaba, adım ${foundUser.username}. Katıldığım masalar aşağıda. Bana dm gönderebilirsiniz 😊</span><p>${foundUser.followTags}</p>`;
             profileUsername.textContent = foundUser.username;
         }
     }, (error) => {
@@ -315,7 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             fetchUser(params.get("u"));
             document.getElementById("logoutButton").style.display = "none";
-            document.getElementById("editButton").style.display = "none";
+            document.getElementById("tableSearcButton").style.display = "none";
         }
         profileContent.style.display = "block";
         shareContent.style.display = "none";
@@ -378,11 +378,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function profileLoad() {
         document.getElementById("logoutButton").style.display = "";
-        document.getElementById("editButton").style.display = "";
+        document.getElementById("tableSearcButton").style.display = "";
         profilePhotos.src = localStorage.getItem("pp")
         profileUsername.innerText = localStorage.getItem("username")
         profileTime.innerText = "Joined: 26 01 2025"
-        profileAbout.innerHTML = `<span>Hello, my name is ${localStorage.getItem("username")}. Below are the table's I attended. You can send me a dm 😊</span><p>${localStorage.getItem("table")}</p>`;
+        profileAbout.innerHTML = `<span>Merhaba, adım ${localStorage.getItem("username")}. Katıldığım masalar aşağıda. Bana dm gönderebilirsiniz 😊</span><p>${localStorage.getItem("table")}</p>`;
     }
 
     // Add media
