@@ -326,7 +326,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const openMobileProfileButton = document.getElementById("openMobileProfile");
     const profilePhotos = document.getElementById("profilePhotos");
     const profileAbout = document.getElementById("profileAbout");
-    const profileTime = document.getElementById("profileTime");
     const profileUsername = document.getElementById("profileUsername");
     const feedContent = document.getElementById("feed");
     const addMediaButton = document.getElementById("addMediaButton");
@@ -442,7 +441,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         profilePhotos.src = localStorage.getItem("pp")
         profileUsername.innerText = localStorage.getItem("username")
-        profileTime.innerText = "Joined: 26 01 2025"
     }
 
     // Add media
