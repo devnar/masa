@@ -11,6 +11,7 @@ onAuthStateChanged(auth, (user) => {
         const uid = user.uid;    
         
         localStorage.setItem("uid", uid);
+        localStorage.setItem("creationTime", user.metadata.creationTime);
         get(ref(database, `duvar/${uid}/pp`))
             .then((snapshot) => {
                 if (snapshot.exists()) {
@@ -192,7 +193,7 @@ function displayMessages(messages) {
             </div>
             <div class="message-box">
                 <div class="message-icon">
-                    <i data-lucide="reply" onclick="redirectToEditor(&quot;${message.table}$${message.key}&quot;)"></i>
+                    <i data-lucide="reply" onclick="redirectToEditor(&quot;${message.table.startsWith("dm/") ? `dm/${message.usr}` : message.table}$${message.key}&quot;)"></i>
                     <i data-lucide="bookmark"></i>
                 </div>
                 <div class="message-content">${message.msg}</div>
@@ -231,7 +232,7 @@ function fetchMessages() {
                 </div>
                 <div class="message-box">
                     <div class="message-icon">
-                        <i data-lucide="reply" onclick="redirectToEditor(&quot;${table}$${key}&quot;)"></i>
+                        <i data-lucide="reply" onclick="redirectToEditor(&quot;${table.startsWith("dm/") ? `dm/${message.usr}` : table}$${key}&quot;)"></i>
                         <i data-lucide="bookmark"></i>
                     </div>
                     <div class="message-content">${message.msg}</div>
@@ -326,6 +327,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const openMobileProfileButton = document.getElementById("openMobileProfile");
     const profilePhotos = document.getElementById("profilePhotos");
     const profileAbout = document.getElementById("profileAbout");
+    const profileTime = document.getElementById("profileTime");
     const profileUsername = document.getElementById("profileUsername");
     const feedContent = document.getElementById("feed");
     const addMediaButton = document.getElementById("addMediaButton");
@@ -344,7 +346,7 @@ document.addEventListener("DOMContentLoaded", () => {
         originalMessage.style.display = "block";
         const replyToValue = params.get("replyTo");
         const [section,id] = replyToValue.split("$");
-        originalMessageLoad(section.startsWith("@") ? "dm/" + section.substring(1) : section,id);
+        originalMessageLoad(section.startsWith("@") ? "dm/" + localStorage.getItem("username") : section,id);
         selectedTable = section.startsWith("@") ? "dm/" + section.substring(1) : section;
     }
 
@@ -439,8 +441,9 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("chatStatusButton").innerHTML = "<i data-lucide='message-circle'></i>";
             lucide.createIcons();
         }
-        profilePhotos.src = localStorage.getItem("pp")
-        profileUsername.innerText = localStorage.getItem("username")
+        profilePhotos.src = localStorage.getItem("pp");
+        profileUsername.innerText = localStorage.getItem("username");
+        profileTime.innerText =  new Date(localStorage.getItem("creationTime")).toLocaleString("tr-TR", { hour: "2-digit", minute: "2-digit", day: "numeric", month: "short", year: "numeric" });
     }
 
     // Add media
