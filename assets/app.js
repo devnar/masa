@@ -256,7 +256,7 @@ function startTags() {
         } else if (tab.innerText.startsWith("#")) {
             table = tab.innerText.slice(1);
             selectedTable = tab.innerText.slice(1);
-        } else if (tab.innerText == "Tüm Mesajlar") {
+        } else if (tab.innerText == "Tümü") {
             fetchAllMessages();
             selectedTable = null;
         }
