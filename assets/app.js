@@ -129,6 +129,18 @@ const messageFeed = document.querySelector(".message-feed");
 let table = "@"+localStorage.getItem("username");
 let selectedTable = null;
 
+function fetchUserProfile(uid) {
+    const userRef = ref(database, "duvar/" + uid);
+    return get(userRef).then((snapshot) => {
+        if (snapshot.exists()) {
+            const userData = snapshot.val();
+            return userData;
+        } else {
+            return { pp: "https://pbs.twimg.com/profile_images/1545518896874242055/s8icSRfU_400x400.jpg", usr: "Unknown" }; // Default fallback
+        }
+    });
+}
+
 function fetchAllMessages() {
     const rawData = localStorage.getItem("table");
     let followTags = [];
@@ -175,64 +187,26 @@ function fetchAllMessages() {
 function displayMessages(messages) {
     messageFeed.innerHTML = ""; // Mevcut mesajları temizle
     messages.forEach((message) => {
-        const messageDiv = document.createElement("div");
-        messageDiv.classList.add("message");
-        messageDiv.setAttribute("id", message.key);
-        
-        const timeDisplay = new Date(Number(message.key)).toLocaleString("tr-TR", { hour: "2-digit", minute: "2-digit", day: "numeric", month: "short", year: "numeric" });
-        const tableDisplay = message.table.startsWith('dm/') ? `@${message.table.slice(3)}` : `#${message.table}`;
-        
-        messageDiv.innerHTML = `
-            <div class="message-header">
-                <div class="avatar">
-                    <img src="${message.pp}" alt="${message.usr}" onclick="profileUidLoad('${message.uid}')"/>
-                </div>
-                <span class="message-author">${message.usr}</span>
-                <span class="message-table">${tableDisplay}</span>
-                <span class="message-timestamp">${timeDisplay}</span>
-            </div>
-            <div class="message-box">
-                <div class="message-icon">
-                    <i data-lucide="reply" onclick="redirectToEditor(&quot;${message.table.startsWith("dm/") ? `dm/${message.usr}` : message.table}$${message.key}&quot;)"></i>
-                    <i data-lucide="bookmark"></i>
-                </div>
-                <div class="message-content">${message.msg}</div>
-            </div>
-        `;
-        messageFeed.innerHTML = messageDiv.outerHTML + messageFeed.innerHTML;
-    });
-
-    lucide.createIcons();
-}
-
-fetchAllMessages()
-
-function fetchMessages() {    
-    const messagesRef = ref(database, table);
-    onValue(messagesRef, (snapshot) => {
-        messageFeed.innerHTML = ""; // Mevcut mesajları temizle
-        const data = snapshot.val();
-        for (const key in data) {
-            const message = data[key];
+        fetchUserProfile(message.uid).then((userData) => {
             const messageDiv = document.createElement("div");
             messageDiv.classList.add("message");
-            messageDiv.setAttribute("id", key);
+            messageDiv.setAttribute("id", message.key);
 
-            const tableDisplay = table.startsWith('dm/') ? `@${table.slice(3)}` : `#${table}`;
-            const timeDisplay = new Date(Number(key)).toLocaleString("tr-TR", { hour: "2-digit", minute: "2-digit", day: "numeric", month: "short", year: "numeric" });
-
+            const timeDisplay = new Date(Number(message.key)).toLocaleString("tr-TR", { hour: "2-digit", minute: "2-digit", day: "numeric", month: "short", year: "numeric" });
+            const tableDisplay = message.table.startsWith('dm/') ? `@${message.table.slice(3)}` : `#${message.table}`;
+            
             messageDiv.innerHTML = `
                 <div class="message-header">
                     <div class="avatar">
-                        <img src="${message.pp}" alt="${message.usr}" onclick="profileUidLoad('${message.uid}')"/>
+                        <img src="${userData.pp}" alt="${userData.username}" onclick="profileUidLoad('${message.uid}')"/>
                     </div>
-                    <span class="message-author">${message.usr}</span>
+                    <span class="message-author">${userData.username}</span>
                     <span class="message-table">${tableDisplay}</span>
                     <span class="message-timestamp">${timeDisplay}</span>
                 </div>
                 <div class="message-box">
                     <div class="message-icon">
-                        <i data-lucide="reply" onclick="redirectToEditor(&quot;${table.startsWith("dm/") ? `dm/${message.usr}` : table}$${key}&quot;)"></i>
+                        <i data-lucide="reply" onclick="redirectToEditor(&quot;${message.table.startsWith("dm/") ? `dm/${userData.username}` : message.table}$${message.key}&quot;)"></i>
                         <i data-lucide="bookmark"></i>
                     </div>
                     <div class="message-content">${message.msg}</div>
@@ -240,6 +214,52 @@ function fetchMessages() {
             `;
             messageFeed.innerHTML = messageDiv.outerHTML + messageFeed.innerHTML;
             lucide.createIcons();
+        });
+    });
+}
+
+fetchAllMessages()
+
+function fetchMessages() {    
+    const messagesRef = ref(database, table);
+    onValue(messagesRef, (snapshot) => {
+        messageFeed.innerHTML = ""; // Clear current messages
+        const data = snapshot.val();
+        for (const key in data) {
+            const message = data[key];
+            const messageDiv = document.createElement("div");
+            messageDiv.classList.add("message");
+            messageDiv.setAttribute("id", key);
+
+            const userRef = ref(database, `duvar/${message.uid}`);
+            onValue(userRef, (userSnapshot) => {
+                const userData = userSnapshot.val();
+                const userProfilePic = userData.pp;
+                const username = userData.username;
+
+                const tableDisplay = table.startsWith('dm/') ? `@${table.slice(3)}` : `#${table}`;
+                const timeDisplay = new Date(Number(key)).toLocaleString("tr-TR", { hour: "2-digit", minute: "2-digit", day: "numeric", month: "short", year: "numeric" });
+
+                messageDiv.innerHTML = `
+                    <div class="message-header">
+                        <div class="avatar">
+                            <img src="${userProfilePic}" alt="${username}" onclick="profileUidLoad('${message.uid}')"/>
+                        </div>
+                        <span class="message-author">${username}</span>
+                        <span class="message-table">${tableDisplay}</span>
+                        <span class="message-timestamp">${timeDisplay}</span>
+                    </div>
+                    <div class="message-box">
+                        <div class="message-icon">
+                            <i data-lucide="reply" onclick="redirectToEditor(&quot;${table.startsWith("dm/") ? `dm/${message.usr}` : table}$${key}&quot;)"></i>
+                            <i data-lucide="bookmark"></i>
+                        </div>
+                        <div class="message-content">${message.msg}</div>
+                    </div>
+                `;
+                messageFeed.innerHTML = messageDiv.outerHTML + messageFeed.innerHTML;
+                lucide.createIcons();
+            });
         }
     });
 }
@@ -260,7 +280,6 @@ function startTags() {
             fetchAllMessages();
             selectedTable = null;
         }
-        console.log(selectedTable)
         fetchMessages()
       })
     });
@@ -313,6 +332,41 @@ function fetchUser(uid) {
         console.error("Veri çekilirken bir hata oluştu:", error);
     });
 }
+
+document.getElementById("profilePhotoUpdateInput").addEventListener("change", function(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    
+    reader.onload = function() {
+        const base64String = reader.result; // Base64 formatındaki veri
+
+        // Eğer profilePhotoUrl öğesi varsa, dataset.base64 olarak kaydet
+        const profilePhotoUrlInput = document.getElementById("profilePhotoUrl");
+        if (profilePhotoUrlInput) {
+            profilePhotoUrlInput.dataset.base64 = base64String;
+        }
+
+        const user = auth.currentUser;
+
+        if (user && base64String) {
+            update(ref(database, "duvar/" + user.uid), { pp: base64String })
+                .then(() => {
+                    document.getElementById("profilePhotos").src = base64String;
+                    window.location.reload();
+                })
+                .catch((error) => alert("Hata: " + error.message));
+        } else {
+            alert("Lütfen geçerli bir dosya seçin.");
+        }
+    };
+
+    reader.onerror = function(error) {
+        alert("Dosya okunurken hata oluştu: " + error.message);
+    };
+});
 
 document.addEventListener("DOMContentLoaded", () => {
     // const giftContent = document.getElementById("gift");
@@ -443,6 +497,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         profilePhotos.src = localStorage.getItem("pp");
         profileUsername.innerText = localStorage.getItem("username");
+        document.getElementById("profilePhotoUpdate").setAttribute("onclick", "document.getElementById('profilePhotoUpdateInput').click();");
         profileTime.innerText =  new Date(localStorage.getItem("creationTime")).toLocaleString("tr-TR", { hour: "2-digit", minute: "2-digit", day: "numeric", month: "short", year: "numeric" });
     }
 
@@ -526,8 +581,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const newMessage = {
             id: timestamp,
             msg: messageContent,
-            pp: localStorage.getItem("pp"),
-            usr: localStorage.getItem("username"),
             uid: localStorage.getItem("uid"),
         };
 

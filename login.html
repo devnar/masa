@@ -227,7 +227,6 @@
                     const reader = new FileReader();
                     reader.onload = function(e) {
                         document.getElementById("pp").dataset.base64 = e.target.result; // Base64 değerini sakla
-                        document.getElementById("preview").src = e.target.result; // Önizleme göster
                     };
                     reader.readAsDataURL(file);
                 }
