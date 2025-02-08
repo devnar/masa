@@ -1,4 +1,4 @@
-import { database, auth, update, set, ref, get, onValue,signOut, onAuthStateChanged } from './database.js';
+import { database, auth, update, set, ref, get, onValue, signOut, onAuthStateChanged } from './database.js';
 
 lucide.createIcons();
 
@@ -126,7 +126,6 @@ document.getElementById("chatStatusButton").addEventListener("click", () => {
 
 // Veri çekme
 const messageFeed = document.querySelector(".message-feed");
-let table = "@"+localStorage.getItem("username");
 let selectedTable = null;
 
 function fetchUserProfile(uid) {
@@ -220,70 +219,37 @@ function displayMessages(messages) {
 
 fetchAllMessages()
 
-function fetchMessages() {    
-    const messagesRef = ref(database, table);
-    onValue(messagesRef, (snapshot) => {
-        messageFeed.innerHTML = ""; // Clear current messages
-        const data = snapshot.val();
-        for (const key in data) {
-            const message = data[key];
-            const messageDiv = document.createElement("div");
-            messageDiv.classList.add("message");
-            messageDiv.setAttribute("id", key);
-
-            const userRef = ref(database, `duvar/${message.uid}`);
-            onValue(userRef, (userSnapshot) => {
-                const userData = userSnapshot.val();
-                const userProfilePic = userData.pp;
-                const username = userData.username;
-
-                const tableDisplay = table.startsWith('dm/') ? `@${table.slice(3)}` : `#${table}`;
-                const timeDisplay = new Date(Number(key)).toLocaleString("tr-TR", { hour: "2-digit", minute: "2-digit", day: "numeric", month: "short", year: "numeric" });
-
-                messageDiv.innerHTML = `
-                    <div class="message-header">
-                        <div class="avatar">
-                            <img src="${userProfilePic}" alt="${username}" onclick="profileUidLoad('${message.uid}')"/>
-                        </div>
-                        <span class="message-author">${username}</span>
-                        <span class="message-table">${tableDisplay}</span>
-                        <span class="message-timestamp">${timeDisplay}</span>
-                    </div>
-                    <div class="message-box">
-                        <div class="message-icon">
-                            <i data-lucide="reply" onclick="redirectToEditor(&quot;${table.startsWith("dm/") ? `dm/${message.usr}` : table}$${key}&quot;)"></i>
-                            <i data-lucide="bookmark"></i>
-                        </div>
-                        <div class="message-content">${message.msg}</div>
-                    </div>
-                `;
-                messageFeed.innerHTML = messageDiv.outerHTML + messageFeed.innerHTML;
-                lucide.createIcons();
-            });
-        }
-    });
-}
-
 function startTags() {
-    const tabs = document.querySelectorAll(".tab")
+    const tabs = document.querySelectorAll(".tab");
     tabs.forEach((tab) => {
-      tab.addEventListener("click", () => {
-        tabs.forEach((t) => t.classList.remove("active"))
-        tab.classList.add("active")
-        if (tab.innerText.startsWith("@")) {
-            table = "dm/" + tab.innerText.slice(1);
-            selectedTable = "dm/" + tab.innerText.slice(1);
-        } else if (tab.innerText.startsWith("#")) {
-            table = tab.innerText.slice(1);
-            selectedTable = tab.innerText.slice(1);
-        } else if (tab.innerText == "Tümü") {
-            fetchAllMessages();
-            selectedTable = null;
-        }
-        fetchMessages()
-      })
+        tab.addEventListener("click", () => {
+            tabs.forEach((t) => t.classList.remove("active"));
+            tab.classList.add("active");
+            if (tab.innerText.startsWith("@")) {
+                selectedTable = "dm/" + tab.innerText.slice(1);
+            } else if (tab.innerText.startsWith("#")) {
+                selectedTable = tab.innerText.slice(1);
+            } else if (tab.innerText == "Tümü") {
+                fetchAllMessages();
+                selectedTable = null;
+            }
+            filter(tab.innerText);
+        });
     });
 }
+
+function filter(tableName) {
+    const messages = document.querySelectorAll("#feed .message");
+    messages.forEach((message) => {
+        const messageTable = message.querySelector(".message-table");
+        if (messageTable && messageTable.innerText.includes(tableName)) {
+            message.style.display = "";
+        } else {
+            message.style.display = "none";
+        }
+    });
+}
+
 
 function originalMessageLoad(table, id) {
     const messageRef = ref(database, `${table}/${id}`);
@@ -368,14 +334,142 @@ document.getElementById("profilePhotoUpdateInput").addEventListener("change", fu
     };
 });
 
+function tableSearch() {
+    const user = auth.currentUser;
+
+    if (user) {
+        const publicListRef = ref(database, "publicList"); // Açık sunucular
+
+        // **1️⃣ LocalStorage'dan Katıldığımız Sunucuları Al ve Yazdır**
+        let userJoinedTags = (localStorage.getItem("table") || "").split(",").map(tag => tag.trim()).filter(tag => tag);
+        let tagsFromThirdElement = userJoinedTags.slice(2);
+
+        if (tagsFromThirdElement.length > 0) {
+            let joinedItemsHtml = tagsFromThirdElement.map(server => `
+                <div class="message">
+                    <div class="message-header">
+                        <div class="message-icon">
+                            <i data-lucide="grid-2x2-x" server-leave="${server}"></i>
+                        </div>
+                        <div class="message-box">
+                            <div class="message-content">${server}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join("");
+
+            document.getElementById("servers").innerHTML = joinedItemsHtml;
+            lucide.createIcons();
+        } else {
+            console.log("No servers from the third element onward.");
+        }
+
+        // **2️⃣ Firebase'den Açık Sunucuları Çek, Katılmadıklarını Göster**
+        get(publicListRef).then((publicSnapshot) => {
+            if (publicSnapshot.exists()) {
+                const publicServers = publicSnapshot.val();
+
+                // Kullanıcının zaten katılmadığı sunucuları filtrele
+                const availableServers = publicServers.filter(server => !userJoinedTags.includes(server));
+
+                if (availableServers.length > 0) {
+                    let itemsHtml = availableServers.map(server => `
+                        <div class="message">
+                            <div class="message-header">
+                                <div class="message-icon">
+                                    <i data-lucide="grid-2x2-check" server-join="${server}"></i>
+                                </div>
+                                <div class="message-box">
+                                    <div class="message-content">${server}</div>
+                                </div>
+                            </div>
+                        </div>
+                    `).join("");
+
+                    document.getElementById("servers").innerHTML += itemsHtml;
+                    lucide.createIcons();
+                } else {
+                    document.getElementById("servers").innerHTML += "<p>Yeni sunucu bulunamadı.</p>";
+                }
+            } else {
+                console.log("Açık sunucular bulunamadı.");
+            }
+        }).catch((error) => {
+            console.error("Açık sunucuları çekme hatası:", error);
+        });
+    } else {
+        console.log("Kullanıcı oturum açmamış.");
+    }
+}
+
+document.addEventListener("click", async function (event) {
+    const user = auth.currentUser;
+    const button = event.target.closest("[server-join]");
+    if (button) {
+        const serverName = button.getAttribute("server-join");
+        const path = "duvar/" + user.uid + "/followTags";
+        
+        try {
+            // Mevcut diziyi Firebase'den çek
+            const snapshot = await get(ref(database, path));
+            let currentTags = snapshot.exists() ? snapshot.val() : [];
+
+            // Eğer currentTags array değilse, array yap
+            if (!Array.isArray(currentTags)) {
+                currentTags = [];
+            }
+
+            // Yeni elemanı ekle
+            if (!currentTags.includes(serverName)) { // Aynı isimde varsa ekleme
+                currentTags.push(serverName);
+            }
+
+            // Güncellenmiş diziyi kaydet
+            await set(ref(database, path), currentTags);
+            window.location.reload();
+        } catch (error) {
+            console.error("Hata:", error);
+        }
+    }
+});
+
+document.addEventListener("click", async function (event) {
+    const user = auth.currentUser;
+    const button = event.target.closest("[server-leave]");
+    if (button) {
+        const serverName = button.getAttribute("server-leave");
+        const path = "duvar/" + user.uid + "/followTags"; // Dizinin tutulduğu yol
+        
+        try {
+            // Mevcut diziyi Firebase’den çek
+            const snapshot = await get(ref(database, path));
+            let currentTags = snapshot.exists() ? snapshot.val() : [];
+
+            // Eğer currentTags array değilse, array yap
+            if (!Array.isArray(currentTags)) {
+                currentTags = [];
+            }
+
+            // Diziden çıkılacak sunucuyu kaldır
+            const updatedTags = currentTags.filter(tag => tag !== serverName);
+
+            // Güncellenmiş diziyi Firebase’e kaydet
+            await set(ref(database, path), updatedTags);
+            window.location.reload();
+        } catch (error) {
+            console.error("Hata:", error);
+        }
+    }
+});
+
 document.addEventListener("DOMContentLoaded", () => {
-    // const giftContent = document.getElementById("gift");
-    // const openGiftButton = document.getElementById("openGift");
-    // const openMobileGiftButton = document.getElementById("openMobileGift");
     const shareContent = document.getElementById("share");
     const openShareButton = document.getElementById("openShare");
     const openMobileShareButton = document.getElementById("openMobileShare");
     const shareForm = document.getElementById("shareForm");
+    const serversContent = document.getElementById("servers");
+    const tableSearcButton = document.getElementById("tableSearcButton");
+
     const profileContent = document.getElementById("profile");
     const openProfileButton = document.getElementById("openProfile");
     const openMobileProfileButton = document.getElementById("openMobileProfile");
@@ -395,7 +489,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (params.has("replyTo")) {
         shareContent.style.display = "block";
         profileContent.style.display = "none";
-        //giftContent.style.display = "none";
         feedContent.style.display = "none";
         originalMessage.style.display = "block";
         const replyToValue = params.get("replyTo");
@@ -407,7 +500,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (params.has("dm")) {
         shareContent.style.display = "block";
         profileContent.style.display = "none";
-        //giftContent.style.display = "none";
         feedContent.style.display = "none";
         originalMessage.style.display = "none";
         selectedTable = "dm/"+ params.get("dm");
@@ -424,34 +516,25 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         profileContent.style.display = "block";
         shareContent.style.display = "none";
-        //giftContent.style.display = "none";
         feedContent.style.display = "none";
         originalMessage.style.display = "none";
     }
 
-    /* Gift Open
-    openGiftButton.addEventListener("click", () => {
-        if (giftContent.style.display != "block") {
-            giftContent.style.display = "block";
-            profileContent.style.display = "none";
-            shareContent.style.display = "none";
-            feedContent.style.display = "none";
+    // Server list Open
+    tableSearcButton.addEventListener("click", () => {
+        if (serversContent.style.display != "block") {
+            serversContent.style.display = "block";
+            tableSearch();
         } else {
-            giftContent.style.display = "none";
-            feedContent.style.display = "";
+            serversContent.style.display = "none";
         }
     });
-
-    openMobileGiftButton.addEventListener("click", () => {
-        openShareButton.click();
-    });*/
     
     // Share Open
     openShareButton.addEventListener("click", () => {
         if (shareContent.style.display != "block") {
             shareContent.style.display = "block";
             profileContent.style.display = "none";
-            //giftContent.style.display = "none";
             feedContent.style.display = "none";
         } else {
             shareContent.style.display = "none";
@@ -468,7 +551,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (profileContent.style.display != "block") {
             profileContent.style.display = "block";
             shareContent.style.display = "none";
-            //giftContent.style.display = "none";
             feedContent.style.display = "none";
             profileLoad();
         } else {
