@@ -140,10 +140,10 @@ function fetchUserProfile(uid) {
     });
 }
 
-function fetchAllMessages() {
+async function fetchAllMessages() {
     const rawData = localStorage.getItem("table");
     let followTags = [];
-    
+
     if (rawData) {
         try {
             followTags = rawData.includes(",") ? rawData.split(",") : JSON.parse(rawData);
@@ -157,44 +157,82 @@ function fetchAllMessages() {
     }
 
     followTags = followTags.map(tag => tag.startsWith("@") ? "dm/" + tag.substring(1) : tag);
-    const allMessages = []; // Tüm mesajları toplamak için bir array
-    const fetchPromises = followTags.map((tag) => {
+    const allMessages = [];
+
+    const fetchPromises = followTags.map(async (tag) => {
         const tableRef = ref(database, tag);
-        return get(tableRef)
-            .then((snapshot) => {
-                if (snapshot.exists()) {
-                    const messages = snapshot.val();
-                    for (const key in messages) {
-                        const message = messages[key];
-                        message.table = tag;
-                        message.key = key;
-                        allMessages.push(message);
-                    }
+        try {
+            const snapshot = await get(tableRef);
+            if (snapshot.exists()) {
+                const messages = snapshot.val();
+                for (const key in messages) {
+                    const message = messages[key];
+                    message.table = tag;
+                    message.key = key;
+                    allMessages.push(message);
                 }
-            })
-            .catch((error) => {
-                console.error(`Masa (${tag}) verisi alınırken hata oluştu:`, error);
-            });
+            }
+        } catch (error) {
+            console.error(`Masa (${tag}) verisi alınırken hata oluştu:`, error);
+        }
     });
 
-    Promise.all(fetchPromises).then(() => {
-        allMessages.sort((a, b) => a.id - b.id);
-        displayMessages(allMessages);
-    });
+    await Promise.all(fetchPromises);
+
+    allMessages.sort((a, b) => b.id - a.id);
+    displayMessages(allMessages);
 }
 
-function displayMessages(messages) {
-    messageFeed.innerHTML = ""; // Mevcut mesajları temizle
-    messages.forEach((message) => {
-        fetchUserProfile(message.uid).then((userData) => {
-            const messageDiv = document.createElement("div");
-            messageDiv.classList.add("message");
-            messageDiv.setAttribute("id", message.key);
+async function displayMessages(messages) {
+    messageFeed.innerHTML = "";
 
-            const timeDisplay = new Date(Number(message.key)).toLocaleString("tr-TR", { hour: "2-digit", minute: "2-digit", day: "numeric", month: "short", year: "numeric" });
-            const tableDisplay = message.table.startsWith('dm/') ? `@${message.table.slice(3)}` : `#${message.table}`;
-            
-            messageDiv.innerHTML = `
+    const userId = auth.currentUser ? auth.currentUser.uid : localStorage.getItem("uid");
+
+    if (!userId) {
+        console.error("Kullanıcı kimliği alınamadı!");
+        return;
+    }
+
+    // 📌 Kullanıcı verilerini **tek seferde** al
+    const uniqueUserIds = [...new Set(messages.map(msg => msg.uid))];
+    const userProfiles = {};
+    await Promise.all(uniqueUserIds.map(async (uid) => {
+        userProfiles[uid] = await fetchUserProfile(uid);
+    }));
+
+    // 📌 Bookmark verilerini **tek seferde** al
+    const bookmarkRefs = messages.map(msg => {
+        const bookmarkPath = msg.table.startsWith("dm/") ? `dm/${userProfiles[msg.uid].username}` : msg.table;
+        return `${bookmarkPath}/${msg.key}/bookmarked`;
+    });
+
+    const bookmarks = {};
+    await Promise.all(bookmarkRefs.map(async (path) => {
+        const bookmarkRef = ref(database, path); 
+        try {
+            const snapshot = await get(bookmarkRef);
+            bookmarks[path] = snapshot.val() || [];
+        } catch (error) {
+            console.error("Bookmark verisi alınamadı:", error);
+        }
+    }));
+
+    // 📌 HTML işlemleri tek seferde yap
+    let htmlContent = "";
+    messages.forEach((message) => {
+        const userData = userProfiles[message.uid];
+        const timeDisplay = new Date(Number(message.key)).toLocaleString("tr-TR", {
+            hour: "2-digit", minute: "2-digit", day: "numeric", month: "short", year: "numeric"
+        });
+        const tableDisplay = message.table.startsWith('dm/') ? `@${message.table.slice(3)}` : `#${message.table}`;
+        const bookmarkPath = message.table.startsWith("dm/") ? `dm/${userData.username}` : message.table;
+        const bookmarkKey = `${bookmarkPath}/${message.key}/bookmarked`;
+
+        const isBookmarked = Array.isArray(bookmarks[bookmarkKey]) && bookmarks[bookmarkKey].includes(userId);
+        const bookmarkFill = isBookmarked ? "white" : "none";
+
+        htmlContent += `
+            <div class="message" id="${message.key}">
                 <div class="message-header">
                     <div class="avatar">
                         <img src="${userData.pp}" alt="${userData.username}" onclick="profileUidLoad('${message.uid}')"/>
@@ -205,16 +243,17 @@ function displayMessages(messages) {
                 </div>
                 <div class="message-box">
                     <div class="message-icon">
-                        <i data-lucide="reply" onclick="redirectToEditor(&quot;${message.table.startsWith("dm/") ? `dm/${userData.username}` : message.table}$${message.key}&quot;)"></i>
-                        <i data-lucide="bookmark"></i>
+                        <i data-lucide="reply" onclick="redirectToEditor('${bookmarkPath}$${message.key}')"></i>
+                        <i data-lucide="bookmark" msg-bookmark="${bookmarkPath}$${message.key}" fill="${bookmarkFill}"></i>
                     </div>
                     <div class="message-content">${message.msg}</div>
                 </div>
-            `;
-            messageFeed.innerHTML = messageDiv.outerHTML + messageFeed.innerHTML;
-            lucide.createIcons();
-        });
+            </div>
+        `;
     });
+
+    messageFeed.innerHTML = htmlContent;
+    lucide.createIcons();
 }
 
 fetchAllMessages()
@@ -250,12 +289,44 @@ function filter(tableName) {
     });
 }
 
+document.getElementById("loadBookmark").addEventListener("click", () => {
+    const icon = document.querySelector("#loadBookmark");
+    const messages = document.querySelectorAll("#feed .message");
+
+    messages.forEach((message) => {
+        const bookmarkIcon = message.querySelector(".message-icon .lucide-bookmark");
+        let fill = "";
+
+        if (icon.querySelector(".lucide-bookmark").getAttribute("fill") == "none") {
+            fill = "white";
+        } else {
+            fill = "";
+        }
+        
+        if (bookmarkIcon && bookmarkIcon.getAttribute("fill") === fill) {
+            message.style.display = "";
+        } else {
+            if (!fill) {
+                message.style.display = "";
+            } else {
+                message.style.display = "none";
+            }
+        }
+    });
+
+    if (icon.querySelector(".lucide-bookmark").getAttribute("fill") == "none") {
+        document.querySelector("#loadBookmark").querySelector(".lucide-bookmark").setAttribute("fill", "white");
+    } else {
+        document.querySelector("#loadBookmark").querySelector(".lucide-bookmark").setAttribute("fill", "none");
+    }
+});
 
 function originalMessageLoad(table, id) {
     const messageRef = ref(database, `${table}/${id}`);
     onValue(messageRef, (snapshot) => {
         if (snapshot.exists()) {
-            const messageData = snapshot.val();
+            const message = snapshot.val();
+            fetchUserProfile(message.uid).then((userData) => {
             const timestamp = new Date(Number(id)).toLocaleString("tr-TR", {
                 hour: "2-digit",
                 minute: "2-digit",
@@ -264,16 +335,16 @@ function originalMessageLoad(table, id) {
                 year: "numeric"
             });
             document.getElementById("originalMessage").innerHTML = `
-                    <a href="#${messageData.id}">
+                    <a href="#${message.id}">
                         <div class="message-header">
-                            <span class="message-author">${messageData.usr}</span>
+                            <span class="message-author">${userData.username}</span>
                             <span class="message-timestamp">${timestamp}</span>
                         </div>
-                        <div class="message-content">${messageData.msg}</div>
+                        <div class="message-content">${message.msg}</div>
                     </a>
             `;
         }
-    }, (error) => {
+    )}}, (error) => {
         console.error("Veri çekilirken bir hata oluştu:", error);
         document.getElementById("originalMessage").innerHTML = "";
     });
@@ -404,9 +475,12 @@ function tableSearch() {
 
 document.addEventListener("click", async function (event) {
     const user = auth.currentUser;
-    const button = event.target.closest("[server-join]");
-    if (button) {
-        const serverName = button.getAttribute("server-join");
+    const joinBtn = event.target.closest("[server-join]");
+    const leaveBtn = event.target.closest("[server-leave]");
+    const bookmarkBtn = event.target.closest("[msg-bookmark]");
+
+    if (joinBtn) {
+        const serverName = joinBtn.getAttribute("server-join");
         const path = "duvar/" + user.uid + "/followTags";
         
         try {
@@ -431,13 +505,9 @@ document.addEventListener("click", async function (event) {
             console.error("Hata:", error);
         }
     }
-});
 
-document.addEventListener("click", async function (event) {
-    const user = auth.currentUser;
-    const button = event.target.closest("[server-leave]");
-    if (button) {
-        const serverName = button.getAttribute("server-leave");
+    if (leaveBtn) {
+        const serverName = leaveBtn.getAttribute("server-leave");
         const path = "duvar/" + user.uid + "/followTags"; // Dizinin tutulduğu yol
         
         try {
@@ -456,6 +526,28 @@ document.addEventListener("click", async function (event) {
             // Güncellenmiş diziyi Firebase’e kaydet
             await set(ref(database, path), updatedTags);
             window.location.reload();
+        } catch (error) {
+            console.error("Hata:", error);
+        }
+    }
+
+    if (bookmarkBtn) {
+        const rawMessageId = bookmarkBtn.getAttribute("msg-bookmark");
+        const formattedPath = rawMessageId.replace(/\$/g, "/") + "/bookmarked";
+        const messageRef = ref(database, formattedPath);
+
+        try {
+            const snapshot = await get(messageRef);
+            let bookmarks = snapshot.val() || [];
+
+            if (!bookmarks.includes(user.uid)) {
+                bookmarks.push(user.uid);
+            } else {
+                bookmarks = bookmarks.filter(uid => uid !== user.uid);
+            }
+
+            await set(messageRef, bookmarks);
+            fetchAllMessages();
         } catch (error) {
             console.error("Hata:", error);
         }
