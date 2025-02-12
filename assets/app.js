@@ -321,6 +321,11 @@ document.getElementById("loadBookmark").addEventListener("click", () => {
     }
 });
 
+
+document.getElementById("loadMobileBookmark").addEventListener("click", () => {
+    document.getElementById("loadBookmark").click();
+});
+
 function originalMessageLoad(table, id) {
     const messageRef = ref(database, `${table}/${id}`);
     onValue(messageRef, (snapshot) => {
