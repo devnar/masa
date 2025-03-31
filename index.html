@@ -35,8 +35,9 @@
             <header class="mobile-header">
                 <img onclick="window.location = '/masa';" src="https://devnar.github.io/logos/masa.png" alt="MASA Logo" class="logo" />
                 <div class="mobile-actions">
+                    <button class="icon-button" id="openMobileSearch"><i data-lucide="search"></i></button>
                     <button class="icon-button" id="loadMobileBookmark"><i data-lucide="bookmark"></i></button>
-                    <button class="icon-button" id="openMobileShare"><i data-lucide="circle-fading-plus"></i></button>
+                    <button class="icon-button" id="openMobileShare"><i data-lucide="circle-plus"></i></button>
                 </div>
                 <div class="avatar" id="openMobileProfile">
                     <img id="avatarMobile" src="https://pbs.twimg.com/profile_images/1545518896874242055/s8icSRfU_400x400.jpg" alt="User Avatar" />
@@ -47,8 +48,9 @@
             <aside class="sidebar">
                 <img  onclick="window.location = '/masa'"; src="https://devnar.github.io/logos/masa.png" alt="MASA Logo" class="logo" />
                 <div class="sidebar-actions">
+                    <button class="icon-button" id="openSearch"><i data-lucide="search"></i></button>
                     <button class="icon-button" id="loadBookmark"><i data-lucide="bookmark"></i></button>
-                    <button class="icon-button" id="openShare"><i data-lucide="circle-fading-plus"></i></button>
+                    <button class="icon-button" id="openShare"><i data-lucide="circle-plus"></i></button>
                 </div>
                 <div class="avatar" id="openProfile">
                     <img id="avatar" src="https://pbs.twimg.com/profile_images/1545518896874242055/s8icSRfU_400x400.jpg" alt="User Avatar" />
@@ -56,10 +58,16 @@
             </aside>
 
             <main class="main-content">
+
                 <!-- Filter Bar -->
                 <div class="filter-bar">
+                    <div class="search-box">
+                        <input type="text" placeholder="Ne arıyorsun?">
+                    </div>
                     <div class="tabs" id="tabs">
-                        <button class="tab active">Tümü</button>
+                        <button class="tab active">Masa</button>
+                        <button class="tab">Özel</button>
+                        <button class="tab">Oyunlar</button>
                     </div>
                 </div>
 
@@ -70,7 +78,6 @@
                                 <img src="https://pbs.twimg.com/profile_images/1545518896874242055/s8icSRfU_400x400.jpg" alt="Profile Photo" />
                             </div>
                             <span class="message-author">Yakında Geliyor</span>
-                            <span class="message-table">@you</span>
                             <span class="message-timestamp" id="time"></span>
                         </div>
                         <div class="message-box">
@@ -100,6 +107,7 @@
                     <input type="file" id="profilePhotoUpdateInput" accept="image/*" style="display: none;" />
                     <button type="button" class="icon-button" id="logoutButton"><i data-lucide="log-out"></i></button>
                     <button type="button" class="icon-button" id="tableSearcButton"><i data-lucide="grid-2x2"></i></button>
+                    <button type="button" class="icon-button" id="userFollow"><i data-lucide="user-round-plus"></i></button>
                     <button type="button" class="icon-button" id="chatButton"><i data-lucide="message-circle"></i></button>
                     <button type="button" class="icon-button" id="chatStatusButton"><i data-lucide="message-circle"></i></button>
                     <div id="servers" style="display: none;"></div>
@@ -113,8 +121,7 @@
                         <div class="button-group">
                             <div>
                                 <button type="button" id="addMediaButton" class="icon-button"><i data-lucide="image"></i></button>
-                                <!--<button type="button" id="addMapButton" class="icon-button"><i data-lucide="map-pin"></i></button>
-                                <button type="button" id="addPollButton" class="icon-button"><i data-lucide="bar-chart-2"></i></button>-->
+                                <button type="button" id="addPollButton" class="icon-button"><i data-lucide="chart-column-big"></i></button>
                             </div>
                             <button type="submit" class="submit-button"><i data-lucide="send"></i></button>
                         </div>
@@ -136,7 +143,6 @@
                                 <img src="https://pbs.twimg.com/profile_images/1545518896874242055/s8icSRfU_400x400.jpg" alt="Profile Photo" />
                             </div>
                             <span class="message-author">Hoş geldin!</span>
-                            <span class="message-table">@you</span>
                             <span class="message-timestamp" id="welcomeTime"></span>
                         </div>
                         <div class="message-box">

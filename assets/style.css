@@ -115,6 +115,7 @@ body {
 }
 
 .icon-button {
+    display: flex;
     background: none;
     border: none;
     color: var(--foreground);
@@ -122,6 +123,7 @@ body {
     cursor: pointer;
     padding: 0.5rem;
     border-radius: 0.5rem;
+    margin: 5px;
 }
 
 .icon-button:hover {

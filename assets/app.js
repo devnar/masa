@@ -1,7 +1,5 @@
 import { database, auth, update, set, ref, get, onValue, signOut, onAuthStateChanged } from './database.js';
 
-lucide.createIcons();
-
 // Kullanıcı oturum durumunu kontrol et
 onAuthStateChanged(auth, (user) => {
     if (!user) {
@@ -51,31 +49,7 @@ onAuthStateChanged(auth, (user) => {
                 console.error("Hata:", error);
             });
         
-        get(ref(database, `duvar/${uid}/followTags`)).then(snapshot => {
-            if (snapshot.exists()) {
-                const followTags = snapshot.val();
-                localStorage.setItem("table", snapshot.val())
-                followTags.forEach(tag => {
-                    const button = document.createElement("button");
-                    button.classList.add("tab");
-                    button.innerText = tag.startsWith("@") ? tag : "#"+tag;
-                    tabs.appendChild(button);
-                });
-                startTags();
-            } else {
-                const defaultFollowTags = ["duyurular", "@" + localStorage.getItem("username")];
-                set(ref(database, `duvar/${uid}/followTags`), defaultFollowTags)
-                    .then(() => {
-                        localStorage.setItem("table", defaultFollowTags);
-                        window.location.reload();
-                    })
-                    .catch(error => {
-                        console.error("Veri Firebase'e kaydedilirken bir hata oluştu:", error);
-                    });
-                    }
-                }).catch(error => {
-                    console.error("Veri alınırken bir hata oluştu:", error);
-                });
+            startTags();
             }
 });
 
@@ -224,7 +198,6 @@ async function displayMessages(messages) {
         const timeDisplay = new Date(Number(message.key)).toLocaleString("tr-TR", {
             hour: "2-digit", minute: "2-digit", day: "numeric", month: "short", year: "numeric"
         });
-        const tableDisplay = message.table.startsWith('dm/') ? `@${message.table.slice(3)}` : `#${message.table}`;
         const bookmarkPath = message.table.startsWith("dm/") ? `dm/${userData.username}` : message.table;
         const bookmarkKey = `${bookmarkPath}/${message.key}/bookmarked`;
 
@@ -238,7 +211,6 @@ async function displayMessages(messages) {
                         <img src="${userData.pp}" alt="${userData.username}" onclick="profileUidLoad('${message.uid}')"/>
                     </div>
                     <span class="message-author">${userData.username}</span>
-                    <span class="message-table">${tableDisplay}</span>
                     <span class="message-timestamp">${timeDisplay}</span>
                 </div>
                 <div class="message-box">
@@ -268,7 +240,7 @@ function startTags() {
                 selectedTable = "dm/" + tab.innerText.slice(1);
             } else if (tab.innerText.startsWith("#")) {
                 selectedTable = tab.innerText.slice(1);
-            } else if (tab.innerText == "Tümü") {
+            } else if (tab.innerText == "Masa") {
                 fetchAllMessages();
                 selectedTable = null;
             }
@@ -567,6 +539,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const serversContent = document.getElementById("servers");
     const tableSearcButton = document.getElementById("tableSearcButton");
 
+    const openSearchButton = document.getElementById("openSearch");
+    const openMobileSearchButton = document.getElementById("openMobileSearch");
+
     const profileContent = document.getElementById("profile");
     const openProfileButton = document.getElementById("openProfile");
     const openMobileProfileButton = document.getElementById("openMobileProfile");
@@ -617,7 +592,7 @@ document.addEventListener("DOMContentLoaded", () => {
         originalMessage.style.display = "none";
     }
 
-    // Server list Open
+    /* Server list Open
     tableSearcButton.addEventListener("click", () => {
         if (serversContent.style.display != "block") {
             serversContent.style.display = "block";
@@ -625,7 +600,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             serversContent.style.display = "none";
         }
-    });
+    });*/
     
     // Share Open
     openShareButton.addEventListener("click", () => {
@@ -641,6 +616,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     openMobileShareButton.addEventListener("click", () => {
         openShareButton.click();
+    });
+
+    // Search Open
+    openSearchButton.addEventListener("click", () => {
+        document.querySelector(".search-box").classList.toggle("active");
+        document.querySelector(".tabs").classList.toggle("hidden");
+    });
+
+    openMobileSearchButton.addEventListener("click", () => {
+        openSearchButton.click();
     });
 
     // Profile Open
@@ -665,6 +650,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("tableSearcButton").style.display = "";
         document.getElementById("chatStatusButton").style.display = "";
         document.getElementById("chatButton").style.display = "none";
+        document.getElementById("userFollow").style.display = "none";
         if (localStorage.getItem("chatStatus") == "false") {
             profileAbout.innerHTML = `<span>Merhaba, adım ${localStorage.getItem("username")}. Katıldığım masalar aşağıda. </span><p>${localStorage.getItem("table")}</p>`;
             document.getElementById("chatStatusButton").innerHTML = "<i data-lucide='message-circle-off'></i>";

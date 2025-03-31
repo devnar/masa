@@ -1,18 +1,27 @@
 {
-    "short_name": "Masa",
-    "name": "MASA",
-    "icons": [
-      {
-        "src": "assets/logo.png",
-        "type": "image/png",
-        "sizes": "500x500"
-      }
-    ],
-    "id": "https://devnar.github.io/masa/",
-    "background_color": "#09090b",
-    "display": "standalone",
-    "start_url": "/masa/index.html",
+  "short_name": "Masa",
+  "name": "MASA",
+  "icons": [
+    {
+      "src": "assets/logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "id": "https://devnar.github.io/masa/",
+  "background_color": "#09090b",
+  "display": "standalone",
+  "start_url": "/masa/index.html",
   "scope": "/masa/",
-    "orientation": "portrait",
-    "theme_color": "#09090b"
-  }
+  "orientation": "portrait",
+  "theme_color": "#09090b",
+  "description": "Haberleşme, Eğlence ve Paylaşım Topluluğudur. hadi sende bir sandalye çek ve aramıza otur!",
+  "lang": "tr",
+  "display_override": [
+    "window-controls-overlay"
+  ],
+  "categories": [
+    "news",
+    "social"
+  ]
+}
