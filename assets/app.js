@@ -1,5 +1,7 @@
 import { database, auth, update, set, ref, get, onValue, signOut, onAuthStateChanged } from './database.js';
 
+lucide.createIcons();
+
 // Kullanıcı oturum durumunu kontrol et
 onAuthStateChanged(auth, (user) => {
     if (!user) {
