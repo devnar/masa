@@ -31,51 +31,10 @@ body {
     justify-content: center;
 }
 
-#install-banner {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--background);
-    color: var(--foreground);
-    border: 1px solid var(--border);
-    padding: 12px 20px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+#installPwa,
+#installMobilePwa {
+    display: none;
 }
-
-#install-banner span {
-    font-size: 14px;
-    color: var(--muted-foreground);
-}
-
-#install-banner button {
-    padding: 6px 12px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.install-btns {
-    display: contents;
-    margin-left: 10px;
-    margin-top: 0px;
-}
-
-#install-btn {
-    background: var(--primary);
-    color: var(--primary-foreground);
-}
-
-#dismiss-btn {
-    background: var(--muted);
-    color: var(--muted-foreground);
-}
-
 
 .app {
     display: flex;
@@ -103,6 +62,7 @@ body {
 
 .sidebar-actions {
     display: flex;
+    gap: 0.5rem;
     flex: 1;
     flex-direction: column;
     align-items: center;
@@ -123,7 +83,6 @@ body {
     cursor: pointer;
     padding: 0.5rem;
     border-radius: 0.5rem;
-    margin: 5px;
 }
 
 .icon-button:hover {
@@ -333,17 +292,9 @@ textarea {
     font-weight: bold;
 }
 
-.message-table {
-    background-color: var(--muted);
-    color: var(--primary-foreground);
-    font-size: 1rem;
-    padding: 0.25rem 0.5rem;
-    border-radius: 1rem;
-}
-
 .message-timestamp {
     margin-left: auto;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     color: var(--muted-foreground);
 }
 

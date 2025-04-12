@@ -17,17 +17,43 @@
         <link rel="manifest" href="manifest.json">
         <script src="assets/lucide.min.js"></script>
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet" />
-        <script>let deferredPrompt;window.addEventListener("beforeinstallprompt",(event)=>{event.preventDefault();deferredPrompt=event;if(localStorage.getItem("pwaDismissed")==="true"){return}
-            const installBanner=document.createElement("div");installBanner.id="install-banner";installBanner.innerHTML=`
-                    <div class="install-banner">
-                        <span>Bu siteyi uygulama olarak yükleyin</span>
-                        <div class="install-btns">
-                            <button id="install-btn">Yükle</button>
-                            <button id="dismiss-btn">İptal</button>
-                        </div>
-                    </div>
-                `;document.body.appendChild(installBanner);document.getElementById("install-btn").addEventListener("click",()=>{installBanner.remove();deferredPrompt.prompt();deferredPrompt.userChoice.then((choiceResult)=>{if(choiceResult.outcome==="dismissed"){localStorage.setItem("pwaDismissed","true")}
-            deferredPrompt=null})});document.getElementById("dismiss-btn").addEventListener("click",()=>{localStorage.setItem("pwaDismissed","true");installBanner.remove()})})</script>
+        <script>
+            let deferredPrompt;
+        
+            window.addEventListener("beforeinstallprompt", (event) => {
+                event.preventDefault();
+                deferredPrompt = event;
+        
+                // Daha önce kullanıcı reddettiyse hiçbir şey gösterme
+                if (localStorage.getItem("pwaDismissed") === "true") {
+                    return;
+                }
+        
+                // Her iki butonu da yakala (varsa)
+                const installButtons = [
+                    document.getElementById("installPwa"),
+                    document.getElementById("installMobilePwa")
+                ].filter(Boolean); // null olanları ayıkla
+        
+                installButtons.forEach((btn) => {
+                    // Buton görünür olsun (eğer gizli ise)
+                    btn.style.display = "inline-block";
+        
+                    btn.addEventListener("click", () => {
+                        if (!deferredPrompt) return;
+        
+                        deferredPrompt.prompt();
+        
+                        deferredPrompt.userChoice.then((choiceResult) => {
+                            if (choiceResult.outcome === "dismissed") {
+                                localStorage.setItem("pwaDismissed", "true");
+                            }
+                            deferredPrompt = null;
+                        });
+                    });
+                });
+            });
+        </script>        
     </head>
     <body>
         <div class="app">
@@ -38,6 +64,7 @@
                     <button class="icon-button" id="openMobileSearch"><i data-lucide="search"></i></button>
                     <button class="icon-button" id="loadMobileBookmark"><i data-lucide="bookmark"></i></button>
                     <button class="icon-button" id="openMobileShare"><i data-lucide="circle-plus"></i></button>
+                    <button class="icon-button" id="installMobilePwa" title="Uygulama olarak yükle"><i data-lucide="download"></i></button>
                 </div>
                 <div class="avatar" id="openMobileProfile">
                     <img id="avatarMobile" src="https://pbs.twimg.com/profile_images/1545518896874242055/s8icSRfU_400x400.jpg" alt="User Avatar" />
@@ -51,6 +78,7 @@
                     <button class="icon-button" id="openSearch"><i data-lucide="search"></i></button>
                     <button class="icon-button" id="loadBookmark"><i data-lucide="bookmark"></i></button>
                     <button class="icon-button" id="openShare"><i data-lucide="circle-plus"></i></button>
+                    <button class="icon-button" id="installPwa" title="Uygulama olarak yükle"><i data-lucide="download"></i></button>
                 </div>
                 <div class="avatar" id="openProfile">
                     <img id="avatar" src="https://pbs.twimg.com/profile_images/1545518896874242055/s8icSRfU_400x400.jpg" alt="User Avatar" />
@@ -65,27 +93,8 @@
                         <input type="text" placeholder="Ne arıyorsun?">
                     </div>
                     <div class="tabs" id="tabs">
-                        <button class="tab active">Masa</button>
+                        <button class="tab active">Genel</button>
                         <button class="tab">Özel</button>
-                        <button class="tab">Oyunlar</button>
-                    </div>
-                </div>
-
-                <div class="share-content" id="gift">
-                    <div class="message">
-                        <div class="message-header">
-                            <div class="avatar">
-                                <img src="https://pbs.twimg.com/profile_images/1545518896874242055/s8icSRfU_400x400.jpg" alt="Profile Photo" />
-                            </div>
-                            <span class="message-author">Yakında Geliyor</span>
-                            <span class="message-timestamp" id="time"></span>
-                        </div>
-                        <div class="message-box">
-                            <div class="message-content">
-                                <b>Burası henüz hazır değil.</b><br>
-                                <span>Sandalyeni çekemediğin için üzgünüz lütfen geri dön.</span>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -97,7 +106,6 @@
                                 <img id="profilePhotos" src="https://pbs.twimg.com/profile_images/1545518896874242055/s8icSRfU_400x400.jpg" alt="Profile Photo" />
                             </div>
                             <div class="message-author" id="profileUsername">John Doe</div>
-                            <span class="message-table">@you</span>
                             <span class="message-timestamp" id="profileTime"></span>
                         </div>
                         <div class="message-box">
@@ -105,12 +113,12 @@
                         </div>
                     </div>
                     <input type="file" id="profilePhotoUpdateInput" accept="image/*" style="display: none;" />
-                    <button type="button" class="icon-button" id="logoutButton"><i data-lucide="log-out"></i></button>
-                    <button type="button" class="icon-button" id="tableSearcButton"><i data-lucide="grid-2x2"></i></button>
-                    <button type="button" class="icon-button" id="userFollow"><i data-lucide="user-round-plus"></i></button>
-                    <button type="button" class="icon-button" id="chatButton"><i data-lucide="message-circle"></i></button>
-                    <button type="button" class="icon-button" id="chatStatusButton"><i data-lucide="message-circle"></i></button>
-                    <div id="servers" style="display: none;"></div>
+                    <div style="display: flex;">
+                        <button type="button" class="icon-button" id="logoutButton"><i data-lucide="log-out"></i></button>
+                        <button type="button" class="icon-button" id="userFollow"><i data-lucide="user-round-plus"></i></button>
+                        <button type="button" class="icon-button" id="chatButton"><i data-lucide="message-circle"></i></button>
+                        <button type="button" class="icon-button" id="chatStatusButton"><i data-lucide="message-circle"></i></button>
+                    </div>
                 </div>
 
 
@@ -119,7 +127,7 @@
                     <form id="shareForm" class="share-form">
                         <textarea placeholder="Ne düşünüyorsun?" rows="4"></textarea>
                         <div class="button-group">
-                            <div>
+                            <div style="display: flex;">
                                 <button type="button" id="addMediaButton" class="icon-button"><i data-lucide="image"></i></button>
                                 <button type="button" id="addPollButton" class="icon-button"><i data-lucide="chart-column-big"></i></button>
                             </div>
@@ -156,7 +164,6 @@
         <script>
             const userTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
             document.documentElement.setAttribute("data-theme", userTheme);
-            document.getElementById("time").innerText = new Date(Date.now()).toLocaleString("tr-TR", { hour: "2-digit", minute: "2-digit", day: "numeric", month: "short", year: "numeric" });
             document.getElementById("welcomeTime").innerText = new Date(Date.now()).toLocaleString("tr-TR", { hour: "2-digit", minute: "2-digit", day: "numeric", month: "short", year: "numeric" });
             function redirectToEditor(redirect) {
                 if (redirect.startsWith("dm/")) {

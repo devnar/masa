@@ -116,26 +116,10 @@ function fetchUserProfile(uid) {
     });
 }
 
-async function fetchAllMessages() {
-    const rawData = localStorage.getItem("table");
-    let followTags = [];
-
-    if (rawData) {
-        try {
-            followTags = rawData.includes(",") ? rawData.split(",") : JSON.parse(rawData);
-        } catch (error) {
-            console.error("Geçersiz veri formatı. Lütfen 'table' verisini kontrol edin.");
-            return;
-        }
-    } else {
-        console.log("Hiçbir takip edilen masa bulunamadı.");
-        return;
-    }
-
-    followTags = followTags.map(tag => tag.startsWith("@") ? "dm/" + tag.substring(1) : tag);
+async function fetchAllMessages(table) {
     const allMessages = [];
 
-    const fetchPromises = followTags.map(async (tag) => {
+    const fetchPromises = table.map(async (tag) => {
         const tableRef = ref(database, tag);
         try {
             const snapshot = await get(tableRef);
@@ -230,7 +214,7 @@ async function displayMessages(messages) {
     lucide.createIcons();
 }
 
-fetchAllMessages()
+fetchAllMessages(["ortak","duyurular"])
 
 function startTags() {
     const tabs = document.querySelectorAll(".tab");
@@ -238,13 +222,12 @@ function startTags() {
         tab.addEventListener("click", () => {
             tabs.forEach((t) => t.classList.remove("active"));
             tab.classList.add("active");
-            if (tab.innerText.startsWith("@")) {
-                selectedTable = "dm/" + tab.innerText.slice(1);
-            } else if (tab.innerText.startsWith("#")) {
-                selectedTable = tab.innerText.slice(1);
-            } else if (tab.innerText == "Masa") {
-                fetchAllMessages();
-                selectedTable = null;
+            if (tab.innerText == "Özel") {
+                fetchAllMessages([`dm/${localStorage.getItem("username")}`]);
+                selectedTable = "dm/devnar";
+            } else if (tab.innerText == "Genel") {
+                fetchAllMessages(["ortak","duyurular"]);
+                selectedTable = "ortak";
             }
             filter(tab.innerText);
         });
@@ -384,73 +367,6 @@ document.getElementById("profilePhotoUpdateInput").addEventListener("change", fu
     };
 });
 
-function tableSearch() {
-    const user = auth.currentUser;
-
-    if (user) {
-        const publicListRef = ref(database, "publicList"); // Açık sunucular
-
-        // **1️⃣ LocalStorage'dan Katıldığımız Sunucuları Al ve Yazdır**
-        let userJoinedTags = (localStorage.getItem("table") || "").split(",").map(tag => tag.trim()).filter(tag => tag);
-        let tagsFromThirdElement = userJoinedTags.slice(2);
-
-        if (tagsFromThirdElement.length > 0) {
-            let joinedItemsHtml = tagsFromThirdElement.map(server => `
-                <div class="message">
-                    <div class="message-header">
-                        <div class="message-icon">
-                            <i data-lucide="grid-2x2-x" server-leave="${server}"></i>
-                        </div>
-                        <div class="message-box">
-                            <div class="message-content">${server}</div>
-                        </div>
-                    </div>
-                </div>
-            `).join("");
-
-            document.getElementById("servers").innerHTML = joinedItemsHtml;
-            lucide.createIcons();
-        } else {
-            console.log("No servers from the third element onward.");
-        }
-
-        // **2️⃣ Firebase'den Açık Sunucuları Çek, Katılmadıklarını Göster**
-        get(publicListRef).then((publicSnapshot) => {
-            if (publicSnapshot.exists()) {
-                const publicServers = publicSnapshot.val();
-
-                // Kullanıcının zaten katılmadığı sunucuları filtrele
-                const availableServers = publicServers.filter(server => !userJoinedTags.includes(server));
-
-                if (availableServers.length > 0) {
-                    let itemsHtml = availableServers.map(server => `
-                        <div class="message">
-                            <div class="message-header">
-                                <div class="message-icon">
-                                    <i data-lucide="grid-2x2-check" server-join="${server}"></i>
-                                </div>
-                                <div class="message-box">
-                                    <div class="message-content">${server}</div>
-                                </div>
-                            </div>
-                        </div>
-                    `).join("");
-
-                    document.getElementById("servers").innerHTML += itemsHtml;
-                    lucide.createIcons();
-                } else {
-                    document.getElementById("servers").innerHTML += "<p>Yeni sunucu bulunamadı.</p>";
-                }
-            } else {
-                console.log("Açık sunucular bulunamadı.");
-            }
-        }).catch((error) => {
-            console.error("Açık sunucuları çekme hatası:", error);
-        });
-    } else {
-        console.log("Kullanıcı oturum açmamış.");
-    }
-}
 
 document.addEventListener("click", async function (event) {
     const user = auth.currentUser;
@@ -538,8 +454,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const openShareButton = document.getElementById("openShare");
     const openMobileShareButton = document.getElementById("openMobileShare");
     const shareForm = document.getElementById("shareForm");
-    const serversContent = document.getElementById("servers");
-    const tableSearcButton = document.getElementById("tableSearcButton");
 
     const openSearchButton = document.getElementById("openSearch");
     const openMobileSearchButton = document.getElementById("openMobileSearch");
@@ -585,7 +499,6 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             fetchUser(params.get("u"));
             document.getElementById("logoutButton").style.display = "none";
-            document.getElementById("tableSearcButton").style.display = "none";
             document.getElementById("chatStatusButton").style.display = "none";
         }
         profileContent.style.display = "block";
@@ -593,16 +506,6 @@ document.addEventListener("DOMContentLoaded", () => {
         feedContent.style.display = "none";
         originalMessage.style.display = "none";
     }
-
-    /* Server list Open
-    tableSearcButton.addEventListener("click", () => {
-        if (serversContent.style.display != "block") {
-            serversContent.style.display = "block";
-            tableSearch();
-        } else {
-            serversContent.style.display = "none";
-        }
-    });*/
     
     // Share Open
     openShareButton.addEventListener("click", () => {
@@ -649,7 +552,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function profileLoad() {
         document.getElementById("logoutButton").style.display = "";
-        document.getElementById("tableSearcButton").style.display = "";
         document.getElementById("chatStatusButton").style.display = "";
         document.getElementById("chatButton").style.display = "none";
         document.getElementById("userFollow").style.display = "none";
